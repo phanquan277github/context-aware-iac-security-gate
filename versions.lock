@@ -1,0 +1,6 @@
+Python=3.12.3
+pip=26.2.1
+Terraform=1.16.2
+Checkov=3.3.17
+XGBoost=3.4.1
+scikit-learn=1.9.1

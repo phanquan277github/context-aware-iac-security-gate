@@ -26,18 +26,23 @@ Thumbs.db
 .terraform/
 *.tfstate
 *.tfstate.*
+*.tfplan
 crash.log
 crash.*.log
-*.tfplan
 
-# ML artifacts
+# ML temporary artifacts
 *.joblib
 *.pkl
 *.pickle
 
-# Generated outputs
-results/generated/
-dataset/generated/
+# Allow final reproducible model artifacts
+!models/artifacts/
+!models/artifacts/*.joblib
+!models/artifacts/*.pkl
+
+# Temporary/generated data
+dataset/tmp/
+results/tmp/
 
 # Temporary files
 tmp/
