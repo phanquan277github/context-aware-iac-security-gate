@@ -1,0 +1,9 @@
+decision,criterion,status,evidence
+GO,terraform_pipeline,PASS,10/10 init and 10/10 validate
+GO,checkov_pipeline,PASS,10/10 valid JSON and 0 parsing errors
+GO,finding_availability,PASS,118 raw failed findings
+GO,ndcg_at_3,PASS,10/10 scenarios eligible
+GO,ndcg_at_5,PASS,8/10 scenarios eligible
+GO,security_category_coverage,PASS,8/8 categories covered
+GO,contrastive_pairs,PASS,5/5 pairs verified
+GO,annotation_feasibility,PASS,7/7 feasibility checks passed

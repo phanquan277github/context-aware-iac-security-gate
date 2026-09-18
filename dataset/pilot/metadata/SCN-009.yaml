@@ -1,0 +1,4 @@
+scenario_id: SCN-009
+environment: dev
+asset_criticality: medium
+data_sensitivity: internal

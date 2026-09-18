@@ -1,0 +1,11 @@
+scenario_id,finding_count,eligible_ndcg3,eligible_ndcg5,notes
+SCN-001,20,True,True,
+SCN-002,20,True,True,
+SCN-003,11,True,True,
+SCN-004,11,True,True,
+SCN-005,5,True,True,
+SCN-006,5,True,True,
+SCN-007,3,True,False,Eligible for NDCG@3 only
+SCN-008,3,True,False,Eligible for NDCG@3 only
+SCN-009,20,True,True,
+SCN-010,20,True,True,

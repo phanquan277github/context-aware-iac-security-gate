@@ -1,0 +1,13 @@
+metric,value,status
+total_scenarios,10,PASS
+terraform_init_pass,10,PASS
+terraform_validate_pass,10,PASS
+checkov_scenarios_without_parsing_errors,10,PASS
+total_raw_failed_findings,118,PASS
+ndcg3_eligible_scenarios,10,PASS
+ndcg5_eligible_scenarios,8,PASS
+security_categories_covered,8,PASS
+security_categories_weak,0,PASS
+security_categories_missing,0,PASS
+contrastive_pairs_verified,5,PASS
+annotation_feasibility_checks_failed,0,PASS

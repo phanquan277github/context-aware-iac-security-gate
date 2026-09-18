@@ -1,0 +1,4 @@
+scenario_id: SCN-007
+environment: staging
+asset_criticality: medium
+data_sensitivity: internal

@@ -1,0 +1,6 @@
+pair_id,scenario_a,scenario_b,terraform_equivalent,business_context_diff,objective_facts_same,checkov_findings_equivalent,status
+PAIR-01,SCN-001,SCN-002,PASS,PASS,PASS,PASS,PASS
+PAIR-02,SCN-003,SCN-004,PASS,PASS,PASS,PASS,PASS
+PAIR-03,SCN-005,SCN-006,PASS,PASS,PASS,PASS,PASS
+PAIR-04,SCN-007,SCN-008,PASS,PASS,PASS,PASS,PASS
+PAIR-05,SCN-009,SCN-010,PASS,PASS,PASS,PASS,PASS

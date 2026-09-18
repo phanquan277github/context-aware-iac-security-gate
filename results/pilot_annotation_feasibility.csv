@@ -1,0 +1,8 @@
+item,status,evidence,notes
+ranking_unit_defined,PASS,Individual finding within scenario,Finding is the annotation unit
+rank_uniqueness,PASS,4/4 scenarios,No duplicate ranks
+rank_coverage,PASS,4/4 scenarios,Ranks form complete 1..N sequence
+relevance_mapping,PASS,16/16 records,Mapping 1->3 2->2 3->1 4+->0
+rationale_present,PASS,16/16 records,Every preliminary annotation has a reason
+blind_to_model_outputs,PASS,Rubric documentation,No model output used
+single_annotator_limit,PASS,Rubric documentation,Preliminary result explicitly marked single-annotator

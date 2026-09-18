@@ -1,0 +1,3252 @@
+{
+    "check_type": "terraform",
+    "results": {
+        "passed_checks": [
+            {
+                "check_id": "CKV_AWS_41",
+                "bc_check_id": "BC_AWS_SECRETS_5",
+                "check_name": "Ensure no hard coded AWS access key and secret key exists in provider",
+                "check_result": {
+                    "result": "PASSED",
+                    "evaluated_keys": []
+                },
+                "code_block": [
+                    [
+                        12,
+                        "provider \"aws\" {\n"
+                    ],
+                    [
+                        13,
+                        "  region = \"us-east-1\"\n"
+                    ],
+                    [
+                        14,
+                        "}\n"
+                    ]
+                ],
+                "file_path": "/main.tf",
+                "file_abs_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                "repo_file_path": "/scenarios/scenario_009/main.tf",
+                "file_line_range": [
+                    12,
+                    14
+                ],
+                "resource": "aws.default",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.provider.aws.credentials",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/secrets-policies/bc-aws-secrets-5",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf"
+            },
+            {
+                "check_id": "CKV_AWS_93",
+                "bc_check_id": "BC_AWS_S3_24",
+                "check_name": "Ensure S3 bucket policy does not lockout all but root user. (Prevent lockouts needing root account fixes)",
+                "check_result": {
+                    "result": "PASSED",
+                    "evaluated_keys": [
+                        "policy"
+                    ]
+                },
+                "code_block": [
+                    [
+                        20,
+                        "resource \"aws_s3_bucket\" \"public_data_009\" {\n"
+                    ],
+                    [
+                        21,
+                        "  bucket = \"pilot-public-data-009\"\n"
+                    ],
+                    [
+                        22,
+                        "}\n"
+                    ]
+                ],
+                "file_path": "/main.tf",
+                "file_abs_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                "repo_file_path": "/scenarios/scenario_009/main.tf",
+                "file_line_range": [
+                    20,
+                    22
+                ],
+                "resource": "aws_s3_bucket.public_data_009",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.S3ProtectAgainstPolicyLockout",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/s3-policies/bc-aws-s3-24",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf"
+            },
+            {
+                "check_id": "CKV_AWS_93",
+                "bc_check_id": "BC_AWS_S3_24",
+                "check_name": "Ensure S3 bucket policy does not lockout all but root user. (Prevent lockouts needing root account fixes)",
+                "check_result": {
+                    "result": "PASSED",
+                    "evaluated_keys": [
+                        "policy"
+                    ]
+                },
+                "code_block": [
+                    [
+                        33,
+                        "resource \"aws_s3_bucket_policy\" \"public_data_009\" {\n"
+                    ],
+                    [
+                        34,
+                        "  bucket = aws_s3_bucket.public_data_009.id\n"
+                    ],
+                    [
+                        35,
+                        "\n"
+                    ],
+                    [
+                        36,
+                        "  policy = jsonencode({\n"
+                    ],
+                    [
+                        37,
+                        "    Version = \"2012-10-17\"\n"
+                    ],
+                    [
+                        38,
+                        "\n"
+                    ],
+                    [
+                        39,
+                        "    Statement = [\n"
+                    ],
+                    [
+                        40,
+                        "      {\n"
+                    ],
+                    [
+                        41,
+                        "        Sid    = \"PublicRead\"\n"
+                    ],
+                    [
+                        42,
+                        "        Effect = \"Allow\"\n"
+                    ],
+                    [
+                        43,
+                        "\n"
+                    ],
+                    [
+                        44,
+                        "        Principal = \"*\"\n"
+                    ],
+                    [
+                        45,
+                        "\n"
+                    ],
+                    [
+                        46,
+                        "        Action = [\n"
+                    ],
+                    [
+                        47,
+                        "          \"s3:GetObject\"\n"
+                    ],
+                    [
+                        48,
+                        "        ]\n"
+                    ],
+                    [
+                        49,
+                        "\n"
+                    ],
+                    [
+                        50,
+                        "        Resource = \"${aws_s3_bucket.public_data_009.arn}/*\"\n"
+                    ],
+                    [
+                        51,
+                        "      }\n"
+                    ],
+                    [
+                        52,
+                        "    ]\n"
+                    ],
+                    [
+                        53,
+                        "  })\n"
+                    ],
+                    [
+                        54,
+                        "}\n"
+                    ]
+                ],
+                "file_path": "/main.tf",
+                "file_abs_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                "repo_file_path": "/scenarios/scenario_009/main.tf",
+                "file_line_range": [
+                    33,
+                    54
+                ],
+                "resource": "aws_s3_bucket_policy.public_data_009",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.S3ProtectAgainstPolicyLockout",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/s3-policies/bc-aws-s3-24",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf"
+            },
+            {
+                "check_id": "CKV_AWS_63",
+                "bc_check_id": "BC_AWS_IAM_48",
+                "check_name": "Ensure no IAM policies documents allow \"*\" as a statement's actions",
+                "check_result": {
+                    "result": "PASSED",
+                    "evaluated_keys": [
+                        "policy",
+                        "inline_policy"
+                    ]
+                },
+                "code_block": [
+                    [
+                        64,
+                        "resource \"aws_iam_user_policy\" \"privilege_escalation_009\" {\n"
+                    ],
+                    [
+                        65,
+                        "  name = \"pilot-privilege-escalation-009\"\n"
+                    ],
+                    [
+                        66,
+                        "  user = aws_iam_user.escalation_target_009.name\n"
+                    ],
+                    [
+                        67,
+                        "\n"
+                    ],
+                    [
+                        68,
+                        "  policy = jsonencode({\n"
+                    ],
+                    [
+                        69,
+                        "    Version = \"2012-10-17\"\n"
+                    ],
+                    [
+                        70,
+                        "\n"
+                    ],
+                    [
+                        71,
+                        "    Statement = [\n"
+                    ],
+                    [
+                        72,
+                        "      {\n"
+                    ],
+                    [
+                        73,
+                        "        Effect   = \"Allow\"\n"
+                    ],
+                    [
+                        74,
+                        "        Action   = [\"iam:AttachUserPolicy\"]\n"
+                    ],
+                    [
+                        75,
+                        "        Resource = \"*\"\n"
+                    ],
+                    [
+                        76,
+                        "      }\n"
+                    ],
+                    [
+                        77,
+                        "    ]\n"
+                    ],
+                    [
+                        78,
+                        "  })\n"
+                    ],
+                    [
+                        79,
+                        "}\n"
+                    ]
+                ],
+                "file_path": "/main.tf",
+                "file_abs_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                "repo_file_path": "/scenarios/scenario_009/main.tf",
+                "file_line_range": [
+                    64,
+                    79
+                ],
+                "resource": "aws_iam_user_policy.privilege_escalation_009",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.IAMStarActionPolicyDocument",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/iam-48",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                "breadcrumbs": {
+                    "user": [
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_user.escalation_target_009",
+                            "path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_290",
+                "bc_check_id": "BC_AWS_IAM_85",
+                "check_name": "Ensure IAM policies does not allow write access without constraints",
+                "check_result": {
+                    "result": "PASSED",
+                    "evaluated_keys": []
+                },
+                "code_block": [
+                    [
+                        64,
+                        "resource \"aws_iam_user_policy\" \"privilege_escalation_009\" {\n"
+                    ],
+                    [
+                        65,
+                        "  name = \"pilot-privilege-escalation-009\"\n"
+                    ],
+                    [
+                        66,
+                        "  user = aws_iam_user.escalation_target_009.name\n"
+                    ],
+                    [
+                        67,
+                        "\n"
+                    ],
+                    [
+                        68,
+                        "  policy = jsonencode({\n"
+                    ],
+                    [
+                        69,
+                        "    Version = \"2012-10-17\"\n"
+                    ],
+                    [
+                        70,
+                        "\n"
+                    ],
+                    [
+                        71,
+                        "    Statement = [\n"
+                    ],
+                    [
+                        72,
+                        "      {\n"
+                    ],
+                    [
+                        73,
+                        "        Effect   = \"Allow\"\n"
+                    ],
+                    [
+                        74,
+                        "        Action   = [\"iam:AttachUserPolicy\"]\n"
+                    ],
+                    [
+                        75,
+                        "        Resource = \"*\"\n"
+                    ],
+                    [
+                        76,
+                        "      }\n"
+                    ],
+                    [
+                        77,
+                        "    ]\n"
+                    ],
+                    [
+                        78,
+                        "  })\n"
+                    ],
+                    [
+                        79,
+                        "}\n"
+                    ]
+                ],
+                "file_path": "/main.tf",
+                "file_abs_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                "repo_file_path": "/scenarios/scenario_009/main.tf",
+                "file_line_range": [
+                    64,
+                    79
+                ],
+                "resource": "aws_iam_user_policy.privilege_escalation_009",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.IAMWriteAccess",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-290",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                "breadcrumbs": {
+                    "user": [
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_user.escalation_target_009",
+                            "path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_288",
+                "bc_check_id": "BC_AWS_IAM_83",
+                "check_name": "Ensure IAM policies does not allow data exfiltration",
+                "check_result": {
+                    "result": "PASSED",
+                    "evaluated_keys": []
+                },
+                "code_block": [
+                    [
+                        64,
+                        "resource \"aws_iam_user_policy\" \"privilege_escalation_009\" {\n"
+                    ],
+                    [
+                        65,
+                        "  name = \"pilot-privilege-escalation-009\"\n"
+                    ],
+                    [
+                        66,
+                        "  user = aws_iam_user.escalation_target_009.name\n"
+                    ],
+                    [
+                        67,
+                        "\n"
+                    ],
+                    [
+                        68,
+                        "  policy = jsonencode({\n"
+                    ],
+                    [
+                        69,
+                        "    Version = \"2012-10-17\"\n"
+                    ],
+                    [
+                        70,
+                        "\n"
+                    ],
+                    [
+                        71,
+                        "    Statement = [\n"
+                    ],
+                    [
+                        72,
+                        "      {\n"
+                    ],
+                    [
+                        73,
+                        "        Effect   = \"Allow\"\n"
+                    ],
+                    [
+                        74,
+                        "        Action   = [\"iam:AttachUserPolicy\"]\n"
+                    ],
+                    [
+                        75,
+                        "        Resource = \"*\"\n"
+                    ],
+                    [
+                        76,
+                        "      }\n"
+                    ],
+                    [
+                        77,
+                        "    ]\n"
+                    ],
+                    [
+                        78,
+                        "  })\n"
+                    ],
+                    [
+                        79,
+                        "}\n"
+                    ]
+                ],
+                "file_path": "/main.tf",
+                "file_abs_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                "repo_file_path": "/scenarios/scenario_009/main.tf",
+                "file_line_range": [
+                    64,
+                    79
+                ],
+                "resource": "aws_iam_user_policy.privilege_escalation_009",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.IAMDataExfiltration",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-288",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                "breadcrumbs": {
+                    "user": [
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_user.escalation_target_009",
+                            "path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_287",
+                "bc_check_id": "BC_AWS_IAM_82",
+                "check_name": "Ensure IAM policies does not allow credentials exposure",
+                "check_result": {
+                    "result": "PASSED",
+                    "evaluated_keys": []
+                },
+                "code_block": [
+                    [
+                        64,
+                        "resource \"aws_iam_user_policy\" \"privilege_escalation_009\" {\n"
+                    ],
+                    [
+                        65,
+                        "  name = \"pilot-privilege-escalation-009\"\n"
+                    ],
+                    [
+                        66,
+                        "  user = aws_iam_user.escalation_target_009.name\n"
+                    ],
+                    [
+                        67,
+                        "\n"
+                    ],
+                    [
+                        68,
+                        "  policy = jsonencode({\n"
+                    ],
+                    [
+                        69,
+                        "    Version = \"2012-10-17\"\n"
+                    ],
+                    [
+                        70,
+                        "\n"
+                    ],
+                    [
+                        71,
+                        "    Statement = [\n"
+                    ],
+                    [
+                        72,
+                        "      {\n"
+                    ],
+                    [
+                        73,
+                        "        Effect   = \"Allow\"\n"
+                    ],
+                    [
+                        74,
+                        "        Action   = [\"iam:AttachUserPolicy\"]\n"
+                    ],
+                    [
+                        75,
+                        "        Resource = \"*\"\n"
+                    ],
+                    [
+                        76,
+                        "      }\n"
+                    ],
+                    [
+                        77,
+                        "    ]\n"
+                    ],
+                    [
+                        78,
+                        "  })\n"
+                    ],
+                    [
+                        79,
+                        "}\n"
+                    ]
+                ],
+                "file_path": "/main.tf",
+                "file_abs_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                "repo_file_path": "/scenarios/scenario_009/main.tf",
+                "file_line_range": [
+                    64,
+                    79
+                ],
+                "resource": "aws_iam_user_policy.privilege_escalation_009",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.IAMCredentialsExposure",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-287",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                "breadcrumbs": {
+                    "user": [
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_user.escalation_target_009",
+                            "path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_62",
+                "bc_check_id": "BC_AWS_IAM_47",
+                "check_name": "Ensure IAM policies that allow full \"*-*\" administrative privileges are not created",
+                "check_result": {
+                    "result": "PASSED",
+                    "evaluated_keys": [
+                        "policy",
+                        "inline_policy"
+                    ]
+                },
+                "code_block": [
+                    [
+                        64,
+                        "resource \"aws_iam_user_policy\" \"privilege_escalation_009\" {\n"
+                    ],
+                    [
+                        65,
+                        "  name = \"pilot-privilege-escalation-009\"\n"
+                    ],
+                    [
+                        66,
+                        "  user = aws_iam_user.escalation_target_009.name\n"
+                    ],
+                    [
+                        67,
+                        "\n"
+                    ],
+                    [
+                        68,
+                        "  policy = jsonencode({\n"
+                    ],
+                    [
+                        69,
+                        "    Version = \"2012-10-17\"\n"
+                    ],
+                    [
+                        70,
+                        "\n"
+                    ],
+                    [
+                        71,
+                        "    Statement = [\n"
+                    ],
+                    [
+                        72,
+                        "      {\n"
+                    ],
+                    [
+                        73,
+                        "        Effect   = \"Allow\"\n"
+                    ],
+                    [
+                        74,
+                        "        Action   = [\"iam:AttachUserPolicy\"]\n"
+                    ],
+                    [
+                        75,
+                        "        Resource = \"*\"\n"
+                    ],
+                    [
+                        76,
+                        "      }\n"
+                    ],
+                    [
+                        77,
+                        "    ]\n"
+                    ],
+                    [
+                        78,
+                        "  })\n"
+                    ],
+                    [
+                        79,
+                        "}\n"
+                    ]
+                ],
+                "file_path": "/main.tf",
+                "file_abs_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                "repo_file_path": "/scenarios/scenario_009/main.tf",
+                "file_line_range": [
+                    64,
+                    79
+                ],
+                "resource": "aws_iam_user_policy.privilege_escalation_009",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.IAMAdminPolicyDocument",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-iam-45",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                "breadcrumbs": {
+                    "user": [
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_user.escalation_target_009",
+                            "path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_25",
+                "bc_check_id": "BC_AWS_NETWORKING_2",
+                "check_name": "Ensure no security groups allow ingress from 0.0.0.0:0 to port 3389",
+                "check_result": {
+                    "result": "PASSED",
+                    "evaluated_keys": []
+                },
+                "code_block": [
+                    [
+                        85,
+                        "resource \"aws_security_group\" \"admin_009\" {\n"
+                    ],
+                    [
+                        86,
+                        "  name        = \"pilot-admin-009\"\n"
+                    ],
+                    [
+                        87,
+                        "  description = \"Pilot administrative access\"\n"
+                    ],
+                    [
+                        88,
+                        "\n"
+                    ],
+                    [
+                        89,
+                        "  ingress {\n"
+                    ],
+                    [
+                        90,
+                        "    from_port   = 22\n"
+                    ],
+                    [
+                        91,
+                        "    to_port     = 22\n"
+                    ],
+                    [
+                        92,
+                        "    protocol    = \"tcp\"\n"
+                    ],
+                    [
+                        93,
+                        "    cidr_blocks = [\"0.0.0.0/0\"]\n"
+                    ],
+                    [
+                        94,
+                        "  }\n"
+                    ],
+                    [
+                        95,
+                        "}\n"
+                    ]
+                ],
+                "file_path": "/main.tf",
+                "file_abs_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                "repo_file_path": "/scenarios/scenario_009/main.tf",
+                "file_line_range": [
+                    85,
+                    95
+                ],
+                "resource": "aws_security_group.admin_009",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupUnrestrictedIngress3389",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/networking-2",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf"
+            },
+            {
+                "check_id": "CKV_AWS_260",
+                "bc_check_id": "BC_AWS_NETWORKING_67",
+                "check_name": "Ensure no security groups allow ingress from 0.0.0.0:0 to port 80",
+                "check_result": {
+                    "result": "PASSED",
+                    "evaluated_keys": []
+                },
+                "code_block": [
+                    [
+                        85,
+                        "resource \"aws_security_group\" \"admin_009\" {\n"
+                    ],
+                    [
+                        86,
+                        "  name        = \"pilot-admin-009\"\n"
+                    ],
+                    [
+                        87,
+                        "  description = \"Pilot administrative access\"\n"
+                    ],
+                    [
+                        88,
+                        "\n"
+                    ],
+                    [
+                        89,
+                        "  ingress {\n"
+                    ],
+                    [
+                        90,
+                        "    from_port   = 22\n"
+                    ],
+                    [
+                        91,
+                        "    to_port     = 22\n"
+                    ],
+                    [
+                        92,
+                        "    protocol    = \"tcp\"\n"
+                    ],
+                    [
+                        93,
+                        "    cidr_blocks = [\"0.0.0.0/0\"]\n"
+                    ],
+                    [
+                        94,
+                        "  }\n"
+                    ],
+                    [
+                        95,
+                        "}\n"
+                    ]
+                ],
+                "file_path": "/main.tf",
+                "file_abs_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                "repo_file_path": "/scenarios/scenario_009/main.tf",
+                "file_line_range": [
+                    85,
+                    95
+                ],
+                "resource": "aws_security_group.admin_009",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupUnrestrictedIngress80",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/ensure-aws-security-groups-do-not-allow-ingress-from-00000-to-port-80",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf"
+            },
+            {
+                "check_id": "CKV_AWS_382",
+                "bc_check_id": "BC_AWS_IAM_93",
+                "check_name": "Ensure no security groups allow egress from 0.0.0.0:0 to port -1",
+                "check_result": {
+                    "result": "PASSED",
+                    "evaluated_keys": [
+                        "from_port",
+                        "to_port",
+                        "cidr_ipv4",
+                        "cidr_ipv6"
+                    ]
+                },
+                "code_block": [
+                    [
+                        85,
+                        "resource \"aws_security_group\" \"admin_009\" {\n"
+                    ],
+                    [
+                        86,
+                        "  name        = \"pilot-admin-009\"\n"
+                    ],
+                    [
+                        87,
+                        "  description = \"Pilot administrative access\"\n"
+                    ],
+                    [
+                        88,
+                        "\n"
+                    ],
+                    [
+                        89,
+                        "  ingress {\n"
+                    ],
+                    [
+                        90,
+                        "    from_port   = 22\n"
+                    ],
+                    [
+                        91,
+                        "    to_port     = 22\n"
+                    ],
+                    [
+                        92,
+                        "    protocol    = \"tcp\"\n"
+                    ],
+                    [
+                        93,
+                        "    cidr_blocks = [\"0.0.0.0/0\"]\n"
+                    ],
+                    [
+                        94,
+                        "  }\n"
+                    ],
+                    [
+                        95,
+                        "}\n"
+                    ]
+                ],
+                "file_path": "/main.tf",
+                "file_abs_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                "repo_file_path": "/scenarios/scenario_009/main.tf",
+                "file_line_range": [
+                    85,
+                    95
+                ],
+                "resource": "aws_security_group.admin_009",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupUnrestrictedEgressAny",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/bc-aws-382",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf"
+            },
+            {
+                "check_id": "CKV_AWS_277",
+                "bc_check_id": "BC_AWS_NETWORKING_78",
+                "check_name": "Ensure no security groups allow ingress from 0.0.0.0:0 to port -1",
+                "check_result": {
+                    "result": "PASSED",
+                    "evaluated_keys": []
+                },
+                "code_block": [
+                    [
+                        85,
+                        "resource \"aws_security_group\" \"admin_009\" {\n"
+                    ],
+                    [
+                        86,
+                        "  name        = \"pilot-admin-009\"\n"
+                    ],
+                    [
+                        87,
+                        "  description = \"Pilot administrative access\"\n"
+                    ],
+                    [
+                        88,
+                        "\n"
+                    ],
+                    [
+                        89,
+                        "  ingress {\n"
+                    ],
+                    [
+                        90,
+                        "    from_port   = 22\n"
+                    ],
+                    [
+                        91,
+                        "    to_port     = 22\n"
+                    ],
+                    [
+                        92,
+                        "    protocol    = \"tcp\"\n"
+                    ],
+                    [
+                        93,
+                        "    cidr_blocks = [\"0.0.0.0/0\"]\n"
+                    ],
+                    [
+                        94,
+                        "  }\n"
+                    ],
+                    [
+                        95,
+                        "}\n"
+                    ]
+                ],
+                "file_path": "/main.tf",
+                "file_abs_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                "repo_file_path": "/scenarios/scenario_009/main.tf",
+                "file_line_range": [
+                    85,
+                    95
+                ],
+                "resource": "aws_security_group.admin_009",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupUnrestrictedIngressAny",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/ensure-aws-security-group-does-not-allow-all-traffic-on-all-ports",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf"
+            },
+            {
+                "check_id": "CKV_AWS_19",
+                "bc_check_id": "BC_AWS_S3_14",
+                "check_name": "Ensure all data stored in the S3 bucket is securely encrypted at rest",
+                "check_result": {
+                    "result": "PASSED",
+                    "entity": {
+                        "aws_s3_bucket": {
+                            "public_data_009": {
+                                "__end_line__": 22,
+                                "__start_line__": 20,
+                                "bucket": [
+                                    "pilot-public-data-009"
+                                ],
+                                "__address__": "aws_s3_bucket.public_data_009",
+                                "__provider_address__": "aws.default"
+                            }
+                        }
+                    },
+                    "evaluated_keys": [
+                        "resource_type",
+                        "rule/apply_server_side_encryption_by_default/sse_algorithm",
+                        "server_side_encryption_configuration/rule/apply_server_side_encryption_by_default/sse_algorithm"
+                    ]
+                },
+                "code_block": [
+                    [
+                        20,
+                        "resource \"aws_s3_bucket\" \"public_data_009\" {\n"
+                    ],
+                    [
+                        21,
+                        "  bucket = \"pilot-public-data-009\"\n"
+                    ],
+                    [
+                        22,
+                        "}\n"
+                    ]
+                ],
+                "file_path": "/main.tf",
+                "file_abs_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                "repo_file_path": "/scenarios/scenario_009/main.tf",
+                "file_line_range": [
+                    20,
+                    22
+                ],
+                "resource": "aws_s3_bucket.public_data_009",
+                "evaluations": null,
+                "check_class": "checkov.common.graph.checks_infra.base_check",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/s3-policies/s3-14-data-encrypted-at-rest",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf"
+            },
+            {
+                "check_id": "CKV2_AWS_22",
+                "bc_check_id": "BC_AWS_IAM_67",
+                "check_name": "Ensure an IAM User does not have access to the console",
+                "check_result": {
+                    "result": "PASSED",
+                    "entity": {
+                        "aws_iam_user": {
+                            "escalation_target_009": {
+                                "__end_line__": 62,
+                                "__start_line__": 60,
+                                "name": [
+                                    "pilot-escalation-user-009"
+                                ],
+                                "__address__": "aws_iam_user.escalation_target_009",
+                                "__provider_address__": "aws.default"
+                            }
+                        }
+                    },
+                    "evaluated_keys": [
+                        "resource_type"
+                    ]
+                },
+                "code_block": [
+                    [
+                        60,
+                        "resource \"aws_iam_user\" \"escalation_target_009\" {\n"
+                    ],
+                    [
+                        61,
+                        "  name = \"pilot-escalation-user-009\"\n"
+                    ],
+                    [
+                        62,
+                        "}\n"
+                    ]
+                ],
+                "file_path": "/main.tf",
+                "file_abs_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                "repo_file_path": "/scenarios/scenario_009/main.tf",
+                "file_line_range": [
+                    60,
+                    62
+                ],
+                "resource": "aws_iam_user.escalation_target_009",
+                "evaluations": null,
+                "check_class": "checkov.common.graph.checks_infra.base_check",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-an-iam-user-does-not-have-access-to-the-console-group",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf"
+            },
+            {
+                "check_id": "CKV_AWS_57",
+                "bc_check_id": "BC_AWS_S3_2",
+                "check_name": "S3 Bucket has an ACL defined which allows public WRITE access.",
+                "check_result": {
+                    "result": "PASSED",
+                    "entity": {
+                        "aws_s3_bucket": {
+                            "public_data_009": {
+                                "__end_line__": 22,
+                                "__start_line__": 20,
+                                "bucket": [
+                                    "pilot-public-data-009"
+                                ],
+                                "__address__": "aws_s3_bucket.public_data_009",
+                                "__provider_address__": "aws.default"
+                            }
+                        }
+                    },
+                    "evaluated_keys": [
+                        "access_control_policy",
+                        "access_control_policy/grant/*/permission",
+                        "access_control_policy/grant",
+                        "acl",
+                        "resource_type",
+                        "access_control_policy/grant/*/grantee/uri"
+                    ]
+                },
+                "code_block": [
+                    [
+                        20,
+                        "resource \"aws_s3_bucket\" \"public_data_009\" {\n"
+                    ],
+                    [
+                        21,
+                        "  bucket = \"pilot-public-data-009\"\n"
+                    ],
+                    [
+                        22,
+                        "}\n"
+                    ]
+                ],
+                "file_path": "/main.tf",
+                "file_abs_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                "repo_file_path": "/scenarios/scenario_009/main.tf",
+                "file_line_range": [
+                    20,
+                    22
+                ],
+                "resource": "aws_s3_bucket.public_data_009",
+                "evaluations": null,
+                "check_class": "checkov.common.graph.checks_infra.base_check",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/s3-policies/s3-2-acl-write-permissions-everyone",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf"
+            },
+            {
+                "check_id": "CKV2_AWS_40",
+                "bc_check_id": "BC_AWS_IAM_73",
+                "check_name": "Ensure AWS IAM policy does not allow full IAM privileges",
+                "check_result": {
+                    "result": "PASSED",
+                    "entity": {
+                        "aws_iam_user_policy": {
+                            "privilege_escalation_009": {
+                                "__end_line__": 79,
+                                "__start_line__": 64,
+                                "name": [
+                                    "pilot-privilege-escalation-009"
+                                ],
+                                "policy": [
+                                    {
+                                        "Version": "2012-10-17",
+                                        "Statement": [
+                                            {
+                                                "Effect": "Allow",
+                                                "Action": [
+                                                    "iam:AttachUserPolicy"
+                                                ],
+                                                "Resource": "*"
+                                            }
+                                        ]
+                                    }
+                                ],
+                                "user": [
+                                    "pilot-escalation-user-009"
+                                ],
+                                "__address__": "aws_iam_user_policy.privilege_escalation_009",
+                                "__provider_address__": "aws.default"
+                            }
+                        }
+                    },
+                    "evaluated_keys": [
+                        "policy/Statement[?(@/Effect == Allow)]/Action[*]",
+                        "inline_policy/Statement[?(@/Effect == Allow)]/Action[*]",
+                        "statement[?(@/effect == Allow)]/actions[*]"
+                    ]
+                },
+                "code_block": [
+                    [
+                        64,
+                        "resource \"aws_iam_user_policy\" \"privilege_escalation_009\" {\n"
+                    ],
+                    [
+                        65,
+                        "  name = \"pilot-privilege-escalation-009\"\n"
+                    ],
+                    [
+                        66,
+                        "  user = aws_iam_user.escalation_target_009.name\n"
+                    ],
+                    [
+                        67,
+                        "\n"
+                    ],
+                    [
+                        68,
+                        "  policy = jsonencode({\n"
+                    ],
+                    [
+                        69,
+                        "    Version = \"2012-10-17\"\n"
+                    ],
+                    [
+                        70,
+                        "\n"
+                    ],
+                    [
+                        71,
+                        "    Statement = [\n"
+                    ],
+                    [
+                        72,
+                        "      {\n"
+                    ],
+                    [
+                        73,
+                        "        Effect   = \"Allow\"\n"
+                    ],
+                    [
+                        74,
+                        "        Action   = [\"iam:AttachUserPolicy\"]\n"
+                    ],
+                    [
+                        75,
+                        "        Resource = \"*\"\n"
+                    ],
+                    [
+                        76,
+                        "      }\n"
+                    ],
+                    [
+                        77,
+                        "    ]\n"
+                    ],
+                    [
+                        78,
+                        "  })\n"
+                    ],
+                    [
+                        79,
+                        "}\n"
+                    ]
+                ],
+                "file_path": "/main.tf",
+                "file_abs_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                "repo_file_path": "/scenarios/scenario_009/main.tf",
+                "file_line_range": [
+                    64,
+                    79
+                ],
+                "resource": "aws_iam_user_policy.privilege_escalation_009",
+                "evaluations": null,
+                "check_class": "checkov.common.graph.checks_infra.base_check",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-2-40",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                "breadcrumbs": {
+                    "user": [
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_user.escalation_target_009",
+                            "path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_20",
+                "bc_check_id": "BC_AWS_S3_1",
+                "check_name": "S3 Bucket has an ACL defined which allows public READ access.",
+                "check_result": {
+                    "result": "PASSED",
+                    "entity": {
+                        "aws_s3_bucket": {
+                            "public_data_009": {
+                                "__end_line__": 22,
+                                "__start_line__": 20,
+                                "bucket": [
+                                    "pilot-public-data-009"
+                                ],
+                                "__address__": "aws_s3_bucket.public_data_009",
+                                "__provider_address__": "aws.default"
+                            }
+                        }
+                    },
+                    "evaluated_keys": [
+                        "access_control_policy",
+                        "access_control_policy/grant",
+                        "acl",
+                        "resource_type",
+                        "access_control_policy/grant/*/grantee/uri"
+                    ]
+                },
+                "code_block": [
+                    [
+                        20,
+                        "resource \"aws_s3_bucket\" \"public_data_009\" {\n"
+                    ],
+                    [
+                        21,
+                        "  bucket = \"pilot-public-data-009\"\n"
+                    ],
+                    [
+                        22,
+                        "}\n"
+                    ]
+                ],
+                "file_path": "/main.tf",
+                "file_abs_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                "repo_file_path": "/scenarios/scenario_009/main.tf",
+                "file_line_range": [
+                    20,
+                    22
+                ],
+                "resource": "aws_s3_bucket.public_data_009",
+                "evaluations": null,
+                "check_class": "checkov.common.graph.checks_infra.base_check",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/s3-policies/s3-1-acl-read-permissions-everyone",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf"
+            }
+        ],
+        "failed_checks": [
+            {
+                "check_id": "CKV_AWS_56",
+                "bc_check_id": "BC_AWS_S3_22",
+                "check_name": "Ensure S3 bucket has 'restrict_public_buckets' enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "restrict_public_buckets"
+                    ]
+                },
+                "code_block": [
+                    [
+                        24,
+                        "resource \"aws_s3_bucket_public_access_block\" \"public_data_009\" {\n"
+                    ],
+                    [
+                        25,
+                        "  bucket = aws_s3_bucket.public_data_009.id\n"
+                    ],
+                    [
+                        26,
+                        "\n"
+                    ],
+                    [
+                        27,
+                        "  block_public_acls       = false\n"
+                    ],
+                    [
+                        28,
+                        "  block_public_policy     = false\n"
+                    ],
+                    [
+                        29,
+                        "  ignore_public_acls      = false\n"
+                    ],
+                    [
+                        30,
+                        "  restrict_public_buckets = false\n"
+                    ],
+                    [
+                        31,
+                        "}\n"
+                    ]
+                ],
+                "file_path": "/main.tf",
+                "file_abs_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                "repo_file_path": "/scenarios/scenario_009/main.tf",
+                "file_line_range": [
+                    24,
+                    31
+                ],
+                "resource": "aws_s3_bucket_public_access_block.public_data_009",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.S3RestrictPublicBuckets",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/s3-policies/bc-aws-s3-22",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf"
+            },
+            {
+                "check_id": "CKV_AWS_54",
+                "bc_check_id": "BC_AWS_S3_20",
+                "check_name": "Ensure S3 bucket has block public policy enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "block_public_policy"
+                    ]
+                },
+                "code_block": [
+                    [
+                        24,
+                        "resource \"aws_s3_bucket_public_access_block\" \"public_data_009\" {\n"
+                    ],
+                    [
+                        25,
+                        "  bucket = aws_s3_bucket.public_data_009.id\n"
+                    ],
+                    [
+                        26,
+                        "\n"
+                    ],
+                    [
+                        27,
+                        "  block_public_acls       = false\n"
+                    ],
+                    [
+                        28,
+                        "  block_public_policy     = false\n"
+                    ],
+                    [
+                        29,
+                        "  ignore_public_acls      = false\n"
+                    ],
+                    [
+                        30,
+                        "  restrict_public_buckets = false\n"
+                    ],
+                    [
+                        31,
+                        "}\n"
+                    ]
+                ],
+                "file_path": "/main.tf",
+                "file_abs_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                "repo_file_path": "/scenarios/scenario_009/main.tf",
+                "file_line_range": [
+                    24,
+                    31
+                ],
+                "resource": "aws_s3_bucket_public_access_block.public_data_009",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.S3BlockPublicPolicy",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/s3-policies/bc-aws-s3-20",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf"
+            },
+            {
+                "check_id": "CKV_AWS_53",
+                "bc_check_id": "BC_AWS_S3_19",
+                "check_name": "Ensure S3 bucket has block public ACLS enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "block_public_acls"
+                    ]
+                },
+                "code_block": [
+                    [
+                        24,
+                        "resource \"aws_s3_bucket_public_access_block\" \"public_data_009\" {\n"
+                    ],
+                    [
+                        25,
+                        "  bucket = aws_s3_bucket.public_data_009.id\n"
+                    ],
+                    [
+                        26,
+                        "\n"
+                    ],
+                    [
+                        27,
+                        "  block_public_acls       = false\n"
+                    ],
+                    [
+                        28,
+                        "  block_public_policy     = false\n"
+                    ],
+                    [
+                        29,
+                        "  ignore_public_acls      = false\n"
+                    ],
+                    [
+                        30,
+                        "  restrict_public_buckets = false\n"
+                    ],
+                    [
+                        31,
+                        "}\n"
+                    ]
+                ],
+                "file_path": "/main.tf",
+                "file_abs_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                "repo_file_path": "/scenarios/scenario_009/main.tf",
+                "file_line_range": [
+                    24,
+                    31
+                ],
+                "resource": "aws_s3_bucket_public_access_block.public_data_009",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.S3BlockPublicACLs",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/s3-policies/bc-aws-s3-19",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf"
+            },
+            {
+                "check_id": "CKV_AWS_55",
+                "bc_check_id": "BC_AWS_S3_21",
+                "check_name": "Ensure S3 bucket has ignore public ACLs enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "ignore_public_acls"
+                    ]
+                },
+                "code_block": [
+                    [
+                        24,
+                        "resource \"aws_s3_bucket_public_access_block\" \"public_data_009\" {\n"
+                    ],
+                    [
+                        25,
+                        "  bucket = aws_s3_bucket.public_data_009.id\n"
+                    ],
+                    [
+                        26,
+                        "\n"
+                    ],
+                    [
+                        27,
+                        "  block_public_acls       = false\n"
+                    ],
+                    [
+                        28,
+                        "  block_public_policy     = false\n"
+                    ],
+                    [
+                        29,
+                        "  ignore_public_acls      = false\n"
+                    ],
+                    [
+                        30,
+                        "  restrict_public_buckets = false\n"
+                    ],
+                    [
+                        31,
+                        "}\n"
+                    ]
+                ],
+                "file_path": "/main.tf",
+                "file_abs_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                "repo_file_path": "/scenarios/scenario_009/main.tf",
+                "file_line_range": [
+                    24,
+                    31
+                ],
+                "resource": "aws_s3_bucket_public_access_block.public_data_009",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.S3IgnorePublicACLs",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/s3-policies/bc-aws-s3-21",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf"
+            },
+            {
+                "check_id": "CKV_AWS_70",
+                "bc_check_id": "BC_AWS_S3_23",
+                "check_name": "Ensure S3 bucket does not allow an action with any Principal",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "policy"
+                    ]
+                },
+                "code_block": [
+                    [
+                        33,
+                        "resource \"aws_s3_bucket_policy\" \"public_data_009\" {\n"
+                    ],
+                    [
+                        34,
+                        "  bucket = aws_s3_bucket.public_data_009.id\n"
+                    ],
+                    [
+                        35,
+                        "\n"
+                    ],
+                    [
+                        36,
+                        "  policy = jsonencode({\n"
+                    ],
+                    [
+                        37,
+                        "    Version = \"2012-10-17\"\n"
+                    ],
+                    [
+                        38,
+                        "\n"
+                    ],
+                    [
+                        39,
+                        "    Statement = [\n"
+                    ],
+                    [
+                        40,
+                        "      {\n"
+                    ],
+                    [
+                        41,
+                        "        Sid    = \"PublicRead\"\n"
+                    ],
+                    [
+                        42,
+                        "        Effect = \"Allow\"\n"
+                    ],
+                    [
+                        43,
+                        "\n"
+                    ],
+                    [
+                        44,
+                        "        Principal = \"*\"\n"
+                    ],
+                    [
+                        45,
+                        "\n"
+                    ],
+                    [
+                        46,
+                        "        Action = [\n"
+                    ],
+                    [
+                        47,
+                        "          \"s3:GetObject\"\n"
+                    ],
+                    [
+                        48,
+                        "        ]\n"
+                    ],
+                    [
+                        49,
+                        "\n"
+                    ],
+                    [
+                        50,
+                        "        Resource = \"${aws_s3_bucket.public_data_009.arn}/*\"\n"
+                    ],
+                    [
+                        51,
+                        "      }\n"
+                    ],
+                    [
+                        52,
+                        "    ]\n"
+                    ],
+                    [
+                        53,
+                        "  })\n"
+                    ],
+                    [
+                        54,
+                        "}\n"
+                    ]
+                ],
+                "file_path": "/main.tf",
+                "file_abs_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                "repo_file_path": "/scenarios/scenario_009/main.tf",
+                "file_line_range": [
+                    33,
+                    54
+                ],
+                "resource": "aws_s3_bucket_policy.public_data_009",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.S3AllowsAnyPrincipal",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/s3-policies/bc-aws-s3-23",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf"
+            },
+            {
+                "check_id": "CKV_AWS_273",
+                "bc_check_id": "BC_AWS_IAM_77",
+                "check_name": "Ensure access is controlled through SSO and not AWS IAM defined users",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": []
+                },
+                "code_block": [
+                    [
+                        60,
+                        "resource \"aws_iam_user\" \"escalation_target_009\" {\n"
+                    ],
+                    [
+                        61,
+                        "  name = \"pilot-escalation-user-009\"\n"
+                    ],
+                    [
+                        62,
+                        "}\n"
+                    ]
+                ],
+                "file_path": "/main.tf",
+                "file_abs_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                "repo_file_path": "/scenarios/scenario_009/main.tf",
+                "file_line_range": [
+                    60,
+                    62
+                ],
+                "resource": "aws_iam_user.escalation_target_009",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.IAMUserNotUsedForAccess",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-273",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf"
+            },
+            {
+                "check_id": "CKV_AWS_40",
+                "bc_check_id": "BC_AWS_IAM_16",
+                "check_name": "Ensure IAM policies are attached only to groups or roles (Reducing access management complexity may in-turn reduce opportunity for a principal to inadvertently receive or retain excessive privileges.)",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "user"
+                    ]
+                },
+                "code_block": [
+                    [
+                        64,
+                        "resource \"aws_iam_user_policy\" \"privilege_escalation_009\" {\n"
+                    ],
+                    [
+                        65,
+                        "  name = \"pilot-privilege-escalation-009\"\n"
+                    ],
+                    [
+                        66,
+                        "  user = aws_iam_user.escalation_target_009.name\n"
+                    ],
+                    [
+                        67,
+                        "\n"
+                    ],
+                    [
+                        68,
+                        "  policy = jsonencode({\n"
+                    ],
+                    [
+                        69,
+                        "    Version = \"2012-10-17\"\n"
+                    ],
+                    [
+                        70,
+                        "\n"
+                    ],
+                    [
+                        71,
+                        "    Statement = [\n"
+                    ],
+                    [
+                        72,
+                        "      {\n"
+                    ],
+                    [
+                        73,
+                        "        Effect   = \"Allow\"\n"
+                    ],
+                    [
+                        74,
+                        "        Action   = [\"iam:AttachUserPolicy\"]\n"
+                    ],
+                    [
+                        75,
+                        "        Resource = \"*\"\n"
+                    ],
+                    [
+                        76,
+                        "      }\n"
+                    ],
+                    [
+                        77,
+                        "    ]\n"
+                    ],
+                    [
+                        78,
+                        "  })\n"
+                    ],
+                    [
+                        79,
+                        "}\n"
+                    ]
+                ],
+                "file_path": "/main.tf",
+                "file_abs_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                "repo_file_path": "/scenarios/scenario_009/main.tf",
+                "file_line_range": [
+                    64,
+                    79
+                ],
+                "resource": "aws_iam_user_policy.privilege_escalation_009",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.IAMPolicyAttachedToGroupOrRoles",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/iam-16-iam-policy-privileges-1",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                "breadcrumbs": {
+                    "user": [
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_user.escalation_target_009",
+                            "path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_355",
+                "bc_check_id": "BC_AWS_IAM_88",
+                "check_name": "Ensure no IAM policies documents allow \"*\" as a statement's resource for restrictable actions",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "policy/Statement/[0]/Action"
+                    ]
+                },
+                "code_block": [
+                    [
+                        64,
+                        "resource \"aws_iam_user_policy\" \"privilege_escalation_009\" {\n"
+                    ],
+                    [
+                        65,
+                        "  name = \"pilot-privilege-escalation-009\"\n"
+                    ],
+                    [
+                        66,
+                        "  user = aws_iam_user.escalation_target_009.name\n"
+                    ],
+                    [
+                        67,
+                        "\n"
+                    ],
+                    [
+                        68,
+                        "  policy = jsonencode({\n"
+                    ],
+                    [
+                        69,
+                        "    Version = \"2012-10-17\"\n"
+                    ],
+                    [
+                        70,
+                        "\n"
+                    ],
+                    [
+                        71,
+                        "    Statement = [\n"
+                    ],
+                    [
+                        72,
+                        "      {\n"
+                    ],
+                    [
+                        73,
+                        "        Effect   = \"Allow\"\n"
+                    ],
+                    [
+                        74,
+                        "        Action   = [\"iam:AttachUserPolicy\"]\n"
+                    ],
+                    [
+                        75,
+                        "        Resource = \"*\"\n"
+                    ],
+                    [
+                        76,
+                        "      }\n"
+                    ],
+                    [
+                        77,
+                        "    ]\n"
+                    ],
+                    [
+                        78,
+                        "  })\n"
+                    ],
+                    [
+                        79,
+                        "}\n"
+                    ]
+                ],
+                "file_path": "/main.tf",
+                "file_abs_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                "repo_file_path": "/scenarios/scenario_009/main.tf",
+                "file_line_range": [
+                    64,
+                    79
+                ],
+                "resource": "aws_iam_user_policy.privilege_escalation_009",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.IAMStarResourcePolicyDocument",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-355",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                "breadcrumbs": {
+                    "user": [
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_user.escalation_target_009",
+                            "path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_289",
+                "bc_check_id": "BC_AWS_IAM_84",
+                "check_name": "Ensure IAM policies does not allow permissions management / resource exposure without constraints",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "policy/Statement/[0]/Action"
+                    ]
+                },
+                "code_block": [
+                    [
+                        64,
+                        "resource \"aws_iam_user_policy\" \"privilege_escalation_009\" {\n"
+                    ],
+                    [
+                        65,
+                        "  name = \"pilot-privilege-escalation-009\"\n"
+                    ],
+                    [
+                        66,
+                        "  user = aws_iam_user.escalation_target_009.name\n"
+                    ],
+                    [
+                        67,
+                        "\n"
+                    ],
+                    [
+                        68,
+                        "  policy = jsonencode({\n"
+                    ],
+                    [
+                        69,
+                        "    Version = \"2012-10-17\"\n"
+                    ],
+                    [
+                        70,
+                        "\n"
+                    ],
+                    [
+                        71,
+                        "    Statement = [\n"
+                    ],
+                    [
+                        72,
+                        "      {\n"
+                    ],
+                    [
+                        73,
+                        "        Effect   = \"Allow\"\n"
+                    ],
+                    [
+                        74,
+                        "        Action   = [\"iam:AttachUserPolicy\"]\n"
+                    ],
+                    [
+                        75,
+                        "        Resource = \"*\"\n"
+                    ],
+                    [
+                        76,
+                        "      }\n"
+                    ],
+                    [
+                        77,
+                        "    ]\n"
+                    ],
+                    [
+                        78,
+                        "  })\n"
+                    ],
+                    [
+                        79,
+                        "}\n"
+                    ]
+                ],
+                "file_path": "/main.tf",
+                "file_abs_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                "repo_file_path": "/scenarios/scenario_009/main.tf",
+                "file_line_range": [
+                    64,
+                    79
+                ],
+                "resource": "aws_iam_user_policy.privilege_escalation_009",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.IAMPermissionsManagement",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-289",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                "breadcrumbs": {
+                    "user": [
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_user.escalation_target_009",
+                            "path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_286",
+                "bc_check_id": "BC_AWS_IAM_81",
+                "check_name": "Ensure IAM policies does not allow privilege escalation",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "policy/Statement/[0]/Action"
+                    ]
+                },
+                "code_block": [
+                    [
+                        64,
+                        "resource \"aws_iam_user_policy\" \"privilege_escalation_009\" {\n"
+                    ],
+                    [
+                        65,
+                        "  name = \"pilot-privilege-escalation-009\"\n"
+                    ],
+                    [
+                        66,
+                        "  user = aws_iam_user.escalation_target_009.name\n"
+                    ],
+                    [
+                        67,
+                        "\n"
+                    ],
+                    [
+                        68,
+                        "  policy = jsonencode({\n"
+                    ],
+                    [
+                        69,
+                        "    Version = \"2012-10-17\"\n"
+                    ],
+                    [
+                        70,
+                        "\n"
+                    ],
+                    [
+                        71,
+                        "    Statement = [\n"
+                    ],
+                    [
+                        72,
+                        "      {\n"
+                    ],
+                    [
+                        73,
+                        "        Effect   = \"Allow\"\n"
+                    ],
+                    [
+                        74,
+                        "        Action   = [\"iam:AttachUserPolicy\"]\n"
+                    ],
+                    [
+                        75,
+                        "        Resource = \"*\"\n"
+                    ],
+                    [
+                        76,
+                        "      }\n"
+                    ],
+                    [
+                        77,
+                        "    ]\n"
+                    ],
+                    [
+                        78,
+                        "  })\n"
+                    ],
+                    [
+                        79,
+                        "}\n"
+                    ]
+                ],
+                "file_path": "/main.tf",
+                "file_abs_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                "repo_file_path": "/scenarios/scenario_009/main.tf",
+                "file_line_range": [
+                    64,
+                    79
+                ],
+                "resource": "aws_iam_user_policy.privilege_escalation_009",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.IAMPrivilegeEscalation",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-286",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                "breadcrumbs": {
+                    "user": [
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_user.escalation_target_009",
+                            "path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_23",
+                "bc_check_id": "BC_AWS_NETWORKING_31",
+                "check_name": "Ensure every security group and rule has a description",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "description",
+                        "ingress/[0]"
+                    ]
+                },
+                "code_block": [
+                    [
+                        85,
+                        "resource \"aws_security_group\" \"admin_009\" {\n"
+                    ],
+                    [
+                        86,
+                        "  name        = \"pilot-admin-009\"\n"
+                    ],
+                    [
+                        87,
+                        "  description = \"Pilot administrative access\"\n"
+                    ],
+                    [
+                        88,
+                        "\n"
+                    ],
+                    [
+                        89,
+                        "  ingress {\n"
+                    ],
+                    [
+                        90,
+                        "    from_port   = 22\n"
+                    ],
+                    [
+                        91,
+                        "    to_port     = 22\n"
+                    ],
+                    [
+                        92,
+                        "    protocol    = \"tcp\"\n"
+                    ],
+                    [
+                        93,
+                        "    cidr_blocks = [\"0.0.0.0/0\"]\n"
+                    ],
+                    [
+                        94,
+                        "  }\n"
+                    ],
+                    [
+                        95,
+                        "}\n"
+                    ]
+                ],
+                "file_path": "/main.tf",
+                "file_abs_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                "repo_file_path": "/scenarios/scenario_009/main.tf",
+                "file_line_range": [
+                    85,
+                    95
+                ],
+                "resource": "aws_security_group.admin_009",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupRuleDescription",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/networking-31",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf"
+            },
+            {
+                "check_id": "CKV_AWS_24",
+                "bc_check_id": "BC_AWS_NETWORKING_1",
+                "check_name": "Ensure no security groups allow ingress from 0.0.0.0:0 to port 22",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "ingress/[0]/from_port",
+                        "ingress/[0]/to_port",
+                        "ingress/[0]/cidr_blocks",
+                        "ingress/[0]/ipv6_cidr_blocks"
+                    ]
+                },
+                "code_block": [
+                    [
+                        85,
+                        "resource \"aws_security_group\" \"admin_009\" {\n"
+                    ],
+                    [
+                        86,
+                        "  name        = \"pilot-admin-009\"\n"
+                    ],
+                    [
+                        87,
+                        "  description = \"Pilot administrative access\"\n"
+                    ],
+                    [
+                        88,
+                        "\n"
+                    ],
+                    [
+                        89,
+                        "  ingress {\n"
+                    ],
+                    [
+                        90,
+                        "    from_port   = 22\n"
+                    ],
+                    [
+                        91,
+                        "    to_port     = 22\n"
+                    ],
+                    [
+                        92,
+                        "    protocol    = \"tcp\"\n"
+                    ],
+                    [
+                        93,
+                        "    cidr_blocks = [\"0.0.0.0/0\"]\n"
+                    ],
+                    [
+                        94,
+                        "  }\n"
+                    ],
+                    [
+                        95,
+                        "}\n"
+                    ]
+                ],
+                "file_path": "/main.tf",
+                "file_abs_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                "repo_file_path": "/scenarios/scenario_009/main.tf",
+                "file_line_range": [
+                    85,
+                    95
+                ],
+                "resource": "aws_security_group.admin_009",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupUnrestrictedIngress22",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/networking-1-port-security",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf"
+            },
+            {
+                "check_id": "CKV2_AWS_5",
+                "bc_check_id": "BC_AWS_NETWORKING_51",
+                "check_name": "Ensure that Security Groups are attached to another resource",
+                "check_result": {
+                    "result": "FAILED",
+                    "entity": {
+                        "aws_security_group": {
+                            "admin_009": {
+                                "__end_line__": 95,
+                                "__start_line__": 85,
+                                "description": [
+                                    "Pilot administrative access"
+                                ],
+                                "ingress": [
+                                    {
+                                        "cidr_blocks": [
+                                            [
+                                                "0.0.0.0/0"
+                                            ]
+                                        ],
+                                        "from_port": [
+                                            22
+                                        ],
+                                        "protocol": [
+                                            "tcp"
+                                        ],
+                                        "to_port": [
+                                            22
+                                        ]
+                                    }
+                                ],
+                                "name": [
+                                    "pilot-admin-009"
+                                ],
+                                "__address__": "aws_security_group.admin_009",
+                                "__provider_address__": "aws.default"
+                            }
+                        }
+                    },
+                    "evaluated_keys": [
+                        "networking",
+                        "resource_type"
+                    ]
+                },
+                "code_block": [
+                    [
+                        85,
+                        "resource \"aws_security_group\" \"admin_009\" {\n"
+                    ],
+                    [
+                        86,
+                        "  name        = \"pilot-admin-009\"\n"
+                    ],
+                    [
+                        87,
+                        "  description = \"Pilot administrative access\"\n"
+                    ],
+                    [
+                        88,
+                        "\n"
+                    ],
+                    [
+                        89,
+                        "  ingress {\n"
+                    ],
+                    [
+                        90,
+                        "    from_port   = 22\n"
+                    ],
+                    [
+                        91,
+                        "    to_port     = 22\n"
+                    ],
+                    [
+                        92,
+                        "    protocol    = \"tcp\"\n"
+                    ],
+                    [
+                        93,
+                        "    cidr_blocks = [\"0.0.0.0/0\"]\n"
+                    ],
+                    [
+                        94,
+                        "  }\n"
+                    ],
+                    [
+                        95,
+                        "}\n"
+                    ]
+                ],
+                "file_path": "/main.tf",
+                "file_abs_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                "repo_file_path": "/scenarios/scenario_009/main.tf",
+                "file_line_range": [
+                    85,
+                    95
+                ],
+                "resource": "aws_security_group.admin_009",
+                "evaluations": null,
+                "check_class": "checkov.common.graph.checks_infra.base_check",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/ensure-that-security-groups-are-attached-to-ec2-instances-or-elastic-network-interfaces-enis",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf"
+            },
+            {
+                "check_id": "CKV_AWS_18",
+                "bc_check_id": "BC_AWS_S3_13",
+                "check_name": "Ensure the S3 bucket has access logging enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "entity": {
+                        "aws_s3_bucket": {
+                            "public_data_009": {
+                                "__end_line__": 22,
+                                "__start_line__": 20,
+                                "bucket": [
+                                    "pilot-public-data-009"
+                                ],
+                                "__address__": "aws_s3_bucket.public_data_009",
+                                "__provider_address__": "aws.default"
+                            }
+                        }
+                    },
+                    "evaluated_keys": [
+                        "logging",
+                        "resource_type"
+                    ]
+                },
+                "code_block": [
+                    [
+                        20,
+                        "resource \"aws_s3_bucket\" \"public_data_009\" {\n"
+                    ],
+                    [
+                        21,
+                        "  bucket = \"pilot-public-data-009\"\n"
+                    ],
+                    [
+                        22,
+                        "}\n"
+                    ]
+                ],
+                "file_path": "/main.tf",
+                "file_abs_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                "repo_file_path": "/scenarios/scenario_009/main.tf",
+                "file_line_range": [
+                    20,
+                    22
+                ],
+                "resource": "aws_s3_bucket.public_data_009",
+                "evaluations": null,
+                "check_class": "checkov.common.graph.checks_infra.base_check",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/s3-policies/s3-13-enable-logging",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf"
+            },
+            {
+                "check_id": "CKV2_AWS_61",
+                "bc_check_id": "BC_AWS_LOGGING_35",
+                "check_name": "Ensure that an S3 bucket has a lifecycle configuration",
+                "check_result": {
+                    "result": "FAILED",
+                    "entity": {
+                        "aws_s3_bucket": {
+                            "public_data_009": {
+                                "__end_line__": 22,
+                                "__start_line__": 20,
+                                "bucket": [
+                                    "pilot-public-data-009"
+                                ],
+                                "__address__": "aws_s3_bucket.public_data_009",
+                                "__provider_address__": "aws.default"
+                            }
+                        }
+                    },
+                    "evaluated_keys": [
+                        "lifecycle_rule",
+                        "resource_type"
+                    ]
+                },
+                "code_block": [
+                    [
+                        20,
+                        "resource \"aws_s3_bucket\" \"public_data_009\" {\n"
+                    ],
+                    [
+                        21,
+                        "  bucket = \"pilot-public-data-009\"\n"
+                    ],
+                    [
+                        22,
+                        "}\n"
+                    ]
+                ],
+                "file_path": "/main.tf",
+                "file_abs_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                "repo_file_path": "/scenarios/scenario_009/main.tf",
+                "file_line_range": [
+                    20,
+                    22
+                ],
+                "resource": "aws_s3_bucket.public_data_009",
+                "evaluations": null,
+                "check_class": "checkov.common.graph.checks_infra.base_check",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/bc-aws-2-61",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf"
+            },
+            {
+                "check_id": "CKV2_AWS_62",
+                "bc_check_id": "BC_AWS_LOGGING_36",
+                "check_name": "Ensure S3 buckets should have event notifications enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "entity": {
+                        "aws_s3_bucket": {
+                            "public_data_009": {
+                                "__end_line__": 22,
+                                "__start_line__": 20,
+                                "bucket": [
+                                    "pilot-public-data-009"
+                                ],
+                                "__address__": "aws_s3_bucket.public_data_009",
+                                "__provider_address__": "aws.default"
+                            }
+                        }
+                    },
+                    "evaluated_keys": [
+                        "resource_type"
+                    ]
+                },
+                "code_block": [
+                    [
+                        20,
+                        "resource \"aws_s3_bucket\" \"public_data_009\" {\n"
+                    ],
+                    [
+                        21,
+                        "  bucket = \"pilot-public-data-009\"\n"
+                    ],
+                    [
+                        22,
+                        "}\n"
+                    ]
+                ],
+                "file_path": "/main.tf",
+                "file_abs_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                "repo_file_path": "/scenarios/scenario_009/main.tf",
+                "file_line_range": [
+                    20,
+                    22
+                ],
+                "resource": "aws_s3_bucket.public_data_009",
+                "evaluations": null,
+                "check_class": "checkov.common.graph.checks_infra.base_check",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/bc-aws-2-62",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf"
+            },
+            {
+                "check_id": "CKV2_AWS_6",
+                "bc_check_id": "BC_AWS_NETWORKING_52",
+                "check_name": "Ensure that S3 bucket has a Public Access block",
+                "check_result": {
+                    "result": "FAILED",
+                    "entity": {
+                        "aws_s3_bucket": {
+                            "public_data_009": {
+                                "__end_line__": 22,
+                                "__start_line__": 20,
+                                "bucket": [
+                                    "pilot-public-data-009"
+                                ],
+                                "__address__": "aws_s3_bucket.public_data_009",
+                                "__provider_address__": "aws.default"
+                            }
+                        }
+                    },
+                    "evaluated_keys": [
+                        "block_public_acls",
+                        "block_public_policy",
+                        "resource_type"
+                    ]
+                },
+                "code_block": [
+                    [
+                        20,
+                        "resource \"aws_s3_bucket\" \"public_data_009\" {\n"
+                    ],
+                    [
+                        21,
+                        "  bucket = \"pilot-public-data-009\"\n"
+                    ],
+                    [
+                        22,
+                        "}\n"
+                    ]
+                ],
+                "file_path": "/main.tf",
+                "file_abs_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                "repo_file_path": "/scenarios/scenario_009/main.tf",
+                "file_line_range": [
+                    20,
+                    22
+                ],
+                "resource": "aws_s3_bucket.public_data_009",
+                "evaluations": null,
+                "check_class": "checkov.common.graph.checks_infra.base_check",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": {
+                    "code_block": [
+                        [
+                            24,
+                            "resource \"aws_s3_bucket_public_access_block\" \"public_data_009\" {\n"
+                        ],
+                        [
+                            25,
+                            "  bucket = aws_s3_bucket.public_data_009.id\n"
+                        ],
+                        [
+                            26,
+                            "\n"
+                        ],
+                        [
+                            27,
+                            "  block_public_acls       = false\n"
+                        ],
+                        [
+                            28,
+                            "  block_public_policy     = false\n"
+                        ],
+                        [
+                            29,
+                            "  ignore_public_acls      = false\n"
+                        ],
+                        [
+                            30,
+                            "  restrict_public_buckets = false\n"
+                        ],
+                        [
+                            31,
+                            "}\n"
+                        ]
+                    ],
+                    "file_path": "/main.tf",
+                    "file_line_range": [
+                        24,
+                        31
+                    ],
+                    "resource": "aws_s3_bucket_public_access_block.public_data_009",
+                    "entity_tags": {},
+                    "evaluations": null,
+                    "file_abs_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                    "resource_address": null
+                },
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/s3-bucket-should-have-public-access-blocks-defaults-to-false-if-the-public-access-block-is-not-attached",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf"
+            },
+            {
+                "check_id": "CKV_AWS_21",
+                "bc_check_id": "BC_AWS_S3_16",
+                "check_name": "Ensure all data stored in the S3 bucket have versioning enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "entity": {
+                        "aws_s3_bucket": {
+                            "public_data_009": {
+                                "__end_line__": 22,
+                                "__start_line__": 20,
+                                "bucket": [
+                                    "pilot-public-data-009"
+                                ],
+                                "__address__": "aws_s3_bucket.public_data_009",
+                                "__provider_address__": "aws.default"
+                            }
+                        }
+                    },
+                    "evaluated_keys": [
+                        "versioning_configuration/status",
+                        "versioning/enabled",
+                        "resource_type"
+                    ]
+                },
+                "code_block": [
+                    [
+                        20,
+                        "resource \"aws_s3_bucket\" \"public_data_009\" {\n"
+                    ],
+                    [
+                        21,
+                        "  bucket = \"pilot-public-data-009\"\n"
+                    ],
+                    [
+                        22,
+                        "}\n"
+                    ]
+                ],
+                "file_path": "/main.tf",
+                "file_abs_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                "repo_file_path": "/scenarios/scenario_009/main.tf",
+                "file_line_range": [
+                    20,
+                    22
+                ],
+                "resource": "aws_s3_bucket.public_data_009",
+                "evaluations": null,
+                "check_class": "checkov.common.graph.checks_infra.base_check",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/s3-policies/s3-16-enable-versioning",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf"
+            },
+            {
+                "check_id": "CKV_AWS_145",
+                "bc_check_id": "BC_AWS_GENERAL_56",
+                "check_name": "Ensure that S3 buckets are encrypted with KMS by default",
+                "check_result": {
+                    "result": "FAILED",
+                    "entity": {
+                        "aws_s3_bucket": {
+                            "public_data_009": {
+                                "__end_line__": 22,
+                                "__start_line__": 20,
+                                "bucket": [
+                                    "pilot-public-data-009"
+                                ],
+                                "__address__": "aws_s3_bucket.public_data_009",
+                                "__provider_address__": "aws.default"
+                            }
+                        }
+                    },
+                    "evaluated_keys": [
+                        "resource_type",
+                        "rule/apply_server_side_encryption_by_default/sse_algorithm",
+                        "server_side_encryption_configuration/rule/apply_server_side_encryption_by_default/sse_algorithm"
+                    ]
+                },
+                "code_block": [
+                    [
+                        20,
+                        "resource \"aws_s3_bucket\" \"public_data_009\" {\n"
+                    ],
+                    [
+                        21,
+                        "  bucket = \"pilot-public-data-009\"\n"
+                    ],
+                    [
+                        22,
+                        "}\n"
+                    ]
+                ],
+                "file_path": "/main.tf",
+                "file_abs_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                "repo_file_path": "/scenarios/scenario_009/main.tf",
+                "file_line_range": [
+                    20,
+                    22
+                ],
+                "resource": "aws_s3_bucket.public_data_009",
+                "evaluations": null,
+                "check_class": "checkov.common.graph.checks_infra.base_check",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-s3-buckets-are-encrypted-with-kms-by-default",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf"
+            },
+            {
+                "check_id": "CKV_AWS_144",
+                "bc_check_id": "BC_AWS_GENERAL_72",
+                "check_name": "Ensure that S3 bucket has cross-region replication enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "entity": {
+                        "aws_s3_bucket": {
+                            "public_data_009": {
+                                "__end_line__": 22,
+                                "__start_line__": 20,
+                                "bucket": [
+                                    "pilot-public-data-009"
+                                ],
+                                "__address__": "aws_s3_bucket.public_data_009",
+                                "__provider_address__": "aws.default"
+                            }
+                        }
+                    },
+                    "evaluated_keys": [
+                        "rule/*/status",
+                        "replication_configuration/rules/*/status",
+                        "resource_type"
+                    ]
+                },
+                "code_block": [
+                    [
+                        20,
+                        "resource \"aws_s3_bucket\" \"public_data_009\" {\n"
+                    ],
+                    [
+                        21,
+                        "  bucket = \"pilot-public-data-009\"\n"
+                    ],
+                    [
+                        22,
+                        "}\n"
+                    ]
+                ],
+                "file_path": "/main.tf",
+                "file_abs_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf",
+                "repo_file_path": "/scenarios/scenario_009/main.tf",
+                "file_line_range": [
+                    20,
+                    22
+                ],
+                "resource": "aws_s3_bucket.public_data_009",
+                "evaluations": null,
+                "check_class": "checkov.common.graph.checks_infra.base_check",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-s3-bucket-has-cross-region-replication-enabled",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_009/main.tf"
+            }
+        ],
+        "skipped_checks": [],
+        "parsing_errors": []
+    },
+    "summary": {
+        "passed": 17,
+        "failed": 20,
+        "skipped": 0,
+        "parsing_errors": 0,
+        "resource_count": 6,
+        "checkov_version": "3.3.17"
+    },
+    "url": "Add an api key '--bc-api-key <api-key>' to see more detailed insights via https://bridgecrew.cloud"
+}

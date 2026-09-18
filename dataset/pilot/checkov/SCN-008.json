@@ -1,0 +1,658 @@
+{
+    "check_type": "terraform",
+    "results": {
+        "passed_checks": [
+            {
+                "check_id": "CKV_AWS_25",
+                "bc_check_id": "BC_AWS_NETWORKING_2",
+                "check_name": "Ensure no security groups allow ingress from 0.0.0.0:0 to port 3389",
+                "check_result": {
+                    "result": "PASSED",
+                    "evaluated_keys": []
+                },
+                "code_block": [
+                    [
+                        15,
+                        "resource \"aws_security_group\" \"admin_008\" {\n"
+                    ],
+                    [
+                        16,
+                        "  name        = \"pilot-admin-008\"\n"
+                    ],
+                    [
+                        17,
+                        "  description = \"Pilot administrative access\"\n"
+                    ],
+                    [
+                        18,
+                        "  ingress {\n"
+                    ],
+                    [
+                        19,
+                        "    from_port   = 22\n"
+                    ],
+                    [
+                        20,
+                        "    to_port     = 22\n"
+                    ],
+                    [
+                        21,
+                        "    protocol    = \"tcp\"\n"
+                    ],
+                    [
+                        22,
+                        "    cidr_blocks = [\"0.0.0.0/0\"]\n"
+                    ],
+                    [
+                        23,
+                        "  }\n"
+                    ],
+                    [
+                        24,
+                        "}\n"
+                    ]
+                ],
+                "file_path": "/main.tf",
+                "file_abs_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_008/main.tf",
+                "repo_file_path": "/scenarios/scenario_008/main.tf",
+                "file_line_range": [
+                    15,
+                    24
+                ],
+                "resource": "aws_security_group.admin_008",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupUnrestrictedIngress3389",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/networking-2",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_008/main.tf"
+            },
+            {
+                "check_id": "CKV_AWS_260",
+                "bc_check_id": "BC_AWS_NETWORKING_67",
+                "check_name": "Ensure no security groups allow ingress from 0.0.0.0:0 to port 80",
+                "check_result": {
+                    "result": "PASSED",
+                    "evaluated_keys": []
+                },
+                "code_block": [
+                    [
+                        15,
+                        "resource \"aws_security_group\" \"admin_008\" {\n"
+                    ],
+                    [
+                        16,
+                        "  name        = \"pilot-admin-008\"\n"
+                    ],
+                    [
+                        17,
+                        "  description = \"Pilot administrative access\"\n"
+                    ],
+                    [
+                        18,
+                        "  ingress {\n"
+                    ],
+                    [
+                        19,
+                        "    from_port   = 22\n"
+                    ],
+                    [
+                        20,
+                        "    to_port     = 22\n"
+                    ],
+                    [
+                        21,
+                        "    protocol    = \"tcp\"\n"
+                    ],
+                    [
+                        22,
+                        "    cidr_blocks = [\"0.0.0.0/0\"]\n"
+                    ],
+                    [
+                        23,
+                        "  }\n"
+                    ],
+                    [
+                        24,
+                        "}\n"
+                    ]
+                ],
+                "file_path": "/main.tf",
+                "file_abs_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_008/main.tf",
+                "repo_file_path": "/scenarios/scenario_008/main.tf",
+                "file_line_range": [
+                    15,
+                    24
+                ],
+                "resource": "aws_security_group.admin_008",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupUnrestrictedIngress80",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/ensure-aws-security-groups-do-not-allow-ingress-from-00000-to-port-80",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_008/main.tf"
+            },
+            {
+                "check_id": "CKV_AWS_382",
+                "bc_check_id": "BC_AWS_IAM_93",
+                "check_name": "Ensure no security groups allow egress from 0.0.0.0:0 to port -1",
+                "check_result": {
+                    "result": "PASSED",
+                    "evaluated_keys": [
+                        "from_port",
+                        "to_port",
+                        "cidr_ipv4",
+                        "cidr_ipv6"
+                    ]
+                },
+                "code_block": [
+                    [
+                        15,
+                        "resource \"aws_security_group\" \"admin_008\" {\n"
+                    ],
+                    [
+                        16,
+                        "  name        = \"pilot-admin-008\"\n"
+                    ],
+                    [
+                        17,
+                        "  description = \"Pilot administrative access\"\n"
+                    ],
+                    [
+                        18,
+                        "  ingress {\n"
+                    ],
+                    [
+                        19,
+                        "    from_port   = 22\n"
+                    ],
+                    [
+                        20,
+                        "    to_port     = 22\n"
+                    ],
+                    [
+                        21,
+                        "    protocol    = \"tcp\"\n"
+                    ],
+                    [
+                        22,
+                        "    cidr_blocks = [\"0.0.0.0/0\"]\n"
+                    ],
+                    [
+                        23,
+                        "  }\n"
+                    ],
+                    [
+                        24,
+                        "}\n"
+                    ]
+                ],
+                "file_path": "/main.tf",
+                "file_abs_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_008/main.tf",
+                "repo_file_path": "/scenarios/scenario_008/main.tf",
+                "file_line_range": [
+                    15,
+                    24
+                ],
+                "resource": "aws_security_group.admin_008",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupUnrestrictedEgressAny",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/bc-aws-382",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_008/main.tf"
+            },
+            {
+                "check_id": "CKV_AWS_277",
+                "bc_check_id": "BC_AWS_NETWORKING_78",
+                "check_name": "Ensure no security groups allow ingress from 0.0.0.0:0 to port -1",
+                "check_result": {
+                    "result": "PASSED",
+                    "evaluated_keys": []
+                },
+                "code_block": [
+                    [
+                        15,
+                        "resource \"aws_security_group\" \"admin_008\" {\n"
+                    ],
+                    [
+                        16,
+                        "  name        = \"pilot-admin-008\"\n"
+                    ],
+                    [
+                        17,
+                        "  description = \"Pilot administrative access\"\n"
+                    ],
+                    [
+                        18,
+                        "  ingress {\n"
+                    ],
+                    [
+                        19,
+                        "    from_port   = 22\n"
+                    ],
+                    [
+                        20,
+                        "    to_port     = 22\n"
+                    ],
+                    [
+                        21,
+                        "    protocol    = \"tcp\"\n"
+                    ],
+                    [
+                        22,
+                        "    cidr_blocks = [\"0.0.0.0/0\"]\n"
+                    ],
+                    [
+                        23,
+                        "  }\n"
+                    ],
+                    [
+                        24,
+                        "}\n"
+                    ]
+                ],
+                "file_path": "/main.tf",
+                "file_abs_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_008/main.tf",
+                "repo_file_path": "/scenarios/scenario_008/main.tf",
+                "file_line_range": [
+                    15,
+                    24
+                ],
+                "resource": "aws_security_group.admin_008",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupUnrestrictedIngressAny",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/ensure-aws-security-group-does-not-allow-all-traffic-on-all-ports",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_008/main.tf"
+            },
+            {
+                "check_id": "CKV_AWS_41",
+                "bc_check_id": "BC_AWS_SECRETS_5",
+                "check_name": "Ensure no hard coded AWS access key and secret key exists in provider",
+                "check_result": {
+                    "result": "PASSED",
+                    "evaluated_keys": []
+                },
+                "code_block": [
+                    [
+                        11,
+                        "provider \"aws\" {\n"
+                    ],
+                    [
+                        12,
+                        "  region = \"us-east-1\"\n"
+                    ],
+                    [
+                        13,
+                        "}\n"
+                    ]
+                ],
+                "file_path": "/main.tf",
+                "file_abs_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_008/main.tf",
+                "repo_file_path": "/scenarios/scenario_008/main.tf",
+                "file_line_range": [
+                    11,
+                    13
+                ],
+                "resource": "aws.default",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.provider.aws.credentials",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/secrets-policies/bc-aws-secrets-5",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_008/main.tf"
+            }
+        ],
+        "failed_checks": [
+            {
+                "check_id": "CKV_AWS_23",
+                "bc_check_id": "BC_AWS_NETWORKING_31",
+                "check_name": "Ensure every security group and rule has a description",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "description",
+                        "ingress/[0]"
+                    ]
+                },
+                "code_block": [
+                    [
+                        15,
+                        "resource \"aws_security_group\" \"admin_008\" {\n"
+                    ],
+                    [
+                        16,
+                        "  name        = \"pilot-admin-008\"\n"
+                    ],
+                    [
+                        17,
+                        "  description = \"Pilot administrative access\"\n"
+                    ],
+                    [
+                        18,
+                        "  ingress {\n"
+                    ],
+                    [
+                        19,
+                        "    from_port   = 22\n"
+                    ],
+                    [
+                        20,
+                        "    to_port     = 22\n"
+                    ],
+                    [
+                        21,
+                        "    protocol    = \"tcp\"\n"
+                    ],
+                    [
+                        22,
+                        "    cidr_blocks = [\"0.0.0.0/0\"]\n"
+                    ],
+                    [
+                        23,
+                        "  }\n"
+                    ],
+                    [
+                        24,
+                        "}\n"
+                    ]
+                ],
+                "file_path": "/main.tf",
+                "file_abs_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_008/main.tf",
+                "repo_file_path": "/scenarios/scenario_008/main.tf",
+                "file_line_range": [
+                    15,
+                    24
+                ],
+                "resource": "aws_security_group.admin_008",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupRuleDescription",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/networking-31",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_008/main.tf"
+            },
+            {
+                "check_id": "CKV_AWS_24",
+                "bc_check_id": "BC_AWS_NETWORKING_1",
+                "check_name": "Ensure no security groups allow ingress from 0.0.0.0:0 to port 22",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "ingress/[0]/from_port",
+                        "ingress/[0]/to_port",
+                        "ingress/[0]/cidr_blocks",
+                        "ingress/[0]/ipv6_cidr_blocks"
+                    ]
+                },
+                "code_block": [
+                    [
+                        15,
+                        "resource \"aws_security_group\" \"admin_008\" {\n"
+                    ],
+                    [
+                        16,
+                        "  name        = \"pilot-admin-008\"\n"
+                    ],
+                    [
+                        17,
+                        "  description = \"Pilot administrative access\"\n"
+                    ],
+                    [
+                        18,
+                        "  ingress {\n"
+                    ],
+                    [
+                        19,
+                        "    from_port   = 22\n"
+                    ],
+                    [
+                        20,
+                        "    to_port     = 22\n"
+                    ],
+                    [
+                        21,
+                        "    protocol    = \"tcp\"\n"
+                    ],
+                    [
+                        22,
+                        "    cidr_blocks = [\"0.0.0.0/0\"]\n"
+                    ],
+                    [
+                        23,
+                        "  }\n"
+                    ],
+                    [
+                        24,
+                        "}\n"
+                    ]
+                ],
+                "file_path": "/main.tf",
+                "file_abs_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_008/main.tf",
+                "repo_file_path": "/scenarios/scenario_008/main.tf",
+                "file_line_range": [
+                    15,
+                    24
+                ],
+                "resource": "aws_security_group.admin_008",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupUnrestrictedIngress22",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/networking-1-port-security",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_008/main.tf"
+            },
+            {
+                "check_id": "CKV2_AWS_5",
+                "bc_check_id": "BC_AWS_NETWORKING_51",
+                "check_name": "Ensure that Security Groups are attached to another resource",
+                "check_result": {
+                    "result": "FAILED",
+                    "entity": {
+                        "aws_security_group": {
+                            "admin_008": {
+                                "__end_line__": 24,
+                                "__start_line__": 15,
+                                "description": [
+                                    "Pilot administrative access"
+                                ],
+                                "ingress": [
+                                    {
+                                        "cidr_blocks": [
+                                            [
+                                                "0.0.0.0/0"
+                                            ]
+                                        ],
+                                        "from_port": [
+                                            22
+                                        ],
+                                        "protocol": [
+                                            "tcp"
+                                        ],
+                                        "to_port": [
+                                            22
+                                        ]
+                                    }
+                                ],
+                                "name": [
+                                    "pilot-admin-008"
+                                ],
+                                "__address__": "aws_security_group.admin_008",
+                                "__provider_address__": "aws.default"
+                            }
+                        }
+                    },
+                    "evaluated_keys": [
+                        "networking",
+                        "resource_type"
+                    ]
+                },
+                "code_block": [
+                    [
+                        15,
+                        "resource \"aws_security_group\" \"admin_008\" {\n"
+                    ],
+                    [
+                        16,
+                        "  name        = \"pilot-admin-008\"\n"
+                    ],
+                    [
+                        17,
+                        "  description = \"Pilot administrative access\"\n"
+                    ],
+                    [
+                        18,
+                        "  ingress {\n"
+                    ],
+                    [
+                        19,
+                        "    from_port   = 22\n"
+                    ],
+                    [
+                        20,
+                        "    to_port     = 22\n"
+                    ],
+                    [
+                        21,
+                        "    protocol    = \"tcp\"\n"
+                    ],
+                    [
+                        22,
+                        "    cidr_blocks = [\"0.0.0.0/0\"]\n"
+                    ],
+                    [
+                        23,
+                        "  }\n"
+                    ],
+                    [
+                        24,
+                        "}\n"
+                    ]
+                ],
+                "file_path": "/main.tf",
+                "file_abs_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_008/main.tf",
+                "repo_file_path": "/scenarios/scenario_008/main.tf",
+                "file_line_range": [
+                    15,
+                    24
+                ],
+                "resource": "aws_security_group.admin_008",
+                "evaluations": null,
+                "check_class": "checkov.common.graph.checks_infra.base_check",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/ensure-that-security-groups-are-attached-to-ec2-instances-or-elastic-network-interfaces-enis",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/home/phanquan277/projects/context-aware-iac-security-gate/scenarios/scenario_008/main.tf"
+            }
+        ],
+        "skipped_checks": [],
+        "parsing_errors": []
+    },
+    "summary": {
+        "passed": 5,
+        "failed": 3,
+        "skipped": 0,
+        "parsing_errors": 0,
+        "resource_count": 1,
+        "checkov_version": "3.3.17"
+    },
+    "url": "Add an api key '--bc-api-key <api-key>' to see more detailed insights via https://bridgecrew.cloud"
+}

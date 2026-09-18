@@ -1,0 +1,422 @@
+{
+  "schema_version": "pilot-v1",
+  "scenario_id": "SCN-001",
+  "source": {
+    "tool": "Checkov",
+    "version": "3.3.17",
+    "check_type": "terraform",
+    "input_file": "dataset/pilot/checkov/SCN-001.json"
+  },
+  "summary": {
+    "raw_failed_checks": 20,
+    "raw_passed_checks": 9,
+    "raw_skipped_checks": 0,
+    "raw_parsing_errors": 0,
+    "normalized_findings": 20
+  },
+  "findings": [
+    {
+      "finding_id": "SCN-001:1e6c066e95a683c2",
+      "scenario_id": "SCN-001",
+      "check_id": "CKV_AWS_23",
+      "bc_check_id": "BC_AWS_NETWORKING_31",
+      "check_name": "Ensure every security group and rule has a description",
+      "resource": "aws_security_group.web_001",
+      "repo_file_path": "/scenarios/scenario_001/main.tf",
+      "file_line_range": [
+        21,
+        31
+      ],
+      "severity": null,
+      "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/networking-31",
+      "check_result": "FAILED",
+      "evaluated_keys": [
+        "description",
+        "ingress/[0]"
+      ]
+    },
+    {
+      "finding_id": "SCN-001:b78306988c2d3a7b",
+      "scenario_id": "SCN-001",
+      "check_id": "CKV_AWS_24",
+      "bc_check_id": "BC_AWS_NETWORKING_1",
+      "check_name": "Ensure no security groups allow ingress from 0.0.0.0:0 to port 22",
+      "resource": "aws_security_group.web_001",
+      "repo_file_path": "/scenarios/scenario_001/main.tf",
+      "file_line_range": [
+        21,
+        31
+      ],
+      "severity": null,
+      "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/networking-1-port-security",
+      "check_result": "FAILED",
+      "evaluated_keys": [
+        "ingress/[0]/from_port",
+        "ingress/[0]/to_port",
+        "ingress/[0]/cidr_blocks",
+        "ingress/[0]/ipv6_cidr_blocks"
+      ]
+    },
+    {
+      "finding_id": "SCN-001:2eadc8e13eb3f3b9",
+      "scenario_id": "SCN-001",
+      "check_id": "CKV_AWS_63",
+      "bc_check_id": "BC_AWS_IAM_48",
+      "check_name": "Ensure no IAM policies documents allow \"*\" as a statement's actions",
+      "resource": "aws_iam_policy.access_001",
+      "repo_file_path": "/scenarios/scenario_001/main.tf",
+      "file_line_range": [
+        33,
+        45
+      ],
+      "severity": null,
+      "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/iam-48",
+      "check_result": "FAILED",
+      "evaluated_keys": [
+        "policy",
+        "inline_policy"
+      ]
+    },
+    {
+      "finding_id": "SCN-001:1cb428cbcc00f09d",
+      "scenario_id": "SCN-001",
+      "check_id": "CKV_AWS_290",
+      "bc_check_id": "BC_AWS_IAM_85",
+      "check_name": "Ensure IAM policies does not allow write access without constraints",
+      "resource": "aws_iam_policy.access_001",
+      "repo_file_path": "/scenarios/scenario_001/main.tf",
+      "file_line_range": [
+        33,
+        45
+      ],
+      "severity": null,
+      "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-290",
+      "check_result": "FAILED",
+      "evaluated_keys": [
+        "policy/Statement/[0]/Action"
+      ]
+    },
+    {
+      "finding_id": "SCN-001:e4be459635bda0ea",
+      "scenario_id": "SCN-001",
+      "check_id": "CKV_AWS_288",
+      "bc_check_id": "BC_AWS_IAM_83",
+      "check_name": "Ensure IAM policies does not allow data exfiltration",
+      "resource": "aws_iam_policy.access_001",
+      "repo_file_path": "/scenarios/scenario_001/main.tf",
+      "file_line_range": [
+        33,
+        45
+      ],
+      "severity": null,
+      "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-288",
+      "check_result": "FAILED",
+      "evaluated_keys": [
+        "policy/Statement/[0]/Action"
+      ]
+    },
+    {
+      "finding_id": "SCN-001:43ededf0b7e342df",
+      "scenario_id": "SCN-001",
+      "check_id": "CKV_AWS_355",
+      "bc_check_id": "BC_AWS_IAM_88",
+      "check_name": "Ensure no IAM policies documents allow \"*\" as a statement's resource for restrictable actions",
+      "resource": "aws_iam_policy.access_001",
+      "repo_file_path": "/scenarios/scenario_001/main.tf",
+      "file_line_range": [
+        33,
+        45
+      ],
+      "severity": null,
+      "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-355",
+      "check_result": "FAILED",
+      "evaluated_keys": [
+        "policy/Statement/[0]/Action"
+      ]
+    },
+    {
+      "finding_id": "SCN-001:695b3031076dd18b",
+      "scenario_id": "SCN-001",
+      "check_id": "CKV_AWS_287",
+      "bc_check_id": "BC_AWS_IAM_82",
+      "check_name": "Ensure IAM policies does not allow credentials exposure",
+      "resource": "aws_iam_policy.access_001",
+      "repo_file_path": "/scenarios/scenario_001/main.tf",
+      "file_line_range": [
+        33,
+        45
+      ],
+      "severity": null,
+      "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-287",
+      "check_result": "FAILED",
+      "evaluated_keys": [
+        "policy/Statement/[0]/Action"
+      ]
+    },
+    {
+      "finding_id": "SCN-001:27f3c65a9c2074b5",
+      "scenario_id": "SCN-001",
+      "check_id": "CKV_AWS_289",
+      "bc_check_id": "BC_AWS_IAM_84",
+      "check_name": "Ensure IAM policies does not allow permissions management / resource exposure without constraints",
+      "resource": "aws_iam_policy.access_001",
+      "repo_file_path": "/scenarios/scenario_001/main.tf",
+      "file_line_range": [
+        33,
+        45
+      ],
+      "severity": null,
+      "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-289",
+      "check_result": "FAILED",
+      "evaluated_keys": [
+        "policy/Statement/[0]/Action"
+      ]
+    },
+    {
+      "finding_id": "SCN-001:db435ccf0d132160",
+      "scenario_id": "SCN-001",
+      "check_id": "CKV_AWS_286",
+      "bc_check_id": "BC_AWS_IAM_81",
+      "check_name": "Ensure IAM policies does not allow privilege escalation",
+      "resource": "aws_iam_policy.access_001",
+      "repo_file_path": "/scenarios/scenario_001/main.tf",
+      "file_line_range": [
+        33,
+        45
+      ],
+      "severity": null,
+      "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-286",
+      "check_result": "FAILED",
+      "evaluated_keys": [
+        "policy/Statement/[0]/Action"
+      ]
+    },
+    {
+      "finding_id": "SCN-001:3d6988a40c84ad29",
+      "scenario_id": "SCN-001",
+      "check_id": "CKV_AWS_62",
+      "bc_check_id": "BC_AWS_IAM_47",
+      "check_name": "Ensure IAM policies that allow full \"*-*\" administrative privileges are not created",
+      "resource": "aws_iam_policy.access_001",
+      "repo_file_path": "/scenarios/scenario_001/main.tf",
+      "file_line_range": [
+        33,
+        45
+      ],
+      "severity": null,
+      "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-iam-45",
+      "check_result": "FAILED",
+      "evaluated_keys": [
+        "policy",
+        "inline_policy"
+      ]
+    },
+    {
+      "finding_id": "SCN-001:940a0f69f0a70822",
+      "scenario_id": "SCN-001",
+      "check_id": "CKV2_AWS_5",
+      "bc_check_id": "BC_AWS_NETWORKING_51",
+      "check_name": "Ensure that Security Groups are attached to another resource",
+      "resource": "aws_security_group.web_001",
+      "repo_file_path": "/scenarios/scenario_001/main.tf",
+      "file_line_range": [
+        21,
+        31
+      ],
+      "severity": null,
+      "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/ensure-that-security-groups-are-attached-to-ec2-instances-or-elastic-network-interfaces-enis",
+      "check_result": "FAILED",
+      "evaluated_keys": [
+        "networking",
+        "resource_type"
+      ]
+    },
+    {
+      "finding_id": "SCN-001:cb0eb8b36b171da3",
+      "scenario_id": "SCN-001",
+      "check_id": "CKV2_AWS_6",
+      "bc_check_id": "BC_AWS_NETWORKING_52",
+      "check_name": "Ensure that S3 bucket has a Public Access block",
+      "resource": "aws_s3_bucket.data_001",
+      "repo_file_path": "/scenarios/scenario_001/main.tf",
+      "file_line_range": [
+        12,
+        14
+      ],
+      "severity": null,
+      "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/s3-bucket-should-have-public-access-blocks-defaults-to-false-if-the-public-access-block-is-not-attached",
+      "check_result": "FAILED",
+      "evaluated_keys": [
+        "block_public_policy",
+        "block_public_acls",
+        "resource_type"
+      ]
+    },
+    {
+      "finding_id": "SCN-001:cd3124172b23cec0",
+      "scenario_id": "SCN-001",
+      "check_id": "CKV_AWS_18",
+      "bc_check_id": "BC_AWS_S3_13",
+      "check_name": "Ensure the S3 bucket has access logging enabled",
+      "resource": "aws_s3_bucket.data_001",
+      "repo_file_path": "/scenarios/scenario_001/main.tf",
+      "file_line_range": [
+        12,
+        14
+      ],
+      "severity": null,
+      "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/s3-policies/s3-13-enable-logging",
+      "check_result": "FAILED",
+      "evaluated_keys": [
+        "resource_type",
+        "logging"
+      ]
+    },
+    {
+      "finding_id": "SCN-001:3980c7b6cb73b7bb",
+      "scenario_id": "SCN-001",
+      "check_id": "CKV2_AWS_61",
+      "bc_check_id": "BC_AWS_LOGGING_35",
+      "check_name": "Ensure that an S3 bucket has a lifecycle configuration",
+      "resource": "aws_s3_bucket.data_001",
+      "repo_file_path": "/scenarios/scenario_001/main.tf",
+      "file_line_range": [
+        12,
+        14
+      ],
+      "severity": null,
+      "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/bc-aws-2-61",
+      "check_result": "FAILED",
+      "evaluated_keys": [
+        "lifecycle_rule",
+        "resource_type"
+      ]
+    },
+    {
+      "finding_id": "SCN-001:112545ccf8ecbeb1",
+      "scenario_id": "SCN-001",
+      "check_id": "CKV_AWS_20",
+      "bc_check_id": "BC_AWS_S3_1",
+      "check_name": "S3 Bucket has an ACL defined which allows public READ access.",
+      "resource": "aws_s3_bucket.data_001",
+      "repo_file_path": "/scenarios/scenario_001/main.tf",
+      "file_line_range": [
+        12,
+        14
+      ],
+      "severity": null,
+      "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/s3-policies/s3-1-acl-read-permissions-everyone",
+      "check_result": "FAILED",
+      "evaluated_keys": [
+        "access_control_policy/grant/*/grantee/uri",
+        "resource_type",
+        "access_control_policy/grant",
+        "acl",
+        "access_control_policy"
+      ]
+    },
+    {
+      "finding_id": "SCN-001:c086602b4cab8f36",
+      "scenario_id": "SCN-001",
+      "check_id": "CKV2_AWS_62",
+      "bc_check_id": "BC_AWS_LOGGING_36",
+      "check_name": "Ensure S3 buckets should have event notifications enabled",
+      "resource": "aws_s3_bucket.data_001",
+      "repo_file_path": "/scenarios/scenario_001/main.tf",
+      "file_line_range": [
+        12,
+        14
+      ],
+      "severity": null,
+      "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/bc-aws-2-62",
+      "check_result": "FAILED",
+      "evaluated_keys": [
+        "resource_type"
+      ]
+    },
+    {
+      "finding_id": "SCN-001:5572ed1f0a9e9ac8",
+      "scenario_id": "SCN-001",
+      "check_id": "CKV_AWS_21",
+      "bc_check_id": "BC_AWS_S3_16",
+      "check_name": "Ensure all data stored in the S3 bucket have versioning enabled",
+      "resource": "aws_s3_bucket.data_001",
+      "repo_file_path": "/scenarios/scenario_001/main.tf",
+      "file_line_range": [
+        12,
+        14
+      ],
+      "severity": null,
+      "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/s3-policies/s3-16-enable-versioning",
+      "check_result": "FAILED",
+      "evaluated_keys": [
+        "versioning_configuration/status",
+        "versioning/enabled",
+        "resource_type"
+      ]
+    },
+    {
+      "finding_id": "SCN-001:73e2bedb49516cb6",
+      "scenario_id": "SCN-001",
+      "check_id": "CKV_AWS_145",
+      "bc_check_id": "BC_AWS_GENERAL_56",
+      "check_name": "Ensure that S3 buckets are encrypted with KMS by default",
+      "resource": "aws_s3_bucket.data_001",
+      "repo_file_path": "/scenarios/scenario_001/main.tf",
+      "file_line_range": [
+        12,
+        14
+      ],
+      "severity": null,
+      "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-s3-buckets-are-encrypted-with-kms-by-default",
+      "check_result": "FAILED",
+      "evaluated_keys": [
+        "rule/apply_server_side_encryption_by_default/sse_algorithm",
+        "resource_type",
+        "server_side_encryption_configuration/rule/apply_server_side_encryption_by_default/sse_algorithm"
+      ]
+    },
+    {
+      "finding_id": "SCN-001:d171f085e9396b87",
+      "scenario_id": "SCN-001",
+      "check_id": "CKV_AWS_144",
+      "bc_check_id": "BC_AWS_GENERAL_72",
+      "check_name": "Ensure that S3 bucket has cross-region replication enabled",
+      "resource": "aws_s3_bucket.data_001",
+      "repo_file_path": "/scenarios/scenario_001/main.tf",
+      "file_line_range": [
+        12,
+        14
+      ],
+      "severity": null,
+      "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-s3-bucket-has-cross-region-replication-enabled",
+      "check_result": "FAILED",
+      "evaluated_keys": [
+        "rule/*/status",
+        "replication_configuration/rules/*/status",
+        "resource_type"
+      ]
+    },
+    {
+      "finding_id": "SCN-001:f656f47b86c647ae",
+      "scenario_id": "SCN-001",
+      "check_id": "CKV2_AWS_40",
+      "bc_check_id": "BC_AWS_IAM_73",
+      "check_name": "Ensure AWS IAM policy does not allow full IAM privileges",
+      "resource": "aws_iam_policy.access_001",
+      "repo_file_path": "/scenarios/scenario_001/main.tf",
+      "file_line_range": [
+        33,
+        45
+      ],
+      "severity": null,
+      "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-2-40",
+      "check_result": "FAILED",
+      "evaluated_keys": [
+        "policy/Statement[?(@/Effect == Allow)]/Action[*]",
+        "inline_policy/Statement[?(@/Effect == Allow)]/Action[*]",
+        "statement[?(@/effect == Allow)]/actions[*]"
+      ]
+    }
+  ]
+}

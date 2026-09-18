@@ -1,0 +1,9 @@
+category_id,category_name,scenario_id,check_id,terraform_evidence,status,notes
+CAT-01,IAM wildcard action,SCN-001,CKV_AWS_63,"Action = ""*"" in aws_iam_policy.access_001",Covered,
+CAT-02,IAM wildcard resource,SCN-001,CKV_AWS_355,"Resource = ""*"" in aws_iam_policy.access_001",Covered,
+CAT-03,Excessive privilege / privilege escalation,SCN-005,CKV_AWS_286,"aws_iam_user_policy with iam:AttachUserPolicy and Resource = ""*""",Covered,
+CAT-04,Public S3,SCN-001,CKV_AWS_20,"aws_s3_bucket_acl with acl = ""public-read""",Covered,
+CAT-05,Public RDS,SCN-003,CKV_AWS_17,"aws_db_instance.database_003 is publicly accessible",Covered,
+CAT-06,Security Group 0.0.0.0/0,SCN-007,CKV_AWS_24,"cidr_blocks = [""0.0.0.0/0""] in aws_security_group.admin_007",Covered,"The same raw finding also supports CAT-07."
+CAT-07,Open administrative port,SCN-007,CKV_AWS_24,"TCP port 22 exposed through cidr_blocks = [""0.0.0.0/0""]",Covered,"The same raw finding also supports CAT-06."
+CAT-08,Missing encryption/logging,SCN-003,"CKV_AWS_16;CKV_AWS_129","RDS encryption at rest and RDS logging are not enabled",Covered,"Two Checkov findings support this combined taxonomy category."

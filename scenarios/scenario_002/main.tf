@@ -9,17 +9,17 @@ terraform {
   }
 }
 
-resource "aws_s3_bucket" "data_001" {
-  bucket = "pilot-s3-context-001"
+resource "aws_s3_bucket" "data_002" {
+  bucket = "pilot-s3-context-002"
 }
 
-resource "aws_s3_bucket_acl" "data_001" {
-  bucket = aws_s3_bucket.data_001.id
+resource "aws_s3_bucket_acl" "data_002" {
+  bucket = aws_s3_bucket.data_002.id
   acl    = "public-read"
 }
 
-resource "aws_security_group" "web_001" {
-  name        = "pilot-web-001"
+resource "aws_security_group" "web_002" {
+  name        = "pilot-web-002"
   description = "Pilot security group"
 
   ingress {
@@ -30,8 +30,8 @@ resource "aws_security_group" "web_001" {
   }
 }
 
-resource "aws_iam_policy" "access_001" {
-  name = "pilot-policy-001"
+resource "aws_iam_policy" "access_002" {
+  name = "pilot-policy-002"
 
   policy = jsonencode({
     Version = "2012-10-17"

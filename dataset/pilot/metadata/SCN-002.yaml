@@ -1,0 +1,9 @@
+scenario_id: SCN-002
+scenario_family: S3-CONTEXT
+source: controlled
+
+environment: prod
+asset_criticality: high
+data_sensitivity: sensitive
+
+terraform_path: scenarios/scenario_002

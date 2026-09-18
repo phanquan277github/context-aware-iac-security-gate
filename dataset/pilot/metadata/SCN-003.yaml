@@ -1,0 +1,4 @@
+scenario_id: SCN-003
+environment: prod
+asset_criticality: critical
+data_sensitivity: sensitive

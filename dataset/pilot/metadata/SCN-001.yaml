@@ -1,0 +1,9 @@
+scenario_id: SCN-001
+scenario_family: S3-CONTEXT
+source: controlled
+
+environment: dev
+asset_criticality: low
+data_sensitivity: public
+
+terraform_path: scenarios/scenario_001

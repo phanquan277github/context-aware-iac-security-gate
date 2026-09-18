@@ -1,0 +1,232 @@
+{
+  "schema_version": "pilot-v1",
+  "scenario_id": "SCN-003",
+  "source": {
+    "tool": "Checkov",
+    "version": "3.3.17",
+    "check_type": "terraform",
+    "input_file": "dataset/pilot/checkov/SCN-003.json"
+  },
+  "summary": {
+    "raw_failed_checks": 11,
+    "raw_passed_checks": 11,
+    "raw_skipped_checks": 0,
+    "raw_parsing_errors": 0,
+    "normalized_findings": 11
+  },
+  "findings": [
+    {
+      "finding_id": "SCN-003:e60f32d25c01002c",
+      "scenario_id": "SCN-003",
+      "check_id": "CKV_AWS_382",
+      "bc_check_id": "BC_AWS_IAM_93",
+      "check_name": "Ensure no security groups allow egress from 0.0.0.0:0 to port -1",
+      "resource": "aws_security_group.db_003",
+      "repo_file_path": "/scenarios/scenario_003/main.tf",
+      "file_line_range": [
+        21,
+        40
+      ],
+      "severity": null,
+      "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/bc-aws-382",
+      "check_result": "FAILED",
+      "evaluated_keys": [
+        "egress/[0]/from_port",
+        "egress/[0]/to_port",
+        "egress/[0]/cidr_blocks",
+        "egress/[0]/ipv6_cidr_blocks"
+      ]
+    },
+    {
+      "finding_id": "SCN-003:d04cddfd96a50917",
+      "scenario_id": "SCN-003",
+      "check_id": "CKV_AWS_17",
+      "bc_check_id": "BC_AWS_PUBLIC_2",
+      "check_name": "Ensure all data stored in RDS is not publicly accessible",
+      "resource": "aws_db_instance.database_003",
+      "repo_file_path": "/scenarios/scenario_003/main.tf",
+      "file_line_range": [
+        42,
+        57
+      ],
+      "severity": null,
+      "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/public-policies/public-2",
+      "check_result": "FAILED",
+      "evaluated_keys": [
+        "publicly_accessible"
+      ]
+    },
+    {
+      "finding_id": "SCN-003:f5e3dd1a170747be",
+      "scenario_id": "SCN-003",
+      "check_id": "CKV_AWS_226",
+      "bc_check_id": "BC_AWS_GENERAL_121",
+      "check_name": "Ensure DB instance gets all minor upgrades automatically",
+      "resource": "aws_db_instance.database_003",
+      "repo_file_path": "/scenarios/scenario_003/main.tf",
+      "file_line_range": [
+        42,
+        57
+      ],
+      "severity": null,
+      "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-aws-db-instance-gets-all-minor-upgrades-automatically",
+      "check_result": "FAILED",
+      "evaluated_keys": [
+        "auto_minor_version_upgrade"
+      ]
+    },
+    {
+      "finding_id": "SCN-003:06dd272dbbb9c3cb",
+      "scenario_id": "SCN-003",
+      "check_id": "CKV_AWS_129",
+      "bc_check_id": "BC_AWS_IAM_60",
+      "check_name": "Ensure that respective logs of Amazon Relational Database Service (Amazon RDS) are enabled",
+      "resource": "aws_db_instance.database_003",
+      "repo_file_path": "/scenarios/scenario_003/main.tf",
+      "file_line_range": [
+        42,
+        57
+      ],
+      "severity": null,
+      "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-that-respective-logs-of-amazon-relational-database-service-amazon-rds-are-enabled",
+      "check_result": "FAILED",
+      "evaluated_keys": [
+        "enabled_cloudwatch_logs_exports/[0]"
+      ]
+    },
+    {
+      "finding_id": "SCN-003:38f4ebe2ef20fe06",
+      "scenario_id": "SCN-003",
+      "check_id": "CKV_AWS_293",
+      "bc_check_id": "BC_AWS_GENERAL_208",
+      "check_name": "Ensure that AWS database instances have deletion protection enabled",
+      "resource": "aws_db_instance.database_003",
+      "repo_file_path": "/scenarios/scenario_003/main.tf",
+      "file_line_range": [
+        42,
+        57
+      ],
+      "severity": null,
+      "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/bc-aws-293",
+      "check_result": "FAILED",
+      "evaluated_keys": [
+        "deletion_protection"
+      ]
+    },
+    {
+      "finding_id": "SCN-003:83d7de41f81ef0c0",
+      "scenario_id": "SCN-003",
+      "check_id": "CKV_AWS_16",
+      "bc_check_id": "BC_AWS_GENERAL_4",
+      "check_name": "Ensure all data stored in the RDS is securely encrypted at rest",
+      "resource": "aws_db_instance.database_003",
+      "repo_file_path": "/scenarios/scenario_003/main.tf",
+      "file_line_range": [
+        42,
+        57
+      ],
+      "severity": null,
+      "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/general-4",
+      "check_result": "FAILED",
+      "evaluated_keys": [
+        "storage_encrypted"
+      ]
+    },
+    {
+      "finding_id": "SCN-003:00b04ed22694aff7",
+      "scenario_id": "SCN-003",
+      "check_id": "CKV_AWS_118",
+      "bc_check_id": "BC_AWS_LOGGING_28",
+      "check_name": "Ensure that enhanced monitoring is enabled for Amazon RDS instances",
+      "resource": "aws_db_instance.database_003",
+      "repo_file_path": "/scenarios/scenario_003/main.tf",
+      "file_line_range": [
+        42,
+        57
+      ],
+      "severity": null,
+      "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/ensure-that-enhanced-monitoring-is-enabled-for-amazon-rds-instances",
+      "check_result": "FAILED",
+      "evaluated_keys": [
+        "monitoring_interval"
+      ]
+    },
+    {
+      "finding_id": "SCN-003:08b218b94ff27c29",
+      "scenario_id": "SCN-003",
+      "check_id": "CKV_AWS_133",
+      "bc_check_id": "BC_AWS_GENERAL_46",
+      "check_name": "Ensure that RDS instances has backup policy",
+      "resource": "aws_db_instance.database_003",
+      "repo_file_path": "/scenarios/scenario_003/main.tf",
+      "file_line_range": [
+        42,
+        57
+      ],
+      "severity": null,
+      "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-rds-instances-have-backup-policy",
+      "check_result": "FAILED",
+      "evaluated_keys": [
+        "backup_retention_period"
+      ]
+    },
+    {
+      "finding_id": "SCN-003:836b8a9428902a07",
+      "scenario_id": "SCN-003",
+      "check_id": "CKV_AWS_157",
+      "bc_check_id": "BC_AWS_GENERAL_73",
+      "check_name": "Ensure that RDS instances have Multi-AZ enabled",
+      "resource": "aws_db_instance.database_003",
+      "repo_file_path": "/scenarios/scenario_003/main.tf",
+      "file_line_range": [
+        42,
+        57
+      ],
+      "severity": null,
+      "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/general-73",
+      "check_result": "FAILED",
+      "evaluated_keys": [
+        "multi_az"
+      ]
+    },
+    {
+      "finding_id": "SCN-003:6809a187ce2356a4",
+      "scenario_id": "SCN-003",
+      "check_id": "CKV_AWS_161",
+      "bc_check_id": "BC_AWS_IAM_65",
+      "check_name": "Ensure RDS database has IAM authentication enabled",
+      "resource": "aws_db_instance.database_003",
+      "repo_file_path": "/scenarios/scenario_003/main.tf",
+      "file_line_range": [
+        42,
+        57
+      ],
+      "severity": null,
+      "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-rds-database-has-iam-authentication-enabled",
+      "check_result": "FAILED",
+      "evaluated_keys": [
+        "iam_database_authentication_enabled"
+      ]
+    },
+    {
+      "finding_id": "SCN-003:4e44398e474dd601",
+      "scenario_id": "SCN-003",
+      "check_id": "CKV2_AWS_60",
+      "bc_check_id": "BC_AWS_GENERAL_195",
+      "check_name": "Ensure RDS instance with copy tags to snapshots is enabled",
+      "resource": "aws_db_instance.database_003",
+      "repo_file_path": "/scenarios/scenario_003/main.tf",
+      "file_line_range": [
+        42,
+        57
+      ],
+      "severity": null,
+      "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/bc-aws-2-60",
+      "check_result": "FAILED",
+      "evaluated_keys": [
+        "engine",
+        "copy_tags_to_snapshot"
+      ]
+    }
+  ]
+}

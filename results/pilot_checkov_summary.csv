@@ -1,0 +1,11 @@
+scenario_id,checkov_version,exit_code,failed_checks,passed_checks,skipped_checks,parsing_errors
+SCN-001,3.3.17,1,20,9,0,0
+SCN-002,3.3.17,1,20,9,0,0
+SCN-003,3.3.17,1,11,11,0,0
+SCN-004,3.3.17,1,11,11,0,0
+SCN-005,3.3.17,1,5,8,0,0
+SCN-006,3.3.17,1,5,8,0,0
+SCN-007,3.3.17,1,3,5,0,0
+SCN-008,3.3.17,1,3,5,0,0
+SCN-009,3.3.17,1,20,17,0,0
+SCN-010,3.3.17,1,20,17,0,0
