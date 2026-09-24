@@ -1,0 +1,6 @@
+source_id,source_name,source_type,role,cloud,format,license,license_status,status,intended_use,notes
+SRC-01,TerraGoat,public_repository,SECURITY_PATTERN_SOURCE,AWS,Terraform,Apache-2.0,VERIFIED,APPROVED_CANDIDATE,Security misconfiguration seed source,Vulnerable-by-design Terraform source
+SRC-02,IaC-Eval,public_dataset,TASK_DIVERSITY_SOURCE,AWS,Terraform,CC-BY-4.0,VERIFIED,APPROVED_CANDIDATE,Code/task diversity source,Not used as priority ground truth; version must be pinned at acquisition
+SRC-03,IaCSecBench,public_benchmark,SECURITY_BENCHMARK_REFERENCE,AWS,Terraform,MIT,VERIFIED,APPROVED_CANDIDATE,Security pattern/reference source,Not used as priority ground truth
+SRC-04,Security-First Evaluation of Text-to-Terraform,public_research_artifacts,AI_GENERATED_TERRAFORM_SOURCE,AWS,Terraform,VERIFY,VERIFY_BEFORE_USE,CONDITIONAL_CANDIDATE,AI-generated Terraform source,17 scenarios and publicly available artifacts reported by the study
+SRC-05,Hallucinated Resources Brittle Oracles Decoupled Security,public_research_artifacts,AI_GENERATED_TERRAFORM_SOURCE,AWS,Terraform,VERIFY,VERIFY_BEFORE_USE,CONDITIONAL_CANDIDATE,AI-generated Terraform source,55 models and 71,826 generated main.tf files reported by the study

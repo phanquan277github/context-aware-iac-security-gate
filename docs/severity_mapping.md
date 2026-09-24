@@ -87,8 +87,8 @@ The Severity-only baseline uses only:
 
 - severity_numeric
 
-It does not use business context,
-ground-truth ranking, or model predictions.
+It does not use business context, ground-truth ranking,
+or model predictions.
 
 ## Freeze Rule
 
@@ -98,5 +98,4 @@ Any newly encountered in-scope Checkov ID must be assigned
 according to the frozen severity principles before being used
 in the baseline.
 
-The assignment must be documented explicitly and must not
-depend on observed model performance.
+The assignment must not depend on observed model performance.
