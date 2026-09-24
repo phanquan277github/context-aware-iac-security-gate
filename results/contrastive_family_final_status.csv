@@ -1,0 +1,11 @@
+family_id,seed_id_A,seed_id_B,raw_failed_A,raw_failed_B,raw_signature_equal,in_scope_A,in_scope_B,final_status
+CTX-01,,,8,8,PASS,0,0,REVIEW
+CTX-02,,,4,4,PASS,1,1,VERIFIED
+CTX-03,,,3,3,PASS,0,0,REVIEW
+CTX-04,,,2,2,PASS,0,0,REVIEW
+CTX-05,,,2,2,PASS,0,0,REVIEW
+CTX-06,,,16,16,PASS,8,8,VERIFIED
+CTX-07,,,10,10,PASS,2,2,VERIFIED
+CTX-08,,,11,11,PASS,2,2,VERIFIED
+CTX-09,,,4,4,PASS,0,0,REVIEW
+CTX-10,,,14,14,PASS,4,4,VERIFIED

@@ -1,0 +1,6 @@
+family_id,raw_failed_A,raw_failed_B,raw_signature_equal,in_scope_A,in_scope_B,status
+CTX-02,4,4,PASS,1,1,VERIFIED
+CTX-06,16,16,PASS,8,8,VERIFIED
+CTX-07,10,10,PASS,2,2,VERIFIED
+CTX-08,11,11,PASS,2,2,VERIFIED
+CTX-10,14,14,PASS,4,4,VERIFIED

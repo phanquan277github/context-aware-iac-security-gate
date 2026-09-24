@@ -1,0 +1,11 @@
+family_id,base_seed_id,rationale,status
+CTX-01,AIG-00526,S3/public-access security pattern,SELECTED
+CTX-02,AIG-01054,S3/encryption security pattern,SELECTED
+CTX-03,AIG-02626,VPC/public-subnet exposure pattern,SELECTED
+CTX-04,AIG-03130,VPC/internet-gateway pattern,SELECTED
+CTX-05,AIG-00004,VPC/network configuration pattern,SELECTED
+CTX-06,EXT-01,IAM wildcard action,SELECTED
+CTX-07,EXT-03,Public database exposure,SELECTED
+CTX-08,EXT-04,Unencrypted database,SELECTED
+CTX-09,EXT-05,Unrestricted ingress,SELECTED
+CTX-10,EXT-07,Missing access logging,SELECTED

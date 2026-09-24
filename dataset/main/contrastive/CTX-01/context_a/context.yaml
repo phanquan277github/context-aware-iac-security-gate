@@ -1,0 +1,7 @@
+family_id: CTX-01
+scenario_id: CTX-01-A
+base_seed_id: AIG-00526
+context_variant: A
+environment: dev
+asset_criticality: low
+data_sensitivity: low

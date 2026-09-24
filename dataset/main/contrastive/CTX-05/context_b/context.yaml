@@ -1,0 +1,7 @@
+family_id: CTX-05
+scenario_id: CTX-05-B
+base_seed_id: AIG-00004
+context_variant: B
+environment: prod
+asset_criticality: high
+data_sensitivity: high

@@ -1,0 +1,7 @@
+family_id: CTX-03
+scenario_id: CTX-03-B
+base_seed_id: AIG-02626
+context_variant: B
+environment: prod
+asset_criticality: high
+data_sensitivity: high

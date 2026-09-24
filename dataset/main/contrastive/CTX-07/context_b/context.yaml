@@ -1,0 +1,7 @@
+family_id: CTX-07
+scenario_id: CTX-07-B
+base_seed_id: EXT-03
+context_variant: B
+environment: prod
+asset_criticality: high
+data_sensitivity: high
