@@ -1,0 +1,149 @@
+raw_finding_id,scenario_id,family_id,context_variant,check_id,resource,file_path,severity_raw,check_name
+bb13b084a34f79fd,CTX-03-A,CTX-03,context_a,CKV_AWS_130,aws_subnet.public,/CTX-03/context_a/main.tf,,Ensure VPC subnets do not assign public IP by default
+97f0b620c1778888,CTX-03-B,CTX-03,context_b,CKV_AWS_130,aws_subnet.public,/CTX-03/context_b/main.tf,,Ensure VPC subnets do not assign public IP by default
+f4beccb61534e028,CTX-05-A,CTX-05,context_a,CKV_AWS_352,aws_network_acl_rule.deny_all_ingress,/CTX-05/context_a/main.tf,,Ensure NACL ingress does not allow all Ports
+853393694e9eac3c,CTX-05-B,CTX-05,context_b,CKV_AWS_352,aws_network_acl_rule.deny_all_ingress,/CTX-05/context_b/main.tf,,Ensure NACL ingress does not allow all Ports
+8da3b73ae52d23a9,CTX-06-A,CTX-06,context_a,CKV_AWS_63,aws_iam_policy.target,/CTX-06/context_a/main.tf,,"Ensure no IAM policies documents allow ""*"" as a statement's actions"
+0773a3c468b102f2,CTX-06-A,CTX-06,context_a,CKV_AWS_290,aws_iam_policy.target,/CTX-06/context_a/main.tf,,Ensure IAM policies does not allow write access without constraints
+65b240b707ade067,CTX-06-A,CTX-06,context_a,CKV_AWS_288,aws_iam_policy.target,/CTX-06/context_a/main.tf,,Ensure IAM policies does not allow data exfiltration
+8807f0cb6311f77a,CTX-06-A,CTX-06,context_a,CKV_AWS_355,aws_iam_policy.target,/CTX-06/context_a/main.tf,,"Ensure no IAM policies documents allow ""*"" as a statement's resource for restrictable actions"
+a8f120033dead74b,CTX-06-A,CTX-06,context_a,CKV_AWS_287,aws_iam_policy.target,/CTX-06/context_a/main.tf,,Ensure IAM policies does not allow credentials exposure
+ace0adb57bcb6236,CTX-06-A,CTX-06,context_a,CKV_AWS_289,aws_iam_policy.target,/CTX-06/context_a/main.tf,,Ensure IAM policies does not allow permissions management / resource exposure without constraints
+8d9b2165aaf04e38,CTX-06-A,CTX-06,context_a,CKV_AWS_286,aws_iam_policy.target,/CTX-06/context_a/main.tf,,Ensure IAM policies does not allow privilege escalation
+477d5c05a6cb02e5,CTX-06-A,CTX-06,context_a,CKV_AWS_62,aws_iam_policy.target,/CTX-06/context_a/main.tf,,"Ensure IAM policies that allow full ""*-*"" administrative privileges are not created"
+48ccbed177c4f1c0,CTX-06-B,CTX-06,context_b,CKV_AWS_63,aws_iam_policy.target,/CTX-06/context_b/main.tf,,"Ensure no IAM policies documents allow ""*"" as a statement's actions"
+7197b4de544ca8a6,CTX-06-B,CTX-06,context_b,CKV_AWS_290,aws_iam_policy.target,/CTX-06/context_b/main.tf,,Ensure IAM policies does not allow write access without constraints
+ccf1bc43be557a40,CTX-06-B,CTX-06,context_b,CKV_AWS_288,aws_iam_policy.target,/CTX-06/context_b/main.tf,,Ensure IAM policies does not allow data exfiltration
+6145f9dc3e730484,CTX-06-B,CTX-06,context_b,CKV_AWS_355,aws_iam_policy.target,/CTX-06/context_b/main.tf,,"Ensure no IAM policies documents allow ""*"" as a statement's resource for restrictable actions"
+cd03914ab0c9622a,CTX-06-B,CTX-06,context_b,CKV_AWS_287,aws_iam_policy.target,/CTX-06/context_b/main.tf,,Ensure IAM policies does not allow credentials exposure
+93fe060efbe8c9e5,CTX-06-B,CTX-06,context_b,CKV_AWS_289,aws_iam_policy.target,/CTX-06/context_b/main.tf,,Ensure IAM policies does not allow permissions management / resource exposure without constraints
+a399104d7c90e88b,CTX-06-B,CTX-06,context_b,CKV_AWS_286,aws_iam_policy.target,/CTX-06/context_b/main.tf,,Ensure IAM policies does not allow privilege escalation
+b194e2d12714c925,CTX-06-B,CTX-06,context_b,CKV_AWS_62,aws_iam_policy.target,/CTX-06/context_b/main.tf,,"Ensure IAM policies that allow full ""*-*"" administrative privileges are not created"
+836e40e8b4fe403b,CTX-07-A,CTX-07,context_a,CKV_AWS_17,aws_db_instance.target,/CTX-07/context_a/main.tf,,Ensure all data stored in RDS is not publicly accessible
+c25ebedcd29edaa6,CTX-07-A,CTX-07,context_a,CKV_AWS_353,aws_db_instance.target,/CTX-07/context_a/main.tf,,Ensure that RDS instances have performance insights enabled
+4811737a613e5e69,CTX-07-A,CTX-07,context_a,CKV_AWS_226,aws_db_instance.target,/CTX-07/context_a/main.tf,,Ensure DB instance gets all minor upgrades automatically
+061fb00a339c16e6,CTX-07-A,CTX-07,context_a,CKV_AWS_129,aws_db_instance.target,/CTX-07/context_a/main.tf,,Ensure that respective logs of Amazon Relational Database Service (Amazon RDS) are enabled
+ff129bb4b35fabae,CTX-07-A,CTX-07,context_a,CKV_AWS_293,aws_db_instance.target,/CTX-07/context_a/main.tf,,Ensure that AWS database instances have deletion protection enabled
+8ca3e1edc18630ee,CTX-07-A,CTX-07,context_a,CKV_AWS_118,aws_db_instance.target,/CTX-07/context_a/main.tf,,Ensure that enhanced monitoring is enabled for Amazon RDS instances
+a6f61e04f936b692,CTX-07-A,CTX-07,context_a,CKV_AWS_157,aws_db_instance.target,/CTX-07/context_a/main.tf,,Ensure that RDS instances have Multi-AZ enabled
+e3d840c4c9d49f10,CTX-07-A,CTX-07,context_a,CKV_AWS_161,aws_db_instance.target,/CTX-07/context_a/main.tf,,Ensure RDS database has IAM authentication enabled
+41640528a0045288,CTX-07-B,CTX-07,context_b,CKV_AWS_17,aws_db_instance.target,/CTX-07/context_b/main.tf,,Ensure all data stored in RDS is not publicly accessible
+0891dff9fca9022e,CTX-07-B,CTX-07,context_b,CKV_AWS_353,aws_db_instance.target,/CTX-07/context_b/main.tf,,Ensure that RDS instances have performance insights enabled
+f4acf653b71cb2eb,CTX-07-B,CTX-07,context_b,CKV_AWS_226,aws_db_instance.target,/CTX-07/context_b/main.tf,,Ensure DB instance gets all minor upgrades automatically
+534d2beb69e028e3,CTX-07-B,CTX-07,context_b,CKV_AWS_129,aws_db_instance.target,/CTX-07/context_b/main.tf,,Ensure that respective logs of Amazon Relational Database Service (Amazon RDS) are enabled
+0bee2dbef3d6e843,CTX-07-B,CTX-07,context_b,CKV_AWS_293,aws_db_instance.target,/CTX-07/context_b/main.tf,,Ensure that AWS database instances have deletion protection enabled
+bb4c1703a4286a0c,CTX-07-B,CTX-07,context_b,CKV_AWS_118,aws_db_instance.target,/CTX-07/context_b/main.tf,,Ensure that enhanced monitoring is enabled for Amazon RDS instances
+2722e2ad16c6cf3b,CTX-07-B,CTX-07,context_b,CKV_AWS_157,aws_db_instance.target,/CTX-07/context_b/main.tf,,Ensure that RDS instances have Multi-AZ enabled
+0d9179e53dc48556,CTX-07-B,CTX-07,context_b,CKV_AWS_161,aws_db_instance.target,/CTX-07/context_b/main.tf,,Ensure RDS database has IAM authentication enabled
+bcb49ed5bb34d11b,CTX-08-A,CTX-08,context_a,CKV_AWS_353,aws_db_instance.target,/CTX-08/context_a/main.tf,,Ensure that RDS instances have performance insights enabled
+13bca73c42216c3d,CTX-08-A,CTX-08,context_a,CKV_AWS_226,aws_db_instance.target,/CTX-08/context_a/main.tf,,Ensure DB instance gets all minor upgrades automatically
+0af0b8fd066516c1,CTX-08-A,CTX-08,context_a,CKV_AWS_129,aws_db_instance.target,/CTX-08/context_a/main.tf,,Ensure that respective logs of Amazon Relational Database Service (Amazon RDS) are enabled
+09a1a8c97e97fc77,CTX-08-A,CTX-08,context_a,CKV_AWS_293,aws_db_instance.target,/CTX-08/context_a/main.tf,,Ensure that AWS database instances have deletion protection enabled
+a3b444826817ca61,CTX-08-A,CTX-08,context_a,CKV_AWS_16,aws_db_instance.target,/CTX-08/context_a/main.tf,,Ensure all data stored in the RDS is securely encrypted at rest
+8f5392eaeb060d92,CTX-08-A,CTX-08,context_a,CKV_AWS_118,aws_db_instance.target,/CTX-08/context_a/main.tf,,Ensure that enhanced monitoring is enabled for Amazon RDS instances
+db95d2aff6d5538d,CTX-08-A,CTX-08,context_a,CKV_AWS_157,aws_db_instance.target,/CTX-08/context_a/main.tf,,Ensure that RDS instances have Multi-AZ enabled
+0307b9b90a844867,CTX-08-A,CTX-08,context_a,CKV_AWS_161,aws_db_instance.target,/CTX-08/context_a/main.tf,,Ensure RDS database has IAM authentication enabled
+0ab74653b7f394a6,CTX-08-B,CTX-08,context_b,CKV_AWS_353,aws_db_instance.target,/CTX-08/context_b/main.tf,,Ensure that RDS instances have performance insights enabled
+d0060db89bd10a0d,CTX-08-B,CTX-08,context_b,CKV_AWS_226,aws_db_instance.target,/CTX-08/context_b/main.tf,,Ensure DB instance gets all minor upgrades automatically
+335f44891454d1e0,CTX-08-B,CTX-08,context_b,CKV_AWS_129,aws_db_instance.target,/CTX-08/context_b/main.tf,,Ensure that respective logs of Amazon Relational Database Service (Amazon RDS) are enabled
+59b28c03839adf7b,CTX-08-B,CTX-08,context_b,CKV_AWS_293,aws_db_instance.target,/CTX-08/context_b/main.tf,,Ensure that AWS database instances have deletion protection enabled
+b632fc22a9d8254b,CTX-08-B,CTX-08,context_b,CKV_AWS_16,aws_db_instance.target,/CTX-08/context_b/main.tf,,Ensure all data stored in the RDS is securely encrypted at rest
+094a8731e8e95c79,CTX-08-B,CTX-08,context_b,CKV_AWS_118,aws_db_instance.target,/CTX-08/context_b/main.tf,,Ensure that enhanced monitoring is enabled for Amazon RDS instances
+ff33261538356ebd,CTX-08-B,CTX-08,context_b,CKV_AWS_157,aws_db_instance.target,/CTX-08/context_b/main.tf,,Ensure that RDS instances have Multi-AZ enabled
+57db58a2ce68cc28,CTX-08-B,CTX-08,context_b,CKV_AWS_161,aws_db_instance.target,/CTX-08/context_b/main.tf,,Ensure RDS database has IAM authentication enabled
+f2dc9d84e5347cf8,CTX-09-A,CTX-09,context_a,CKV_AWS_382,aws_security_group.target,/CTX-09/context_a/main.tf,,Ensure no security groups allow egress from 0.0.0.0:0 to port -1
+69ecb30e9774828a,CTX-09-B,CTX-09,context_b,CKV_AWS_382,aws_security_group.target,/CTX-09/context_b/main.tf,,Ensure no security groups allow egress from 0.0.0.0:0 to port -1
+136c251d2fd869be,CTX-07-A,CTX-07,context_a,CKV2_AWS_60,aws_db_instance.target,/CTX-07/context_a/main.tf,,Ensure RDS instance with copy tags to snapshots is enabled
+1af79813bf543559,CTX-07-B,CTX-07,context_b,CKV2_AWS_60,aws_db_instance.target,/CTX-07/context_b/main.tf,,Ensure RDS instance with copy tags to snapshots is enabled
+68eec1f6592b53fa,CTX-08-A,CTX-08,context_a,CKV2_AWS_60,aws_db_instance.target,/CTX-08/context_a/main.tf,,Ensure RDS instance with copy tags to snapshots is enabled
+f7e04f9b8831cc8e,CTX-08-B,CTX-08,context_b,CKV2_AWS_60,aws_db_instance.target,/CTX-08/context_b/main.tf,,Ensure RDS instance with copy tags to snapshots is enabled
+d90a2821047df2d8,CTX-09-A,CTX-09,context_a,CKV2_AWS_5,aws_security_group.target,/CTX-09/context_a/main.tf,,Ensure that Security Groups are attached to another resource
+6a35f64e1dd0944e,CTX-09-B,CTX-09,context_b,CKV2_AWS_5,aws_security_group.target,/CTX-09/context_b/main.tf,,Ensure that Security Groups are attached to another resource
+fde3297547855973,CTX-02-A,CTX-02,context_a,CKV_AWS_18,aws_s3_bucket.this,/CTX-02/context_a/main.tf,,Ensure the S3 bucket has access logging enabled
+2976560351853f96,CTX-02-B,CTX-02,context_b,CKV_AWS_18,aws_s3_bucket.this,/CTX-02/context_b/main.tf,,Ensure the S3 bucket has access logging enabled
+834a75a67162b726,CTX-06-A,CTX-06,context_a,CKV_AWS_18,aws_s3_bucket.target,/CTX-06/context_a/main.tf,,Ensure the S3 bucket has access logging enabled
+70d8955448e5cf72,CTX-06-B,CTX-06,context_b,CKV_AWS_18,aws_s3_bucket.target,/CTX-06/context_b/main.tf,,Ensure the S3 bucket has access logging enabled
+35e90d14e4c56ddb,CTX-10-A,CTX-10,context_a,CKV_AWS_18,aws_s3_bucket.logs,/CTX-10/context_a/main.tf,,Ensure the S3 bucket has access logging enabled
+042c58627ad93fae,CTX-10-A,CTX-10,context_a,CKV_AWS_18,aws_s3_bucket.target,/CTX-10/context_a/main.tf,,Ensure the S3 bucket has access logging enabled
+9d545ecfabf11acf,CTX-10-B,CTX-10,context_b,CKV_AWS_18,aws_s3_bucket.logs,/CTX-10/context_b/main.tf,,Ensure the S3 bucket has access logging enabled
+5ac340b1fc06faab,CTX-10-B,CTX-10,context_b,CKV_AWS_18,aws_s3_bucket.target,/CTX-10/context_b/main.tf,,Ensure the S3 bucket has access logging enabled
+4e1d0610ee72d313,CTX-07-A,CTX-07,context_a,CKV2_AWS_30,aws_db_instance.target,/CTX-07/context_a/main.tf,,Ensure Postgres RDS as aws_db_instance has Query Logging enabled
+3b5967252fa92e44,CTX-07-B,CTX-07,context_b,CKV2_AWS_30,aws_db_instance.target,/CTX-07/context_b/main.tf,,Ensure Postgres RDS as aws_db_instance has Query Logging enabled
+c4ebb5b783aff36d,CTX-08-A,CTX-08,context_a,CKV2_AWS_30,aws_db_instance.target,/CTX-08/context_a/main.tf,,Ensure Postgres RDS as aws_db_instance has Query Logging enabled
+b0f10e70138f99a6,CTX-08-B,CTX-08,context_b,CKV2_AWS_30,aws_db_instance.target,/CTX-08/context_b/main.tf,,Ensure Postgres RDS as aws_db_instance has Query Logging enabled
+9637eb0620be95d9,CTX-06-A,CTX-06,context_a,CKV2_AWS_40,aws_iam_policy.target,/CTX-06/context_a/main.tf,,Ensure AWS IAM policy does not allow full IAM privileges
+9ef48db427ed198f,CTX-06-B,CTX-06,context_b,CKV2_AWS_40,aws_iam_policy.target,/CTX-06/context_b/main.tf,,Ensure AWS IAM policy does not allow full IAM privileges
+0c647dc8eb522dba,CTX-01-A,CTX-01,context_a,CKV2_AWS_61,aws_s3_bucket.access_logs,/CTX-01/context_a/main.tf,,Ensure that an S3 bucket has a lifecycle configuration
+30e9d86b7cdea5a0,CTX-01-A,CTX-01,context_a,CKV2_AWS_61,aws_s3_bucket.main,/CTX-01/context_a/main.tf,,Ensure that an S3 bucket has a lifecycle configuration
+8f5c8292f36d5480,CTX-01-B,CTX-01,context_b,CKV2_AWS_61,aws_s3_bucket.access_logs,/CTX-01/context_b/main.tf,,Ensure that an S3 bucket has a lifecycle configuration
+a422c934d0b00dc0,CTX-01-B,CTX-01,context_b,CKV2_AWS_61,aws_s3_bucket.main,/CTX-01/context_b/main.tf,,Ensure that an S3 bucket has a lifecycle configuration
+b83219f7bf95db2a,CTX-02-A,CTX-02,context_a,CKV2_AWS_61,aws_s3_bucket.this,/CTX-02/context_a/main.tf,,Ensure that an S3 bucket has a lifecycle configuration
+9b2fa2a3fc6078c8,CTX-02-B,CTX-02,context_b,CKV2_AWS_61,aws_s3_bucket.this,/CTX-02/context_b/main.tf,,Ensure that an S3 bucket has a lifecycle configuration
+2983890c8532b376,CTX-06-A,CTX-06,context_a,CKV2_AWS_61,aws_s3_bucket.target,/CTX-06/context_a/main.tf,,Ensure that an S3 bucket has a lifecycle configuration
+ff6bad3b147fcea9,CTX-06-B,CTX-06,context_b,CKV2_AWS_61,aws_s3_bucket.target,/CTX-06/context_b/main.tf,,Ensure that an S3 bucket has a lifecycle configuration
+9b3def6a87aad456,CTX-10-A,CTX-10,context_a,CKV2_AWS_61,aws_s3_bucket.logs,/CTX-10/context_a/main.tf,,Ensure that an S3 bucket has a lifecycle configuration
+8e9e65e04080120c,CTX-10-A,CTX-10,context_a,CKV2_AWS_61,aws_s3_bucket.target,/CTX-10/context_a/main.tf,,Ensure that an S3 bucket has a lifecycle configuration
+8247cf260aebd08b,CTX-10-B,CTX-10,context_b,CKV2_AWS_61,aws_s3_bucket.logs,/CTX-10/context_b/main.tf,,Ensure that an S3 bucket has a lifecycle configuration
+f346850541b149e8,CTX-10-B,CTX-10,context_b,CKV2_AWS_61,aws_s3_bucket.target,/CTX-10/context_b/main.tf,,Ensure that an S3 bucket has a lifecycle configuration
+1fd85ce5c365590a,CTX-05-A,CTX-05,context_a,CKV2_AWS_1,aws_network_acl.main,/CTX-05/context_a/main.tf,,Ensure that all NACL are attached to subnets
+7209b95bd04a39ac,CTX-05-B,CTX-05,context_b,CKV2_AWS_1,aws_network_acl.main,/CTX-05/context_b/main.tf,,Ensure that all NACL are attached to subnets
+51ffdd3b34497c44,CTX-01-A,CTX-01,context_a,CKV2_AWS_62,aws_s3_bucket.access_logs,/CTX-01/context_a/main.tf,,Ensure S3 buckets should have event notifications enabled
+ff42e442f6c379ba,CTX-01-A,CTX-01,context_a,CKV2_AWS_62,aws_s3_bucket.main,/CTX-01/context_a/main.tf,,Ensure S3 buckets should have event notifications enabled
+21af3a2e4428be0e,CTX-01-B,CTX-01,context_b,CKV2_AWS_62,aws_s3_bucket.access_logs,/CTX-01/context_b/main.tf,,Ensure S3 buckets should have event notifications enabled
+bd2b4ad0a2c1414c,CTX-01-B,CTX-01,context_b,CKV2_AWS_62,aws_s3_bucket.main,/CTX-01/context_b/main.tf,,Ensure S3 buckets should have event notifications enabled
+3750d39ecaa20337,CTX-02-A,CTX-02,context_a,CKV2_AWS_62,aws_s3_bucket.this,/CTX-02/context_a/main.tf,,Ensure S3 buckets should have event notifications enabled
+fe97e665c0474b40,CTX-02-B,CTX-02,context_b,CKV2_AWS_62,aws_s3_bucket.this,/CTX-02/context_b/main.tf,,Ensure S3 buckets should have event notifications enabled
+385b47dfa09bb515,CTX-06-A,CTX-06,context_a,CKV2_AWS_62,aws_s3_bucket.target,/CTX-06/context_a/main.tf,,Ensure S3 buckets should have event notifications enabled
+9be6f8ba9f89251d,CTX-06-B,CTX-06,context_b,CKV2_AWS_62,aws_s3_bucket.target,/CTX-06/context_b/main.tf,,Ensure S3 buckets should have event notifications enabled
+293b7104025951ee,CTX-10-A,CTX-10,context_a,CKV2_AWS_62,aws_s3_bucket.logs,/CTX-10/context_a/main.tf,,Ensure S3 buckets should have event notifications enabled
+cfdcfff6c3ae5f54,CTX-10-A,CTX-10,context_a,CKV2_AWS_62,aws_s3_bucket.target,/CTX-10/context_a/main.tf,,Ensure S3 buckets should have event notifications enabled
+d14fbc1d8f600454,CTX-10-B,CTX-10,context_b,CKV2_AWS_62,aws_s3_bucket.logs,/CTX-10/context_b/main.tf,,Ensure S3 buckets should have event notifications enabled
+0d5b9a66d3cc4ecb,CTX-10-B,CTX-10,context_b,CKV2_AWS_62,aws_s3_bucket.target,/CTX-10/context_b/main.tf,,Ensure S3 buckets should have event notifications enabled
+0c086795d5ea5677,CTX-03-A,CTX-03,context_a,CKV2_AWS_11,aws_vpc.main,/CTX-03/context_a/main.tf,,Ensure VPC flow logging is enabled in all VPCs
+fbacbbcd21277ad5,CTX-03-B,CTX-03,context_b,CKV2_AWS_11,aws_vpc.main,/CTX-03/context_b/main.tf,,Ensure VPC flow logging is enabled in all VPCs
+979767190a7cdd7b,CTX-04-A,CTX-04,context_a,CKV2_AWS_11,aws_vpc.main,/CTX-04/context_a/main.tf,,Ensure VPC flow logging is enabled in all VPCs
+6085077ea6a494db,CTX-04-B,CTX-04,context_b,CKV2_AWS_11,aws_vpc.main,/CTX-04/context_b/main.tf,,Ensure VPC flow logging is enabled in all VPCs
+1f16810e2f6d99c5,CTX-09-A,CTX-09,context_a,CKV2_AWS_11,aws_vpc.target,/CTX-09/context_a/main.tf,,Ensure VPC flow logging is enabled in all VPCs
+9771de2afa844486,CTX-09-B,CTX-09,context_b,CKV2_AWS_11,aws_vpc.target,/CTX-09/context_b/main.tf,,Ensure VPC flow logging is enabled in all VPCs
+d3c9f7d0427c86c3,CTX-01-A,CTX-01,context_a,CKV2_AWS_64,aws_kms_key.s3_access_logs_key,/CTX-01/context_a/main.tf,,Ensure KMS key Policy is defined
+16163ac6b892d4b9,CTX-01-A,CTX-01,context_a,CKV2_AWS_64,aws_kms_key.s3_main_key,/CTX-01/context_a/main.tf,,Ensure KMS key Policy is defined
+c4bc0f2e40a441d8,CTX-01-B,CTX-01,context_b,CKV2_AWS_64,aws_kms_key.s3_access_logs_key,/CTX-01/context_b/main.tf,,Ensure KMS key Policy is defined
+dbd013d39f72a787,CTX-01-B,CTX-01,context_b,CKV2_AWS_64,aws_kms_key.s3_main_key,/CTX-01/context_b/main.tf,,Ensure KMS key Policy is defined
+609726ff6b123074,CTX-08-A,CTX-08,context_a,CKV2_AWS_64,aws_kms_key.target,/CTX-08/context_a/main.tf,,Ensure KMS key Policy is defined
+5530f3471d2e8293,CTX-08-B,CTX-08,context_b,CKV2_AWS_64,aws_kms_key.target,/CTX-08/context_b/main.tf,,Ensure KMS key Policy is defined
+92933b1353821a99,CTX-03-A,CTX-03,context_a,CKV2_AWS_12,aws_vpc.main,/CTX-03/context_a/main.tf,,Ensure the default security group of every VPC restricts all traffic
+6402e86f48f1397a,CTX-03-B,CTX-03,context_b,CKV2_AWS_12,aws_vpc.main,/CTX-03/context_b/main.tf,,Ensure the default security group of every VPC restricts all traffic
+0695cf04ca590232,CTX-04-A,CTX-04,context_a,CKV2_AWS_12,aws_vpc.main,/CTX-04/context_a/main.tf,,Ensure the default security group of every VPC restricts all traffic
+c473c2b5535ac660,CTX-04-B,CTX-04,context_b,CKV2_AWS_12,aws_vpc.main,/CTX-04/context_b/main.tf,,Ensure the default security group of every VPC restricts all traffic
+56de22cd2b0c111f,CTX-09-A,CTX-09,context_a,CKV2_AWS_12,aws_vpc.target,/CTX-09/context_a/main.tf,,Ensure the default security group of every VPC restricts all traffic
+02d65e4b82d7f47c,CTX-09-B,CTX-09,context_b,CKV2_AWS_12,aws_vpc.target,/CTX-09/context_b/main.tf,,Ensure the default security group of every VPC restricts all traffic
+7b59e1e3a52f08fc,CTX-06-A,CTX-06,context_a,CKV2_AWS_6,aws_s3_bucket.target,/CTX-06/context_a/main.tf,,Ensure that S3 bucket has a Public Access block
+2c4453a7536e51bb,CTX-06-B,CTX-06,context_b,CKV2_AWS_6,aws_s3_bucket.target,/CTX-06/context_b/main.tf,,Ensure that S3 bucket has a Public Access block
+0f9325a67fe6fa48,CTX-10-A,CTX-10,context_a,CKV2_AWS_6,aws_s3_bucket.logs,/CTX-10/context_a/main.tf,,Ensure that S3 bucket has a Public Access block
+484766021ac47db8,CTX-10-A,CTX-10,context_a,CKV2_AWS_6,aws_s3_bucket.target,/CTX-10/context_a/main.tf,,Ensure that S3 bucket has a Public Access block
+aedbdbbc5713aa71,CTX-10-B,CTX-10,context_b,CKV2_AWS_6,aws_s3_bucket.logs,/CTX-10/context_b/main.tf,,Ensure that S3 bucket has a Public Access block
+abe19e56a0cff0ce,CTX-10-B,CTX-10,context_b,CKV2_AWS_6,aws_s3_bucket.target,/CTX-10/context_b/main.tf,,Ensure that S3 bucket has a Public Access block
+3c8a5e604ac41e37,CTX-06-A,CTX-06,context_a,CKV_AWS_21,aws_s3_bucket.target,/CTX-06/context_a/main.tf,,Ensure all data stored in the S3 bucket have versioning enabled
+4916532a3eecab3e,CTX-06-B,CTX-06,context_b,CKV_AWS_21,aws_s3_bucket.target,/CTX-06/context_b/main.tf,,Ensure all data stored in the S3 bucket have versioning enabled
+72f70bc7ecd300fa,CTX-10-A,CTX-10,context_a,CKV_AWS_21,aws_s3_bucket.logs,/CTX-10/context_a/main.tf,,Ensure all data stored in the S3 bucket have versioning enabled
+2bea10de17df584e,CTX-10-A,CTX-10,context_a,CKV_AWS_21,aws_s3_bucket.target,/CTX-10/context_a/main.tf,,Ensure all data stored in the S3 bucket have versioning enabled
+4c0e218becda7b22,CTX-10-B,CTX-10,context_b,CKV_AWS_21,aws_s3_bucket.logs,/CTX-10/context_b/main.tf,,Ensure all data stored in the S3 bucket have versioning enabled
+475c9dff3e652eda,CTX-10-B,CTX-10,context_b,CKV_AWS_21,aws_s3_bucket.target,/CTX-10/context_b/main.tf,,Ensure all data stored in the S3 bucket have versioning enabled
+1a02eefdc983c933,CTX-01-A,CTX-01,context_a,CKV_AWS_144,aws_s3_bucket.access_logs,/CTX-01/context_a/main.tf,,Ensure that S3 bucket has cross-region replication enabled
+02d9fd57cf2ed0fd,CTX-01-A,CTX-01,context_a,CKV_AWS_144,aws_s3_bucket.main,/CTX-01/context_a/main.tf,,Ensure that S3 bucket has cross-region replication enabled
+99514d807d0b6e82,CTX-01-B,CTX-01,context_b,CKV_AWS_144,aws_s3_bucket.access_logs,/CTX-01/context_b/main.tf,,Ensure that S3 bucket has cross-region replication enabled
+edaa23ac9c29d3ad,CTX-01-B,CTX-01,context_b,CKV_AWS_144,aws_s3_bucket.main,/CTX-01/context_b/main.tf,,Ensure that S3 bucket has cross-region replication enabled
+c2eb3ddc11bf85c2,CTX-02-A,CTX-02,context_a,CKV_AWS_144,aws_s3_bucket.this,/CTX-02/context_a/main.tf,,Ensure that S3 bucket has cross-region replication enabled
+39bf2d5449030c54,CTX-02-B,CTX-02,context_b,CKV_AWS_144,aws_s3_bucket.this,/CTX-02/context_b/main.tf,,Ensure that S3 bucket has cross-region replication enabled
+d1a94b462b93b8a0,CTX-06-A,CTX-06,context_a,CKV_AWS_144,aws_s3_bucket.target,/CTX-06/context_a/main.tf,,Ensure that S3 bucket has cross-region replication enabled
+737c43e4d988e247,CTX-06-B,CTX-06,context_b,CKV_AWS_144,aws_s3_bucket.target,/CTX-06/context_b/main.tf,,Ensure that S3 bucket has cross-region replication enabled
+9338cacf41815034,CTX-10-A,CTX-10,context_a,CKV_AWS_144,aws_s3_bucket.logs,/CTX-10/context_a/main.tf,,Ensure that S3 bucket has cross-region replication enabled
+373c69302dfe1f9d,CTX-10-A,CTX-10,context_a,CKV_AWS_144,aws_s3_bucket.target,/CTX-10/context_a/main.tf,,Ensure that S3 bucket has cross-region replication enabled
+fb8b49aee3172943,CTX-10-B,CTX-10,context_b,CKV_AWS_144,aws_s3_bucket.logs,/CTX-10/context_b/main.tf,,Ensure that S3 bucket has cross-region replication enabled
+daad559a805ab91f,CTX-10-B,CTX-10,context_b,CKV_AWS_144,aws_s3_bucket.target,/CTX-10/context_b/main.tf,,Ensure that S3 bucket has cross-region replication enabled
+072a734d5f3fea9e,CTX-06-A,CTX-06,context_a,CKV_AWS_145,aws_s3_bucket.target,/CTX-06/context_a/main.tf,,Ensure that S3 buckets are encrypted with KMS by default
+2792afa048e581a0,CTX-06-B,CTX-06,context_b,CKV_AWS_145,aws_s3_bucket.target,/CTX-06/context_b/main.tf,,Ensure that S3 buckets are encrypted with KMS by default
+4d1462a913d9ffdf,CTX-10-A,CTX-10,context_a,CKV_AWS_145,aws_s3_bucket.logs,/CTX-10/context_a/main.tf,,Ensure that S3 buckets are encrypted with KMS by default
+e71963c2c8d357cd,CTX-10-A,CTX-10,context_a,CKV_AWS_145,aws_s3_bucket.target,/CTX-10/context_a/main.tf,,Ensure that S3 buckets are encrypted with KMS by default
+542e6e00d9a5d565,CTX-10-B,CTX-10,context_b,CKV_AWS_145,aws_s3_bucket.logs,/CTX-10/context_b/main.tf,,Ensure that S3 buckets are encrypted with KMS by default
+ce8ea4a83ed96f9d,CTX-10-B,CTX-10,context_b,CKV_AWS_145,aws_s3_bucket.target,/CTX-10/context_b/main.tf,,Ensure that S3 buckets are encrypted with KMS by default

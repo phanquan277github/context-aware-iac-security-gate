@@ -1,0 +1,46 @@
+
+Warning: Deprecated value used
+
+  with aws_kms_key.cloudwatch,
+  on main.tf line 57, in resource "aws_kms_key" "cloudwatch":
+  57:   policy = jsonencode({
+  58:     Version = "2012-10-17"
+  59:     Statement = [
+  60:       {
+  61:         Sid    = "Enable IAM User Permissions"
+  62:         Effect = "Allow"
+  63:         Principal = {
+  64:           AWS = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"
+  65:         }
+  66:         Action   = "kms:*"
+  67:         Resource = "*"
+  68:       },
+  69:       {
+  70:         Sid    = "Allow CloudWatch Logs"
+  71:         Effect = "Allow"
+  72:         Principal = {
+  73:           Service = "logs.${data.aws_region.current.name}.amazonaws.com"
+  74:         }
+  75:         Action = [
+  76:           "kms:Encrypt*",
+  77:           "kms:Decrypt*",
+  78:           "kms:ReEncrypt*",
+  79:           "kms:GenerateDataKey*",
+  80:           "kms:Describe*"
+  81:         ]
+  82:         Resource = "*"
+  83:         Condition = {
+  84:           ArnLike = {
+  85:             "kms:EncryptionContext:aws:logs:arn" = "arn:aws:logs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:*"
+  86:           }
+  87:         }
+  88:       }
+  89:     ]
+  90:   })
+
+  The deprecation originates from data.aws_region.current.name
+
+name is deprecated. Use region instead.
+Success! The configuration is valid, but there were some validation warnings
+as shown above.
+
