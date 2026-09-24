@@ -1,0 +1,2 @@
+raw_findings,normalized_findings_all,normalized_findings_in_scope,unique_families,unique_scenarios,unique_check_ids,context_a_findings,context_b_findings,in_scope_findings,out_of_scope_findings,missing_scope_mappings,missing_severity_mappings,missing_context,duplicate_raw_ids,duplicate_normalized_ids,status
+148,148,44,10,20,35,74,74,44,104,0,0,0,0,0,PASS

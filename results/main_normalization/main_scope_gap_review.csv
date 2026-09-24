@@ -1,0 +1,9 @@
+check_id,check_name,finding_count,resource_examples,current_status,scope_category,decision,decision_basis
+CKV2_AWS_1,Ensure that all NACL are attached to subnets,2,aws_network_acl.main,UNMAPPED,,,
+CKV2_AWS_11,Ensure VPC flow logging is enabled in all VPCs,6,aws_vpc.main; aws_vpc.target,UNMAPPED,,,
+CKV2_AWS_12,Ensure the default security group of every VPC restricts all traffic,6,aws_vpc.main; aws_vpc.target,UNMAPPED,,,
+CKV2_AWS_30,Ensure Postgres RDS as aws_db_instance has Query Logging enabled,4,aws_db_instance.target,UNMAPPED,,,
+CKV2_AWS_64,Ensure KMS key Policy is defined,6,aws_kms_key.s3_access_logs_key; aws_kms_key.s3_main_key; aws_kms_key.target,UNMAPPED,,,
+CKV_AWS_130,Ensure VPC subnets do not assign public IP by default,2,aws_subnet.public,UNMAPPED,,,
+CKV_AWS_352,Ensure NACL ingress does not allow all Ports,2,aws_network_acl_rule.deny_all_ingress,UNMAPPED,,,
+CKV_AWS_353,Ensure that RDS instances have performance insights enabled,4,aws_db_instance.target,UNMAPPED,,,

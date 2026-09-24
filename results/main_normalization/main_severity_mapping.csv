@@ -1,0 +1,16 @@
+check_id,severity_class,severity_numeric,policy_basis
+CKV_AWS_24,CRITICAL,4,Unrestricted administrative remote access through SSH ingress
+CKV_AWS_286,CRITICAL,4,Direct privilege-escalation risk
+CKV2_AWS_40,CRITICAL,4,Full IAM privileges
+CKV_AWS_62,CRITICAL,4,Full administrative IAM privileges
+CKV_AWS_20,HIGH,3,Direct public S3 exposure
+CKV_AWS_17,HIGH,3,Direct public RDS exposure
+CKV_AWS_63,HIGH,3,IAM wildcard action scope
+CKV_AWS_355,HIGH,3,IAM wildcard resource scope
+CKV_AWS_289,HIGH,3,Permissions-management/resource-exposure without constraints
+CKV_AWS_16,MEDIUM,2,Missing RDS encryption control
+CKV_AWS_18,MEDIUM,2,Missing S3 access logging control
+CKV_AWS_129,MEDIUM,2,Missing RDS logging control
+CKV_AWS_145,MEDIUM,2,Missing S3 KMS encryption control
+CKV2_AWS_11,MEDIUM,2,Missing VPC flow logging control
+CKV2_AWS_30,MEDIUM,2,Missing PostgreSQL RDS query logging control
