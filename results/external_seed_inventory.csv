@@ -1,0 +1,9 @@
+seed_id,source_id,source_name,source_case,artifact_path,terraform_file_count,ai_generated,selection_status,technical_validation,license_status,notes
+EXT-01,SRC-03,IaCSecBench,IAM-WILDCARD-ACTION-VULN,dataset/main/candidates/external/EXT-01,2,False,CANDIDATE,PENDING,VERIFIED,
+EXT-02,SRC-03,IaCSecBench,IAM-WILDCARD-TRUST-VULN,dataset/main/candidates/external/EXT-02,2,False,CANDIDATE,PENDING,VERIFIED,
+EXT-03,SRC-03,IaCSecBench,STO-PUBLIC-DATABASE-VULN,dataset/main/candidates/external/EXT-03,2,False,CANDIDATE,PENDING,VERIFIED,
+EXT-04,SRC-03,IaCSecBench,ENC-UNENCRYPTED-DATABASE-VULN,dataset/main/candidates/external/EXT-04,2,False,CANDIDATE,PENDING,VERIFIED,
+EXT-05,SRC-03,IaCSecBench,NET-UNRESTRICTED-INGRESS-VULN,dataset/main/candidates/external/EXT-05,2,False,CANDIDATE,PENDING,VERIFIED,
+EXT-06,SRC-03,IaCSecBench,NET-PUBLIC-INSTANCE-VULN,dataset/main/candidates/external/EXT-06,2,False,CANDIDATE,PENDING,VERIFIED,
+EXT-07,SRC-03,IaCSecBench,STO-NO-ACCESS-LOGGING-VULN,dataset/main/candidates/external/EXT-07,2,False,CANDIDATE,PENDING,VERIFIED,
+EXT-08,SRC-03,IaCSecBench,NET-NO-FLOW-LOGS-VULN,dataset/main/candidates/external/EXT-08,2,False,CANDIDATE,PENDING,VERIFIED,
