@@ -47,3 +47,6 @@ results/tmp/
 # Temporary files
 tmp/
 temp/
+
+# Terraform runtime/cache generated during dataset validation
+**/.terraform/
