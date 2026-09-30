@@ -4,3 +4,5 @@ Terraform=1.16.2
 Checkov=3.3.17
 XGBoost=3.4.1
 scikit-learn=1.9.1
+AWSProviderCandidateObserved=3.53.0,5.100.0,6.66.0
+AWSProviderCandidateManifest=dataset/main/manifests/geniac_candidate_provider_versions.csv

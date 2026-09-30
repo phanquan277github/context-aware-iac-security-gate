@@ -127,3 +127,244 @@ before Main Seed Acquisition.
 
 Actual seed-level admission and exact source commits are recorded
 during STEP 10.
+
+## GenIaC-SecBench acquisition snapshot
+
+This section records an observed local source checkout for the current
+GenIaC corpus. It does not change the seed-admission policy above.
+
+- Source name: GenIaC-SecBench.
+- Git remote URL: https://huggingface.co/datasets/AnimeshShaw/GenIaC-SecBench
+- Observed local HEAD: a9f0b979176e9127aa60c8e8197d03d9fffdda58
+- Expected checkout: dataset/main/sources/geniac-secbench/
+- Evidence: git remote get-url origin and git rev-parse HEAD in that
+  local checkout, rechecked on 2026-09-30.
+- License evidence: the source checkout README.md declares
+  `license: cc-by-4.0` and says project-produced generated IaC,
+  scan results, and derived tables are CC-BY-4.0. Its
+  human_reference_dataset/ retains separate upstream licenses.
+  Independent per-seed license verification: UNRESOLVED. Do not
+  apply the generated-data license to human references.
+
+From the root of a fresh repository clone, acquire the observed
+revision with:
+
+```sh
+mkdir -p dataset/main/sources
+git clone https://huggingface.co/datasets/AnimeshShaw/GenIaC-SecBench dataset/main/sources/geniac-secbench
+git -C dataset/main/sources/geniac-secbench checkout --detach a9f0b979176e9127aa60c8e8197d03d9fffdda58
+git -C dataset/main/sources/geniac-secbench remote get-url origin
+git -C dataset/main/sources/geniac-secbench rev-parse HEAD
+```
+
+The last two commands must print the URL and revision above. The
+tracked dataset/main/manifests/geniac_corpus_manifest.csv has 240
+candidate rows. Its artifact_path is relative to the repository root;
+its sha256 is the SHA-256 of that upstream artifact, not of a Checkov
+output. The 109 rows with include_main_evaluation=True identify the
+Tier A scan corpus. Verify all 240 acquired artifacts against this
+frozen manifest before copying or rescanning:
+
+```sh
+python3 - <<'PY'
+import csv
+import hashlib
+from pathlib import Path
+
+manifest = Path("dataset/main/manifests/geniac_corpus_manifest.csv")
+with manifest.open(newline="", encoding="utf-8") as stream:
+    rows = list(csv.DictReader(stream))
+errors = []
+for row in rows:
+    path = Path(row["artifact_path"])
+    if not path.is_file():
+        errors.append(f"{row['candidate_id']}: missing {path}")
+        continue
+    actual = hashlib.sha256(path.read_bytes()).hexdigest()
+    if actual != row["sha256"]:
+        errors.append(f"{row['candidate_id']}: SHA-256 mismatch")
+print(f"checked={len(rows)} errors={len(errors)}")
+for error in errors:
+    print(error)
+if errors:
+    raise SystemExit(1)
+PY
+```
+
+The observed local checkout passed this check for all 240 rows on
+2026-09-30. This checksum check verifies the bytes referenced by the
+manifest; it does not independently establish admission, license,
+or ground-truth decisions.
+
+## Terraform and provider provenance
+
+versions.lock declares Terraform=1.16.2. The historical Terraform
+executable version was not written into each candidate validation
+summary, so this declaration is not independent proof of the exact
+binary used for every earlier candidate run.
+
+The candidate validation scripts run `terraform init -backend=false
+-input=false -no-color`, then `terraform validate -no-color` when
+initialization succeeds. The observed candidate lockfiles contain
+artifact-specific provider selections. A single AWS provider version
+would be incorrect: the observed AWS versions are 3.53.0, 5.100.0,
+and 6.66.0. Other providers also occur.
+
+dataset/main/manifests/geniac_candidate_provider_versions.csv is a
+snapshot of the two local candidate trees. Each row identifies the
+candidate tree and ID, validation status from its tracked summary,
+expected lockfile path, whether it exists, its SHA-256 when present,
+and one provider source/version/constraint. A candidate with no
+lockfile has one row with lockfile_present=false and blank provider
+fields. The snapshot covers 353 candidate directories: 311 observed
+lockfiles with 475 provider entries, and 42 directories without a
+lockfile. The manifest records observed local lock state, not an
+independent timestamped record of the original validation execution.
+For any available lockfile, verify its current bytes against
+lockfile_sha256 before using it as historical evidence.
+
+The 20 tracked contrastive .terraform.lock.hcl files are the
+authoritative exact provider locks for those contrastive fixtures.
+They contain AWS 5.100.0 in 12 contexts, AWS 6.66.0 in 8 contexts,
+and random 3.9.1 in 2 contexts. Do not substitute a single candidate
+version for these fixture-specific locks.
+
+Candidate lockfiles are not yet safe to ignore solely because this
+CSV records selected versions: the CSV does not preserve provider
+package hashes or cause `terraform init` to use those selections
+automatically. Preserve the local lockfiles until exact replay has
+a verified lockfile-restoration procedure or the necessary lockfiles
+are versioned/archived. Of the 42 candidates without a lockfile, 40 have INIT_FAILED.
+The other two have PASS but zero-byte main.tf files and zero
+resource, module, and provider blocks in structure_summary.csv.
+Provider selection for the 40 failed initializations remains UNRESOLVED
+from local lockfile evidence; the two empty configurations have no
+provider selection to pin.
+
+## Checkov Tier A scan provenance
+
+The tracked results/security_scans/checkov/geniac_tier_a/run_metadata.json
+records Checkov 3.3.17, Terraform framework, 109 expected/scanned
+Tier A artifacts, 1706 extracted failed findings, and scan scope
+limited to each root main.tf without downloading external modules.
+The scan script selects include_main_evaluation=True rows from the
+corpus manifest. For each candidate it runs, from that candidate's
+directory:
+
+```sh
+checkov --file main.tf --framework terraform --output json --quiet --soft-fail --download-external-modules false
+```
+
+The script writes one raw JSON and one stderr log per candidate to
+results/security_scans/checkov/geniac_tier_a/raw/ and logs/. It also
+writes scan_summary.csv (109 rows), findings_raw.csv (1706 failed
+finding rows), and run_metadata.json. The script does not pass an
+explicit Checkov config-file argument; any implicit environment or
+Checkov default configuration for that historical run is UNRESOLVED.
+
+scripts/normalize_geniac_checkov_findings.py reads findings_raw.csv,
+scan_summary.csv, and the corpus manifest and writes
+dataset/main/findings/geniac_tier_a_checkov.csv (1706 rows). The
+manifest sha256 joins findings to their Terraform source artifact;
+it is not a digest of raw JSON or normalized CSV.
+
+The raw JSON files are generated scanner evidence and are not all
+Git-tracked.
+The dataset/main/manifests/geniac_checkov_raw_sha256.csv records the
+candidate ID, relative raw path, byte count, and SHA-256 for each of
+the 109 observed local JSON files. This permits verification of a
+separate archive or a reproduction, but it is not itself an archive.
+An immutable external archive location and retrieval procedure for
+these exact raw bytes are UNRESOLVED. Retain the present raw files
+without editing them; do not overwrite an archived run in place.
+
+To regenerate scanner outputs in an isolated fresh checkout, first
+acquire and hash-verify the source above, restore the 109 Tier A
+main.tf files according to the frozen manifest, and install the
+version-pinned dependencies. Then run from the repository root:
+
+```sh
+python3 scripts/scan_geniac_tier_a_checkov.py
+python3 scripts/normalize_geniac_checkov_findings.py
+```
+
+These commands write generated outputs. They were not run during
+this provenance update. Compare the resulting counts, candidate IDs,
+and raw JSON hashes with the tracked metadata before treating a
+reproduction as equivalent. A bytewise raw JSON mismatch needs
+investigation; matching counts alone do not establish identical raw
+evidence.
+
+### Restoring the frozen Tier A scan inputs
+
+After the 240-artifact SHA-256 check succeeds in an isolated fresh
+checkout, materialize only the 109 rows already marked
+include_main_evaluation=True in the tracked manifest. This copies
+bytes; it does not reselect candidates or change admission criteria:
+
+```sh
+python3 - <<'PY'
+import csv
+import hashlib
+import shutil
+from pathlib import Path
+
+manifest = Path("dataset/main/manifests/geniac_corpus_manifest.csv")
+with manifest.open(newline="", encoding="utf-8") as stream:
+    selected = [
+        row for row in csv.DictReader(stream)
+        if row["include_main_evaluation"].lower() == "true"
+    ]
+if len(selected) != 109:
+    raise SystemExit(f"expected 109 Tier A rows, found {len(selected)}")
+for row in selected:
+    source = Path(row["artifact_path"])
+    digest = hashlib.sha256(source.read_bytes()).hexdigest()
+    if digest != row["sha256"]:
+        raise SystemExit(f"source hash mismatch: {row['candidate_id']}")
+    target = (
+        Path("dataset/main/corpus/geniac_tier_a")
+        / row["candidate_id"]
+        / "main.tf"
+    )
+    if target.exists():
+        existing = hashlib.sha256(target.read_bytes()).hexdigest()
+        if existing != digest:
+            raise SystemExit(f"existing target differs: {target}")
+        continue
+    target.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(source, target)
+print(f"Tier A inputs verified: {len(selected)}")
+PY
+```
+
+A fresh scan can then be run with the version and command recorded
+above. Compare raw files with the checksum manifest using:
+
+```sh
+python3 - <<'PY'
+import csv
+import hashlib
+from pathlib import Path
+
+path = Path("dataset/main/manifests/geniac_checkov_raw_sha256.csv")
+with path.open(newline="", encoding="utf-8-sig") as stream:
+    rows = list(csv.DictReader(stream))
+errors = []
+for row in rows:
+    raw = Path(row["raw_json_path"])
+    if not raw.is_file():
+        errors.append(f"missing: {raw}")
+        continue
+    data = raw.read_bytes()
+    if len(data) != int(row["size_bytes"]):
+        errors.append(f"size mismatch: {raw}")
+    if hashlib.sha256(data).hexdigest() != row["sha256"]:
+        errors.append(f"SHA-256 mismatch: {raw}")
+print(f"raw files checked={len(rows)} errors={len(errors)}")
+for error in errors:
+    print(error)
+if len(rows) != 109 or errors:
+    raise SystemExit(1)
+PY
+```
