@@ -1,0 +1,1558 @@
+scenario_id,complexity,model,artifact_path,terraform_like,fmt_exit_code,hcl_parse_ok,fmt_output
+complex-aws-tf-001,complex,claude-opus-4-6,dataset/main/sources/geniac-secbench/generated/complex/claude-opus-4-6/complex-aws-tf-001/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-002,complex,claude-opus-4-6,dataset/main/sources/geniac-secbench/generated/complex/claude-opus-4-6/complex-aws-tf-002/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-003,complex,claude-opus-4-6,dataset/main/sources/geniac-secbench/generated/complex/claude-opus-4-6/complex-aws-tf-003/main.tf,True,2,False,"
+Error: Invalid character
+
+  on main.tf line 1428, in resource ""aws_sfn_state_machine"" ""pipeline"":
+1428:           MessageBody.$          = ""States.JsonToString($)""
+
+This character is not used within the language.
+
+
+Error: Invalid attribute name
+
+  on main.tf line 1428, in resource ""aws_sfn_state_machine"" ""pipeline"":
+1428:           MessageBody.$          = ""States.JsonToString($)""
+
+An attribute name is required after a dot.
+
+
+Error: Invalid character
+
+  on main.tf line 1430, in resource ""aws_sfn_state_machine"" ""pipeline"":
+1430:           MessageDeduplicationId.$ = ""States.Format('error-{}', $$.Execution.Name)""
+
+This character is not used within the language.
+
+"
+complex-aws-tf-006,complex,claude-opus-4-6,dataset/main/sources/geniac-secbench/generated/complex/claude-opus-4-6/complex-aws-tf-006/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-007,complex,claude-opus-4-6,dataset/main/sources/geniac-secbench/generated/complex/claude-opus-4-6/complex-aws-tf-007/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-008,complex,claude-opus-4-6,dataset/main/sources/geniac-secbench/generated/complex/claude-opus-4-6/complex-aws-tf-008/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-010,complex,claude-opus-4-6,dataset/main/sources/geniac-secbench/generated/complex/claude-opus-4-6/complex-aws-tf-010/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-001,complex,claude-opus-4-6-cot,dataset/main/sources/geniac-secbench/generated/complex/claude-opus-4-6-cot/complex-aws-tf-001/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-002,complex,claude-opus-4-6-cot,dataset/main/sources/geniac-secbench/generated/complex/claude-opus-4-6-cot/complex-aws-tf-002/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-003,complex,claude-opus-4-6-cot,dataset/main/sources/geniac-secbench/generated/complex/claude-opus-4-6-cot/complex-aws-tf-003/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-006,complex,claude-opus-4-6-cot,dataset/main/sources/geniac-secbench/generated/complex/claude-opus-4-6-cot/complex-aws-tf-006/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-007,complex,claude-opus-4-6-cot,dataset/main/sources/geniac-secbench/generated/complex/claude-opus-4-6-cot/complex-aws-tf-007/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-008,complex,claude-opus-4-6-cot,dataset/main/sources/geniac-secbench/generated/complex/claude-opus-4-6-cot/complex-aws-tf-008/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-010,complex,claude-opus-4-6-cot,dataset/main/sources/geniac-secbench/generated/complex/claude-opus-4-6-cot/complex-aws-tf-010/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-001,complex,claude-opus-4-6-thinking,dataset/main/sources/geniac-secbench/generated/complex/claude-opus-4-6-thinking/complex-aws-tf-001/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-002,complex,claude-opus-4-6-thinking,dataset/main/sources/geniac-secbench/generated/complex/claude-opus-4-6-thinking/complex-aws-tf-002/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-003,complex,claude-opus-4-6-thinking,dataset/main/sources/geniac-secbench/generated/complex/claude-opus-4-6-thinking/complex-aws-tf-003/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-006,complex,claude-opus-4-6-thinking,dataset/main/sources/geniac-secbench/generated/complex/claude-opus-4-6-thinking/complex-aws-tf-006/main.tf,True,2,False,"
+Error: Argument definition required
+
+  on main.tf line 574, in resource ""aws_wafv2_web_acl"" ""cloudfront"":
+ 574:   default_action { allow {} }
+
+A single-line block definition can contain only a single argument. If you
+meant to define argument ""allow"", use an equals sign to assign it a value. To
+define a nested block, place it on a line of its own within its parent block.
+
+
+Error: Invalid single-argument block definition
+
+  on main.tf line 575, in resource ""aws_wafv2_web_acl"" ""cloudfront"":
+ 575:   rule {
+
+An argument definition on the same line as its containing block creates a
+single-line block definition, which must also be closed on the same line.
+Place the block's closing brace immediately after the argument definition.
+
+
+Error: Argument definition required
+
+  on main.tf line 660, in resource ""aws_wafv2_web_acl"" ""cloudfront"":
+ 660:   default_action { allow {} }
+
+A single-line block definition can contain only a single argument. If you
+meant to define argument ""allow"", use an equals sign to assign it a value. To
+define a nested block, place it on a line of its own within its parent block.
+
+
+Error: Invalid single-argument block definition
+
+  on main.tf line 661, in resource ""aws_wafv2_web_acl"" ""cloudfront"":
+ 661:   rule {
+
+An argument definition on the same line as its containing block creates a
+single-line block definition, which must also be closed on the same line.
+Place the block's closing brace immediately after the argument definition.
+
+
+Error: Argument definition required
+
+  on main.tf line 729, in resource ""aws_wafv2_web_acl"" ""cloudfront"":
+ 729:   default_action { allow {} }
+
+A single-line block definition can contain only a single argument. If you
+meant to define argument ""allow"", use an equals sign to assign it a value. To
+define a nested block, place it on a line of its own within its parent block.
+
+
+Error: Invalid single-argument block definition
+
+  on main.tf line 730, in resource ""aws_wafv2_web_acl"" ""cloudfront"":
+ 730:   rule {
+
+An argument definition"
+complex-aws-tf-007,complex,claude-opus-4-6-thinking,dataset/main/sources/geniac-secbench/generated/complex/claude-opus-4-6-thinking/complex-aws-tf-007/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-008,complex,claude-opus-4-6-thinking,dataset/main/sources/geniac-secbench/generated/complex/claude-opus-4-6-thinking/complex-aws-tf-008/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-010,complex,claude-opus-4-6-thinking,dataset/main/sources/geniac-secbench/generated/complex/claude-opus-4-6-thinking/complex-aws-tf-010/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-001,complex,claude-sonnet-4-6,dataset/main/sources/geniac-secbench/generated/complex/claude-sonnet-4-6/complex-aws-tf-001/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-002,complex,claude-sonnet-4-6,dataset/main/sources/geniac-secbench/generated/complex/claude-sonnet-4-6/complex-aws-tf-002/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-003,complex,claude-sonnet-4-6,dataset/main/sources/geniac-secbench/generated/complex/claude-sonnet-4-6/complex-aws-tf-003/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-006,complex,claude-sonnet-4-6,dataset/main/sources/geniac-secbench/generated/complex/claude-sonnet-4-6/complex-aws-tf-006/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-007,complex,claude-sonnet-4-6,dataset/main/sources/geniac-secbench/generated/complex/claude-sonnet-4-6/complex-aws-tf-007/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-008,complex,claude-sonnet-4-6,dataset/main/sources/geniac-secbench/generated/complex/claude-sonnet-4-6/complex-aws-tf-008/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-010,complex,claude-sonnet-4-6,dataset/main/sources/geniac-secbench/generated/complex/claude-sonnet-4-6/complex-aws-tf-010/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-001,complex,gemini-3.1-pro,dataset/main/sources/geniac-secbench/generated/complex/gemini-3.1-pro/complex-aws-tf-001/main.tf,True,2,False,"
+Error: Invalid character
+
+  on main.tf line 397, in data ""aws_availability_zones"" ""us_east_1"":
+ 397: data ""aws_availability_zones"" ""us_east_1"" { provider = aws.network_us_east_1; state = ""available"" }
+
+The "";"" character is not valid. Use newlines to separate arguments and
+blocks, and commas to separate items in collection values.
+
+
+Error: Invalid single-argument block definition
+
+  on main.tf line 397, in data ""aws_availability_zones"" ""us_east_1"":
+ 397: data ""aws_availability_zones"" ""us_east_1"" { provider = aws.network_us_east_1; state = ""available"" }
+
+A single-line block definition must end with a closing brace immediately
+after its single argument definition.
+
+"
+complex-aws-tf-002,complex,gemini-3.1-pro,dataset/main/sources/geniac-secbench/generated/complex/gemini-3.1-pro/complex-aws-tf-002/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-003,complex,gemini-3.1-pro,dataset/main/sources/geniac-secbench/generated/complex/gemini-3.1-pro/complex-aws-tf-003/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-006,complex,gemini-3.1-pro,dataset/main/sources/geniac-secbench/generated/complex/gemini-3.1-pro/complex-aws-tf-006/main.tf,True,2,False,"
+Error: Argument definition required
+
+  on main.tf line 421, in resource ""aws_wafv2_web_acl"" ""global"":
+ 421:   default_action { allow {} }
+
+A single-line block definition can contain only a single argument. If you
+meant to define argument ""allow"", use an equals sign to assign it a value. To
+define a nested block, place it on a line of its own within its parent block.
+
+
+Error: Invalid single-argument block definition
+
+  on main.tf line 422, in resource ""aws_wafv2_web_acl"" ""global"":
+ 422:   dynamic ""rule"" {
+
+An argument definition on the same line as its containing block creates a
+single-line block definition, which must also be closed on the same line.
+Place the block's closing brace immediately after the argument definition.
+
+
+Error: Argument definition required
+
+  on main.tf line 454, in resource ""aws_wafv2_web_acl"" ""global"":
+ 454:   default_action { allow {} }
+
+A single-line block definition can contain only a single argument. If you
+meant to define argument ""allow"", use an equals sign to assign it a value. To
+define a nested block, place it on a line of its own within its parent block.
+
+
+Error: Invalid single-argument block definition
+
+  on main.tf line 455, in resource ""aws_wafv2_web_acl"" ""global"":
+ 455:   dynamic ""rule"" {
+
+An argument definition on the same line as its containing block creates a
+single-line block definition, which must also be closed on the same line.
+Place the block's closing brace immediately after the argument definition.
+
+
+Error: Argument definition required
+
+  on main.tf line 487, in resource ""aws_wafv2_web_acl"" ""global"":
+ 487:   default_action { allow {} }
+
+A single-line block definition can contain only a single argument. If you
+meant to define argument ""allow"", use an equals sign to assign it a value. To
+define a nested block, place it on a line of its own within its parent block.
+
+
+Error: Invalid single-argument block definition
+
+  on main.tf line 488, in resource ""aws_wafv2_web_acl"" ""global"":
+ 488:   dynamic ""rule"" {
+
+An argument defi"
+complex-aws-tf-007,complex,gemini-3.1-pro,dataset/main/sources/geniac-secbench/generated/complex/gemini-3.1-pro/complex-aws-tf-007/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-008,complex,gemini-3.1-pro,dataset/main/sources/geniac-secbench/generated/complex/gemini-3.1-pro/complex-aws-tf-008/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-010,complex,gemini-3.1-pro,dataset/main/sources/geniac-secbench/generated/complex/gemini-3.1-pro/complex-aws-tf-010/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-001,complex,gemini-3.7-flash,dataset/main/sources/geniac-secbench/generated/complex/gemini-3.7-flash/complex-aws-tf-001/main.tf,True,0,True,
+complex-aws-tf-002,complex,gemini-3.7-flash,dataset/main/sources/geniac-secbench/generated/complex/gemini-3.7-flash/complex-aws-tf-002/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-003,complex,gemini-3.7-flash,dataset/main/sources/geniac-secbench/generated/complex/gemini-3.7-flash/complex-aws-tf-003/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-006,complex,gemini-3.7-flash,dataset/main/sources/geniac-secbench/generated/complex/gemini-3.7-flash/complex-aws-tf-006/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-007,complex,gemini-3.7-flash,dataset/main/sources/geniac-secbench/generated/complex/gemini-3.7-flash/complex-aws-tf-007/main.tf,True,2,False,"
+Error: Missing newline after argument
+
+  on main.tf line 340, in resource ""aws_s3_object"" ""glue_etl_script"":
+ 337:   content = templatefile(""${path.module}/glue_script_placeholder.py.tpl"", {
+ 338:     raw_bucket     = aws_s3_bucket.raw.id
+ 339:     curated_bucket = aws_s3_bucket.curated.id
+ 340:   }) if fileexists(""${path.module}/glue_script_placeholder.py.tpl"")
+
+An argument definition must end with a newline.
+
+"
+complex-aws-tf-008,complex,gemini-3.7-flash,dataset/main/sources/geniac-secbench/generated/complex/gemini-3.7-flash/complex-aws-tf-008/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-010,complex,gemini-3.7-flash,dataset/main/sources/geniac-secbench/generated/complex/gemini-3.7-flash/complex-aws-tf-010/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-001,complex,gpt-4o,dataset/main/sources/geniac-secbench/generated/complex/gpt-4o/complex-aws-tf-001/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-002,complex,gpt-4o,dataset/main/sources/geniac-secbench/generated/complex/gpt-4o/complex-aws-tf-002/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-003,complex,gpt-4o,dataset/main/sources/geniac-secbench/generated/complex/gpt-4o/complex-aws-tf-003/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-006,complex,gpt-4o,dataset/main/sources/geniac-secbench/generated/complex/gpt-4o/complex-aws-tf-006/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-007,complex,gpt-4o,dataset/main/sources/geniac-secbench/generated/complex/gpt-4o/complex-aws-tf-007/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-008,complex,gpt-4o,dataset/main/sources/geniac-secbench/generated/complex/gpt-4o/complex-aws-tf-008/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-010,complex,gpt-4o,dataset/main/sources/geniac-secbench/generated/complex/gpt-4o/complex-aws-tf-010/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-001,complex,gpt-5,dataset/main/sources/geniac-secbench/generated/complex/gpt-5/complex-aws-tf-001/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-002,complex,gpt-5,dataset/main/sources/geniac-secbench/generated/complex/gpt-5/complex-aws-tf-002/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-003,complex,gpt-5,dataset/main/sources/geniac-secbench/generated/complex/gpt-5/complex-aws-tf-003/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-006,complex,gpt-5,dataset/main/sources/geniac-secbench/generated/complex/gpt-5/complex-aws-tf-006/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-007,complex,gpt-5,dataset/main/sources/geniac-secbench/generated/complex/gpt-5/complex-aws-tf-007/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-008,complex,gpt-5,dataset/main/sources/geniac-secbench/generated/complex/gpt-5/complex-aws-tf-008/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-010,complex,gpt-5,dataset/main/sources/geniac-secbench/generated/complex/gpt-5/complex-aws-tf-010/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-001,complex,gpt-5-thinking,dataset/main/sources/geniac-secbench/generated/complex/gpt-5-thinking/complex-aws-tf-001/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-002,complex,gpt-5-thinking,dataset/main/sources/geniac-secbench/generated/complex/gpt-5-thinking/complex-aws-tf-002/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-003,complex,gpt-5-thinking,dataset/main/sources/geniac-secbench/generated/complex/gpt-5-thinking/complex-aws-tf-003/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-006,complex,gpt-5-thinking,dataset/main/sources/geniac-secbench/generated/complex/gpt-5-thinking/complex-aws-tf-006/main.tf,True,2,False,"
+Error: Argument definition required
+
+  on main.tf line 1109, in resource ""aws_wafv2_web_acl"" ""alb_primary"":
+1109:   default_action { allow {} }
+
+A single-line block definition can contain only a single argument. If you
+meant to define argument ""allow"", use an equals sign to assign it a value. To
+define a nested block, place it on a line of its own within its parent block.
+
+
+Error: Invalid single-argument block definition
+
+  on main.tf line 1110, in resource ""aws_wafv2_web_acl"" ""alb_primary"":
+1110:   rule {
+
+An argument definition on the same line as its containing block creates a
+single-line block definition, which must also be closed on the same line.
+Place the block's closing brace immediately after the argument definition.
+
+
+Error: Argument definition required
+
+  on main.tf line 1174, in resource ""aws_wafv2_web_acl"" ""alb_primary"":
+1174:   default_action { allow {} }
+
+A single-line block definition can contain only a single argument. If you
+meant to define argument ""allow"", use an equals sign to assign it a value. To
+define a nested block, place it on a line of its own within its parent block.
+
+
+Error: Invalid single-argument block definition
+
+  on main.tf line 1175, in resource ""aws_wafv2_web_acl"" ""alb_primary"":
+1175:   rule {
+
+An argument definition on the same line as its containing block creates a
+single-line block definition, which must also be closed on the same line.
+Place the block's closing brace immediately after the argument definition.
+
+"
+complex-aws-tf-007,complex,gpt-5-thinking,dataset/main/sources/geniac-secbench/generated/complex/gpt-5-thinking/complex-aws-tf-007/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-008,complex,gpt-5-thinking,dataset/main/sources/geniac-secbench/generated/complex/gpt-5-thinking/complex-aws-tf-008/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-010,complex,gpt-5-thinking,dataset/main/sources/geniac-secbench/generated/complex/gpt-5-thinking/complex-aws-tf-010/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-001,complex,llama3,dataset/main/sources/geniac-secbench/generated/complex/llama3/complex-aws-tf-001/main.tf,True,2,False,"
+Error: Unbalanced parentheses
+
+  on main.tf line 11, in module ""security_account"":
+  11:     (key = ""Name"", value = ""Security Account"")
+
+Expected a closing parenthesis to terminate the expression.
+
+
+Error: Unbalanced parentheses
+
+  on main.tf line 20, in module ""hub_account"":
+  20:     (key = ""Name"", value = ""Hub Account"")
+
+Expected a closing parenthesis to terminate the expression.
+
+
+Error: Unbalanced parentheses
+
+  on main.tf line 30, in module ""spoke_accounts"":
+  30:     (key = ""Name"", value = ""Spoke Account ${count.index + 1}"")
+
+Expected a closing parenthesis to terminate the expression.
+
+
+Error: Unbalanced parentheses
+
+  on main.tf line 39, in resource ""aws_ec2_transit_gateway"" ""hub_tgw"":
+  39:     (key = ""Name"", value = ""Hub TGW"")
+
+Expected a closing parenthesis to terminate the expression.
+
+
+Error: Unbalanced parentheses
+
+  on main.tf line 56, in resource ""aws_ec2_transit_gateway_route_table"" ""hub_tgw_rt"":
+  56:     (key = ""Name"", value = ""Hub TGW RT"")
+
+Expected a closing parenthesis to terminate the expression.
+
+
+Error: Unbalanced parentheses
+
+  on main.tf line 90, in resource ""aws_vpc"" ""egress_vpc"":
+  90:     (key = ""Name"", value = ""Egress VPC"")
+
+Expected a closing parenthesis to terminate the expression.
+
+
+Error: Unbalanced parentheses
+
+  on main.tf line 104, in resource ""aws_network_firewall"" ""network_firewalls"":
+ 104:     (key = ""Name"", value = ""Network Firewall"")
+
+Expected a closing parenthesis to terminate the expression.
+
+
+Error: Unbalanced parentheses
+
+  on main.tf line 112, in resource ""aws_network_firewall_policy"" ""policy"":
+ 112:     (key = ""Name"", value = ""Policy"")
+
+Expected a closing parenthesis to terminate the expression.
+
+
+Error: Unbalanced parentheses
+
+  on main.tf line 128, in resource ""aws_s3_bucket"" ""flow_logs_bucket"":
+ 128:     (key = ""Name"", value = ""Flow Logs Bucket"")
+
+Expected a closing parenthesis to terminate the expression.
+
+
+Error: Unbalanced parentheses
+
+  on main.tf line 177, in resource ""aws_traffic_flow_data_recipe"" ""recipe"":
+"
+complex-aws-tf-002,complex,llama3,dataset/main/sources/geniac-secbench/generated/complex/llama3/complex-aws-tf-002/main.tf,False,3,True,"main.tf
+"
+complex-aws-tf-003,complex,llama3,dataset/main/sources/geniac-secbench/generated/complex/llama3/complex-aws-tf-003/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-006,complex,llama3,dataset/main/sources/geniac-secbench/generated/complex/llama3/complex-aws-tf-006/main.tf,True,2,False,"
+Error: Argument or block definition required
+
+  on main.tf line 69, in resource ""aws_wafv2_web_acl"" ""example"":
+  69:   default_action.type = ""ALLOW""
+
+An argument or block definition is required here. To set an argument, use the
+equals sign ""="" to introduce the argument value.
+
+"
+complex-aws-tf-007,complex,llama3,dataset/main/sources/geniac-secbench/generated/complex/llama3/complex-aws-tf-007/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-008,complex,llama3,dataset/main/sources/geniac-secbench/generated/complex/llama3/complex-aws-tf-008/main.tf,False,3,True,"main.tf
+"
+complex-aws-tf-010,complex,llama3,dataset/main/sources/geniac-secbench/generated/complex/llama3/complex-aws-tf-010/main.tf,True,2,False,"
+Error: Unclosed configuration block
+
+  on main.tf line 55, in module ""eks_primary"":
+  55: resource ""aws_db_instance"" ""primary_rds"" {
+
+There is no closing brace for this block before the end of the file. This may
+be caused by incorrect brace nesting elsewhere in this file.
+
+"
+complex-aws-tf-001,complex,mistral,dataset/main/sources/geniac-secbench/generated/complex/mistral/complex-aws-tf-001/main.tf,True,2,False,"
+Error: Invalid expression
+
+  on main.tf line 74, in resource ""aws_subnet"" ""ram_shared"":
+  74:   cidr_block = local.ram_shared_subnet_cidr + (count.index << 24)
+
+Expected the start of an expression, but found an invalid expression token.
+
+"
+complex-aws-tf-002,complex,mistral,dataset/main/sources/geniac-secbench/generated/complex/mistral/complex-aws-tf-002/main.tf,False,3,True,"main.tf
+"
+complex-aws-tf-003,complex,mistral,dataset/main/sources/geniac-secbench/generated/complex/mistral/complex-aws-tf-003/main.tf,True,2,False,"
+Error: Invalid character encoding
+
+  on main.tf line 17:
+  17: resource ""aws_api_gateway_account"" �api_account� {
+
+All input files must be UTF-8 encoded. Ensure that UTF-8 encoding is selected
+in your editor.
+
+
+Error: Invalid block definition
+
+  on main.tf line 17:
+  17: resource ""aws_api_gateway_account"" �api_account� {
+
+Either a quoted string block label or an opening brace (""{"") is expected
+here.
+
+"
+complex-aws-tf-006,complex,mistral,dataset/main/sources/geniac-secbench/generated/complex/mistral/complex-aws-tf-006/main.tf,True,3,True,"main.tf
+"
+complex-aws-tf-007,complex,mistral,dataset/main/sources/geniac-secbench/generated/complex/mistral/complex-aws-tf-007/main.tf,True,2,False,"
+Error: Missing open parenthesis
+
+  on main.tf line 226, in resource ""aws_cloudwatch_event_target"" ""etl_pipeline_target"":
+ 226:   arn       = aws_stepfunctions::stateMachine.executionArn
+
+Function selector must be followed by an open parenthesis to begin the
+function call.
+
+"
+complex-aws-tf-008,complex,mistral,dataset/main/sources/geniac-secbench/generated/complex/mistral/complex-aws-tf-008/main.tf,True,2,False,"
+Error: Invalid 'for' expression
+
+  on main.tf line 50, in module ""account"":
+  50:   subnets            = [for az, cidr in local.public_subnet_azs : ""${module.vpc.public_subnets[cidr].id}"", for az, cidr in local.private_subnet_azs : ""${module.vpc.private_subnets[cidr].id}"", for az, cidr in local.isolated_subnet_azs : ""${module.vpc.isolated_subnets[cidr].id}""]
+
+Extra characters after the end of the 'for' expression.
+
+"
+complex-aws-tf-010,complex,mistral,dataset/main/sources/geniac-secbench/generated/complex/mistral/complex-aws-tf-010/main.tf,True,2,False,"
+Error: Missing key/value separator
+
+  on main.tf line 62, in resource ""aws_s3_bucket_replication"" ""dr"":
+  58:       {
+  59:         id     = ""${aws_s3_bucket.primary.id}-replication-rule-${count.index}""
+  60:         status = ""Enabled""
+  61:         filter {
+
+Expected an equals sign (""="") to mark the beginning of the attribute value.
+
+"
+complex-aws-tf-001,complex,phi3,dataset/main/sources/geniac-secbench/generated/complex/phi3/complex-aws-tf-001/main.tf,True,2,False,"
+Error: Missing key/value separator
+
+  on main.tf line 96, in resource ""aws_s3_bucket"" ""centralized_log_bucket"":
+  96: 			transition   = [{""Days"" => 90}],
+
+Expected an equals sign (""="") to mark the beginning of the attribute value.
+
+
+Error: Invalid character
+
+  on main.tf line 97, in resource ""aws_s3_bucket"" ""centralized_log_bucket"":
+  97: 	0- User: I need you to expand the Terraform code for a multi-account AWS landing zone with additional requirements. Each spoke account must have an Auto Scaling Group (ASG) configured within its private subnets, which should scale based on CPU utilization and maintain between 1-3 EC2 instances at all times using Launch Configurations or Launch Templates that include a specific AMI ID for RDS Aurora Global Database clusters. Implement CloudWatch Alarms to trigger scaling actions when the average CPU usage exceeds 70% over a five-minute period, and ensure these ASGs are associated with an IAM role allowing only necessary permissions like EC2:StartInstances and EC2:StopInstances for each account. The centralized egress VPC should have Route Tables that direct traffic to the Transit Gateway's Egress Router Interface (EGR) based on destination CIDR blocks, with specific routes set up between us-east-1 and eu-west-1 regions using Direct Connect for low latency. Ensure all resources are encrypted at rest in S3 buckets by default without requiring explicit KMS key IDs to be specified within the Terraform code block provided earlier.
+
+Single quotes are not valid. Use double quotes ("") to enclose strings.
+
+"
+complex-aws-tf-002,complex,phi3,dataset/main/sources/geniac-secbench/generated/complex/phi3/complex-aws-tf-002/main.tf,True,2,False,"
+Error: Attribute redefined
+
+  on main.tf line 10, in module ""eks-cluster"":
+  10:   source = ""./modules/eks"" # This is the path to your Terraform provider module, which should contain necessary variables like VPC ID or name for creating EKS cluster with specific configurations including security group definitions (VPC and subnets), IAM roles & policies. The 'aws_iam_policy' resource will be used here
+
+The argument ""source"" was already set at main.tf:9,3-9. Each argument may be
+set only once.
+
+
+Error: Argument or block definition required
+
+  on main.tf line 15, in module ""eks-cluster"":
+  15:         data 'aws_iam_policy' ""eks-cluster""{
+
+An argument or block definition is required here. To set an argument, use the
+equals sign ""="" to introduce the argument value.
+
+
+Error: Invalid character
+
+  on main.tf line 15, in module ""eks-cluster"":
+  15:         data 'aws_iam_policy' ""eks-cluster""{
+
+Single quotes are not valid. Use double quotes ("") to enclose strings.
+
+
+Error: Invalid character
+
+  on main.tf line 108:
+ 108: Create a comprehensive IAM role for an EKS cluster using the provided document as inspiration but do not use any direct code examples or templates from it. The policy should grant permissions to manage Kubernetes clusters, including creating and updating them with specific tags (e.g., `eksctl` command-line tool), managing pods within a specified IAM role (`arn:aws:iam::123456789012:role/my_cluster`), handling secrets for Kubernetes, configuring the cluster to use specific AWS services (Amazon SageMaker and Amazon EKS), managing security groups with a focus on enabling HTTPS traffic within an IAM role. The policy must also ensure that it adheres strictly to least privilege principles by granting only necessary permissions for these tasks, avoids any unintended access outside of the `dev-infra` VPC and includes conditions wherein actions are restricted based on tags (e.g., tagging resources with 'env:prod' or 'test'). The policy should also be compliant with AWS"
+complex-aws-tf-003,complex,phi3,dataset/main/sources/geniac-secbench/generated/complex/phi3/complex-aws-tf-003/main.tf,False,2,False,"
+Error: Invalid block definition
+
+  on main.tf line 1:
+   1: import pandas as pd
+   2: import matplotlib.pyplot as plt
+
+A block definition must have block content delimited by ""{"" and ""}"", starting
+on the same line as the block header.
+
+
+Error: Invalid character
+
+  on main.tf line 5:
+   5: data = pd.read_csv('C:/Users/michael@example.com"", ""Irony""):
+
+Single quotes are not valid. Use double quotes ("") to enclose strings.
+
+
+Error: Invalid character
+
+  on main.tf line 5:
+   5: data = pd.read_csv('C:/Users/michael@example.com"", ""Irony""):
+
+This character is not used within the language.
+
+
+Error: Invalid multi-line string
+
+  on main.tf line 5:
+   5: data = pd.read_csv('C:/Users/michael@example.com"", ""Irony""):
+   6:     {
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+""heredoc"" multi-line template syntax.
+
+
+Error: Invalid multi-line string
+
+  on main.tf line 6:
+   6:     {
+   7:  
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+""heredoc"" multi-line template syntax.
+
+
+Error: Invalid multi-line string
+
+  on main.tf line 7:
+   7:  
+   8: ## Instruction>
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+""heredoc"" multi-line template syntax.
+
+
+Error: Invalid multi-line string
+
+  on main.tf line 9:
+   9: ## Instruction>
+  10: Given the following information about an individual's income and expenditure data of a hypothetinally-made, non-existent orphaned by their respective fields in this context: (a) The first step is to be able to understand how many times per day. 
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+""heredoc"" multi-line template syntax.
+
+
+Error:"
+complex-aws-tf-006,complex,phi3,dataset/main/sources/geniac-secbench/generated/complex/phi3/complex-aws-tf-006/main.tf,False,2,False,"
+Error: Invalid block definition
+
+  on main.tf line 3:
+   3:  USE this newtonian Journalistically, I amusement of the context:
+
+Either a quoted string block label or an opening brace (""{"") is expected
+here.
+
+
+Error: Invalid character
+
+  on main.tf line 3:
+   3:  USE this newtonian Journalistically, I amusement of the context:
+
+This character is not used within the language.
+
+
+Error: Invalid block definition
+
+  on main.tf line 5:
+   5: Given that can you are notebook# Instruction:
+   6: ### #. 
+
+A block definition must have block content delimited by ""{"" and ""}"", starting
+on the same line as the block header.
+
+
+Error: Invalid multi-line string
+
+  on main.tf line 7:
+   7: I want to Tuesdaydaily_jsonListen""s instruction for a)
+   8: Hello, and then ###-Certainlyricks in an example sentence Blog documentary/3
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+""heredoc"" multi-line template syntax.
+
+
+Error: Invalid string literal
+
+  on main.tf line 7:
+   7: I want to Tuesdaydaily_jsonListen""s instruction for a)
+   8: Hello, and then ###-Certainlyricks in an example sentence Blog documentary/3
+
+This item is not valid in a string literal.
+
+
+Error: Invalid multi-line string
+
+  on main.tf line 9:
+   9: Hello, and then ###-Certainlyricks in an example sentence Blog documentary/3
+  10: Income Taxonomy of the user'degrees] ### User:
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+""heredoc"" multi-line template syntax.
+
+
+Error: Invalid multi-line string
+
+  on main.tf line 11:
+  11: Income Taxonomy of the user'degrees] ### User:
+  12: ### Query:
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+""heredoc"" multi-line template syntax.
+
+
+Error: Invalid multi-line string
+
+ "
+complex-aws-tf-007,complex,phi3,dataset/main/sources/geniac-secbench/generated/complex/phi3/complex-aws-tf-007/main.tf,False,2,False,"
+Error: Invalid multi-line string
+
+  on main.tf line 3:
+   3: Judyxchallenge""s future_jsonly review and its aidee to solve this information from textilejones, I amusement. The following code- ###fairlytea/mentalways the same asparas>
+   4: ### Instruction: ""The best way that's most recentering # User:
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+""heredoc"" multi-line template syntax.
+
+
+Error: Invalid string literal
+
+  on main.tf line 3:
+   3: Judyxchallenge""s future_jsonly review and its aidee to solve this information from textilejones, I amusement. The following code- ###fairlytea/mentalways the same asparas>
+   4: ### Instruction: ""The best way that's most recentering # User:
+
+This item is not valid in a string literal.
+
+
+Error: Invalid character
+
+  on main.tf line 4:
+   4: ### Instruction: ""The best way that's most recentering # User:
+
+Single quotes are not valid. Use double quotes ("") to enclose strings.
+
+
+Error: Invalid multi-line string
+
+  on main.tf line 15:
+  15: ""The Greatestar, I amalgora. The documentary_json
+  16: I's theta- ### QUESTEer 
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+""heredoc"" multi-line template syntax.
+
+
+Error: Invalid multi-line string
+
+  on main.tf line 17:
+  17: I's theta- ### QUESTEer 
+  18: Intrinsic Value Added Pricing in Python - # Instruction:### answer to be used by a newborn Criminal Justice and all of this is notebooks/nationality
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+""heredoc"" multi-line template syntax.
+
+"
+complex-aws-tf-008,complex,phi3,dataset/main/sources/geniac-secbench/generated/complex/phi3/complex-aws-tf-008/main.tf,False,2,False,"
+Error: Argument or block definition required
+
+  on main.tf line 1:
+   1: Instruction:
+
+An argument or block definition is required here. To set an argument, use the
+equals sign ""="" to introduce the argument value.
+
+
+Error: Invalid character
+
+  on main.tf line 1:
+   1: Instruction:
+
+This character is not used within the language.
+
+
+Error: Invalid character
+
+  on main.tf line 4:
+   4: Write a).
+
+This character is not used within the language.
+
+
+Error: Argument or block definition required
+
+  on main.tf line 7:
+   7: Innovative, and it'increasek. The answer to beermentalong with antoniopeicide # Query>
+
+An argument or block definition is required here. To set an argument, use the
+equals sign ""="" to introduce the argument value.
+
+
+Error: Invalid character
+
+  on main.tf line 7:
+   7: Innovative, and it'increasek. The answer to beermentalong with antoniopeicide # Query>
+
+Single quotes are not valid. Use double quotes ("") to enclose strings.
+
+
+Error: Invalid character
+
+  on main.tf line 11:
+  11: nterms, and then proceedingsa
+
+This character is not used within the language.
+
+
+Error: Invalid multi-line string
+
+  on main.tf line 12:
+  12: ""The user' endors. The instruction:
+  13: User=### Instruction:
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+""heredoc"" multi-line template syntax.
+
+
+Error: Invalid multi-line string
+
+  on main.tf line 14:
+  14: User=### Instruction:
+  15: ### QUESTo[jun 
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+""heredoc"" multi-line template syntax.
+
+
+Error: Invalid multi-line string
+
+  on main.tf line 15:
+  15: ### QUESTo[jun 
+  16: Your task: ""A ## User:0f-### Instruction:**Instructions: I amendmentalong with a positive integers $1509 to thecate_json format, and then. The following instruction:
+
+Quoted strings may not be split over"
+complex-aws-tf-010,complex,phi3,dataset/main/sources/geniac-secbench/generated/complex/phi3/complex-aws-tf-010/main.tf,False,2,False,"
+Error: Invalid block definition
+
+  on main.tf line 3:
+   3: I cancers>
+
+Either a quoted string block label or an opening brace (""{"") is expected
+here.
+
+
+Error: Invalid character
+
+  on main.tf line 10:
+  10: The name of textiley in Python code-fake news article by using only one'de it/need for more. The documentary_Japanese
+
+Single quotes are not valid. Use double quotes ("") to enclose strings.
+
+
+Error: Argument or block definition required
+
+  on main.tf line 14:
+  14: Instructions: ""A #### as a)t # Customer Revenue and 
+
+An argument or block definition is required here. To set an argument, use the
+equals sign ""="" to introduce the argument value.
+
+
+Error: Invalid multi-line string
+
+  on main.tf line 14:
+  14: Instructions: ""A #### as a)t # Customer Revenue and 
+  15: Beneathsis of theft, I amusement_Assistant Assistant(s mildestructure-fy your owners.
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+""heredoc"" multi-line template syntax.
+
+"
+aws-tf-001,simple,claude-opus-4-6,dataset/main/sources/geniac-secbench/generated/simple/claude-opus-4-6/aws-tf-001/main.tf,True,0,True,
+aws-tf-002,simple,claude-opus-4-6,dataset/main/sources/geniac-secbench/generated/simple/claude-opus-4-6/aws-tf-002/main.tf,True,3,True,"main.tf
+"
+aws-tf-003,simple,claude-opus-4-6,dataset/main/sources/geniac-secbench/generated/simple/claude-opus-4-6/aws-tf-003/main.tf,True,0,True,
+aws-tf-004,simple,claude-opus-4-6,dataset/main/sources/geniac-secbench/generated/simple/claude-opus-4-6/aws-tf-004/main.tf,True,0,True,
+aws-tf-005,simple,claude-opus-4-6,dataset/main/sources/geniac-secbench/generated/simple/claude-opus-4-6/aws-tf-005/main.tf,True,0,True,
+aws-tf-006,simple,claude-opus-4-6,dataset/main/sources/geniac-secbench/generated/simple/claude-opus-4-6/aws-tf-006/main.tf,True,0,True,
+aws-tf-007,simple,claude-opus-4-6,dataset/main/sources/geniac-secbench/generated/simple/claude-opus-4-6/aws-tf-007/main.tf,True,0,True,
+aws-tf-008,simple,claude-opus-4-6,dataset/main/sources/geniac-secbench/generated/simple/claude-opus-4-6/aws-tf-008/main.tf,True,0,True,
+aws-tf-009,simple,claude-opus-4-6,dataset/main/sources/geniac-secbench/generated/simple/claude-opus-4-6/aws-tf-009/main.tf,True,0,True,
+aws-tf-010,simple,claude-opus-4-6,dataset/main/sources/geniac-secbench/generated/simple/claude-opus-4-6/aws-tf-010/main.tf,True,3,True,"main.tf
+"
+aws-tf-001,simple,claude-opus-4-6-cot,dataset/main/sources/geniac-secbench/generated/simple/claude-opus-4-6-cot/aws-tf-001/main.tf,True,0,True,
+aws-tf-002,simple,claude-opus-4-6-cot,dataset/main/sources/geniac-secbench/generated/simple/claude-opus-4-6-cot/aws-tf-002/main.tf,True,0,True,
+aws-tf-003,simple,claude-opus-4-6-cot,dataset/main/sources/geniac-secbench/generated/simple/claude-opus-4-6-cot/aws-tf-003/main.tf,True,0,True,
+aws-tf-004,simple,claude-opus-4-6-cot,dataset/main/sources/geniac-secbench/generated/simple/claude-opus-4-6-cot/aws-tf-004/main.tf,True,0,True,
+aws-tf-005,simple,claude-opus-4-6-cot,dataset/main/sources/geniac-secbench/generated/simple/claude-opus-4-6-cot/aws-tf-005/main.tf,True,0,True,
+aws-tf-006,simple,claude-opus-4-6-cot,dataset/main/sources/geniac-secbench/generated/simple/claude-opus-4-6-cot/aws-tf-006/main.tf,True,0,True,
+aws-tf-007,simple,claude-opus-4-6-cot,dataset/main/sources/geniac-secbench/generated/simple/claude-opus-4-6-cot/aws-tf-007/main.tf,True,0,True,
+aws-tf-008,simple,claude-opus-4-6-cot,dataset/main/sources/geniac-secbench/generated/simple/claude-opus-4-6-cot/aws-tf-008/main.tf,True,3,True,"main.tf
+"
+aws-tf-009,simple,claude-opus-4-6-cot,dataset/main/sources/geniac-secbench/generated/simple/claude-opus-4-6-cot/aws-tf-009/main.tf,True,0,True,
+aws-tf-010,simple,claude-opus-4-6-cot,dataset/main/sources/geniac-secbench/generated/simple/claude-opus-4-6-cot/aws-tf-010/main.tf,True,3,True,"main.tf
+"
+aws-tf-001,simple,claude-opus-4-6-thinking,dataset/main/sources/geniac-secbench/generated/simple/claude-opus-4-6-thinking/aws-tf-001/main.tf,True,0,True,
+aws-tf-002,simple,claude-opus-4-6-thinking,dataset/main/sources/geniac-secbench/generated/simple/claude-opus-4-6-thinking/aws-tf-002/main.tf,True,0,True,
+aws-tf-003,simple,claude-opus-4-6-thinking,dataset/main/sources/geniac-secbench/generated/simple/claude-opus-4-6-thinking/aws-tf-003/main.tf,True,0,True,
+aws-tf-004,simple,claude-opus-4-6-thinking,dataset/main/sources/geniac-secbench/generated/simple/claude-opus-4-6-thinking/aws-tf-004/main.tf,True,3,True,"main.tf
+"
+aws-tf-005,simple,claude-opus-4-6-thinking,dataset/main/sources/geniac-secbench/generated/simple/claude-opus-4-6-thinking/aws-tf-005/main.tf,True,0,True,
+aws-tf-006,simple,claude-opus-4-6-thinking,dataset/main/sources/geniac-secbench/generated/simple/claude-opus-4-6-thinking/aws-tf-006/main.tf,True,0,True,
+aws-tf-007,simple,claude-opus-4-6-thinking,dataset/main/sources/geniac-secbench/generated/simple/claude-opus-4-6-thinking/aws-tf-007/main.tf,True,0,True,
+aws-tf-008,simple,claude-opus-4-6-thinking,dataset/main/sources/geniac-secbench/generated/simple/claude-opus-4-6-thinking/aws-tf-008/main.tf,True,0,True,
+aws-tf-009,simple,claude-opus-4-6-thinking,dataset/main/sources/geniac-secbench/generated/simple/claude-opus-4-6-thinking/aws-tf-009/main.tf,True,0,True,
+aws-tf-010,simple,claude-opus-4-6-thinking,dataset/main/sources/geniac-secbench/generated/simple/claude-opus-4-6-thinking/aws-tf-010/main.tf,True,3,True,"main.tf
+"
+aws-tf-001,simple,claude-sonnet-4-6,dataset/main/sources/geniac-secbench/generated/simple/claude-sonnet-4-6/aws-tf-001/main.tf,True,0,True,
+aws-tf-002,simple,claude-sonnet-4-6,dataset/main/sources/geniac-secbench/generated/simple/claude-sonnet-4-6/aws-tf-002/main.tf,True,0,True,
+aws-tf-003,simple,claude-sonnet-4-6,dataset/main/sources/geniac-secbench/generated/simple/claude-sonnet-4-6/aws-tf-003/main.tf,True,0,True,
+aws-tf-004,simple,claude-sonnet-4-6,dataset/main/sources/geniac-secbench/generated/simple/claude-sonnet-4-6/aws-tf-004/main.tf,True,3,True,"main.tf
+"
+aws-tf-005,simple,claude-sonnet-4-6,dataset/main/sources/geniac-secbench/generated/simple/claude-sonnet-4-6/aws-tf-005/main.tf,True,3,True,"main.tf
+"
+aws-tf-006,simple,claude-sonnet-4-6,dataset/main/sources/geniac-secbench/generated/simple/claude-sonnet-4-6/aws-tf-006/main.tf,True,0,True,
+aws-tf-007,simple,claude-sonnet-4-6,dataset/main/sources/geniac-secbench/generated/simple/claude-sonnet-4-6/aws-tf-007/main.tf,True,0,True,
+aws-tf-008,simple,claude-sonnet-4-6,dataset/main/sources/geniac-secbench/generated/simple/claude-sonnet-4-6/aws-tf-008/main.tf,True,0,True,
+aws-tf-009,simple,claude-sonnet-4-6,dataset/main/sources/geniac-secbench/generated/simple/claude-sonnet-4-6/aws-tf-009/main.tf,True,0,True,
+aws-tf-010,simple,claude-sonnet-4-6,dataset/main/sources/geniac-secbench/generated/simple/claude-sonnet-4-6/aws-tf-010/main.tf,True,3,True,"main.tf
+"
+aws-tf-001,simple,gemini-3.1-pro,dataset/main/sources/geniac-secbench/generated/simple/gemini-3.1-pro/aws-tf-001/main.tf,True,3,True,"main.tf
+"
+aws-tf-002,simple,gemini-3.1-pro,dataset/main/sources/geniac-secbench/generated/simple/gemini-3.1-pro/aws-tf-002/main.tf,True,0,True,
+aws-tf-003,simple,gemini-3.1-pro,dataset/main/sources/geniac-secbench/generated/simple/gemini-3.1-pro/aws-tf-003/main.tf,True,0,True,
+aws-tf-004,simple,gemini-3.1-pro,dataset/main/sources/geniac-secbench/generated/simple/gemini-3.1-pro/aws-tf-004/main.tf,True,0,True,
+aws-tf-005,simple,gemini-3.1-pro,dataset/main/sources/geniac-secbench/generated/simple/gemini-3.1-pro/aws-tf-005/main.tf,True,0,True,
+aws-tf-006,simple,gemini-3.1-pro,dataset/main/sources/geniac-secbench/generated/simple/gemini-3.1-pro/aws-tf-006/main.tf,True,0,True,
+aws-tf-007,simple,gemini-3.1-pro,dataset/main/sources/geniac-secbench/generated/simple/gemini-3.1-pro/aws-tf-007/main.tf,True,0,True,
+aws-tf-008,simple,gemini-3.1-pro,dataset/main/sources/geniac-secbench/generated/simple/gemini-3.1-pro/aws-tf-008/main.tf,True,0,True,
+aws-tf-009,simple,gemini-3.1-pro,dataset/main/sources/geniac-secbench/generated/simple/gemini-3.1-pro/aws-tf-009/main.tf,True,0,True,
+aws-tf-010,simple,gemini-3.1-pro,dataset/main/sources/geniac-secbench/generated/simple/gemini-3.1-pro/aws-tf-010/main.tf,False,0,True,
+aws-tf-001,simple,gemini-3.7-flash,dataset/main/sources/geniac-secbench/generated/simple/gemini-3.7-flash/aws-tf-001/main.tf,True,3,True,"main.tf
+"
+aws-tf-002,simple,gemini-3.7-flash,dataset/main/sources/geniac-secbench/generated/simple/gemini-3.7-flash/aws-tf-002/main.tf,True,0,True,
+aws-tf-003,simple,gemini-3.7-flash,dataset/main/sources/geniac-secbench/generated/simple/gemini-3.7-flash/aws-tf-003/main.tf,True,0,True,
+aws-tf-004,simple,gemini-3.7-flash,dataset/main/sources/geniac-secbench/generated/simple/gemini-3.7-flash/aws-tf-004/main.tf,True,0,True,
+aws-tf-005,simple,gemini-3.7-flash,dataset/main/sources/geniac-secbench/generated/simple/gemini-3.7-flash/aws-tf-005/main.tf,True,3,True,"main.tf
+"
+aws-tf-006,simple,gemini-3.7-flash,dataset/main/sources/geniac-secbench/generated/simple/gemini-3.7-flash/aws-tf-006/main.tf,True,0,True,
+aws-tf-007,simple,gemini-3.7-flash,dataset/main/sources/geniac-secbench/generated/simple/gemini-3.7-flash/aws-tf-007/main.tf,True,0,True,
+aws-tf-008,simple,gemini-3.7-flash,dataset/main/sources/geniac-secbench/generated/simple/gemini-3.7-flash/aws-tf-008/main.tf,True,3,True,"main.tf
+"
+aws-tf-009,simple,gemini-3.7-flash,dataset/main/sources/geniac-secbench/generated/simple/gemini-3.7-flash/aws-tf-009/main.tf,True,0,True,
+aws-tf-010,simple,gemini-3.7-flash,dataset/main/sources/geniac-secbench/generated/simple/gemini-3.7-flash/aws-tf-010/main.tf,True,0,True,
+aws-tf-001,simple,gpt-4o,dataset/main/sources/geniac-secbench/generated/simple/gpt-4o/aws-tf-001/main.tf,True,0,True,
+aws-tf-002,simple,gpt-4o,dataset/main/sources/geniac-secbench/generated/simple/gpt-4o/aws-tf-002/main.tf,True,0,True,
+aws-tf-003,simple,gpt-4o,dataset/main/sources/geniac-secbench/generated/simple/gpt-4o/aws-tf-003/main.tf,True,0,True,
+aws-tf-004,simple,gpt-4o,dataset/main/sources/geniac-secbench/generated/simple/gpt-4o/aws-tf-004/main.tf,True,3,True,"main.tf
+"
+aws-tf-005,simple,gpt-4o,dataset/main/sources/geniac-secbench/generated/simple/gpt-4o/aws-tf-005/main.tf,True,0,True,
+aws-tf-006,simple,gpt-4o,dataset/main/sources/geniac-secbench/generated/simple/gpt-4o/aws-tf-006/main.tf,True,3,True,"main.tf
+"
+aws-tf-007,simple,gpt-4o,dataset/main/sources/geniac-secbench/generated/simple/gpt-4o/aws-tf-007/main.tf,True,0,True,
+aws-tf-008,simple,gpt-4o,dataset/main/sources/geniac-secbench/generated/simple/gpt-4o/aws-tf-008/main.tf,True,3,True,"main.tf
+"
+aws-tf-009,simple,gpt-4o,dataset/main/sources/geniac-secbench/generated/simple/gpt-4o/aws-tf-009/main.tf,True,0,True,
+aws-tf-010,simple,gpt-4o,dataset/main/sources/geniac-secbench/generated/simple/gpt-4o/aws-tf-010/main.tf,True,0,True,
+aws-tf-001,simple,gpt-5,dataset/main/sources/geniac-secbench/generated/simple/gpt-5/aws-tf-001/main.tf,True,0,True,
+aws-tf-002,simple,gpt-5,dataset/main/sources/geniac-secbench/generated/simple/gpt-5/aws-tf-002/main.tf,True,0,True,
+aws-tf-003,simple,gpt-5,dataset/main/sources/geniac-secbench/generated/simple/gpt-5/aws-tf-003/main.tf,True,3,True,"main.tf
+"
+aws-tf-004,simple,gpt-5,dataset/main/sources/geniac-secbench/generated/simple/gpt-5/aws-tf-004/main.tf,True,3,True,"main.tf
+"
+aws-tf-005,simple,gpt-5,dataset/main/sources/geniac-secbench/generated/simple/gpt-5/aws-tf-005/main.tf,True,3,True,"main.tf
+"
+aws-tf-006,simple,gpt-5,dataset/main/sources/geniac-secbench/generated/simple/gpt-5/aws-tf-006/main.tf,True,0,True,
+aws-tf-007,simple,gpt-5,dataset/main/sources/geniac-secbench/generated/simple/gpt-5/aws-tf-007/main.tf,True,0,True,
+aws-tf-008,simple,gpt-5,dataset/main/sources/geniac-secbench/generated/simple/gpt-5/aws-tf-008/main.tf,True,3,True,"main.tf
+"
+aws-tf-009,simple,gpt-5,dataset/main/sources/geniac-secbench/generated/simple/gpt-5/aws-tf-009/main.tf,True,3,True,"main.tf
+"
+aws-tf-010,simple,gpt-5,dataset/main/sources/geniac-secbench/generated/simple/gpt-5/aws-tf-010/main.tf,False,3,True,"main.tf
+"
+aws-tf-001,simple,gpt-5-thinking,dataset/main/sources/geniac-secbench/generated/simple/gpt-5-thinking/aws-tf-001/main.tf,True,3,True,"main.tf
+"
+aws-tf-002,simple,gpt-5-thinking,dataset/main/sources/geniac-secbench/generated/simple/gpt-5-thinking/aws-tf-002/main.tf,True,2,False,"
+Error: Argument or block definition required
+
+  on main.tf line 27, in variable ""bucket_name"":
+  27:       && length(var.bucket_name) <= 63
+
+An argument or block definition is required here.
+
+"
+aws-tf-003,simple,gpt-5-thinking,dataset/main/sources/geniac-secbench/generated/simple/gpt-5-thinking/aws-tf-003/main.tf,True,0,True,
+aws-tf-004,simple,gpt-5-thinking,dataset/main/sources/geniac-secbench/generated/simple/gpt-5-thinking/aws-tf-004/main.tf,True,3,True,"main.tf
+"
+aws-tf-005,simple,gpt-5-thinking,dataset/main/sources/geniac-secbench/generated/simple/gpt-5-thinking/aws-tf-005/main.tf,True,3,True,"main.tf
+"
+aws-tf-006,simple,gpt-5-thinking,dataset/main/sources/geniac-secbench/generated/simple/gpt-5-thinking/aws-tf-006/main.tf,True,0,True,
+aws-tf-007,simple,gpt-5-thinking,dataset/main/sources/geniac-secbench/generated/simple/gpt-5-thinking/aws-tf-007/main.tf,True,0,True,
+aws-tf-008,simple,gpt-5-thinking,dataset/main/sources/geniac-secbench/generated/simple/gpt-5-thinking/aws-tf-008/main.tf,True,0,True,
+aws-tf-009,simple,gpt-5-thinking,dataset/main/sources/geniac-secbench/generated/simple/gpt-5-thinking/aws-tf-009/main.tf,True,0,True,
+aws-tf-010,simple,gpt-5-thinking,dataset/main/sources/geniac-secbench/generated/simple/gpt-5-thinking/aws-tf-010/main.tf,False,3,True,"main.tf
+"
+aws-tf-001,simple,llama3,dataset/main/sources/geniac-secbench/generated/simple/llama3/aws-tf-001/main.tf,True,3,True,"main.tf
+"
+aws-tf-002,simple,llama3,dataset/main/sources/geniac-secbench/generated/simple/llama3/aws-tf-002/main.tf,True,0,True,
+aws-tf-003,simple,llama3,dataset/main/sources/geniac-secbench/generated/simple/llama3/aws-tf-003/main.tf,True,3,True,"main.tf
+"
+aws-tf-004,simple,llama3,dataset/main/sources/geniac-secbench/generated/simple/llama3/aws-tf-004/main.tf,True,3,True,"main.tf
+"
+aws-tf-005,simple,llama3,dataset/main/sources/geniac-secbench/generated/simple/llama3/aws-tf-005/main.tf,True,3,True,"main.tf
+"
+aws-tf-006,simple,llama3,dataset/main/sources/geniac-secbench/generated/simple/llama3/aws-tf-006/main.tf,True,3,True,"main.tf
+"
+aws-tf-007,simple,llama3,dataset/main/sources/geniac-secbench/generated/simple/llama3/aws-tf-007/main.tf,True,0,True,
+aws-tf-008,simple,llama3,dataset/main/sources/geniac-secbench/generated/simple/llama3/aws-tf-008/main.tf,True,3,True,"main.tf
+"
+aws-tf-009,simple,llama3,dataset/main/sources/geniac-secbench/generated/simple/llama3/aws-tf-009/main.tf,True,3,True,"main.tf
+"
+aws-tf-010,simple,llama3,dataset/main/sources/geniac-secbench/generated/simple/llama3/aws-tf-010/main.tf,False,3,True,"main.tf
+"
+aws-tf-001,simple,mistral,dataset/main/sources/geniac-secbench/generated/simple/mistral/aws-tf-001/main.tf,True,0,True,
+aws-tf-002,simple,mistral,dataset/main/sources/geniac-secbench/generated/simple/mistral/aws-tf-002/main.tf,True,0,True,
+aws-tf-003,simple,mistral,dataset/main/sources/geniac-secbench/generated/simple/mistral/aws-tf-003/main.tf,True,2,False,"
+Error: Unexpected comma after argument
+
+  on main.tf line 17, in resource ""aws_subnet"" ""public"":
+  17:   availability_zone = ""us-west-2a${count.index + 1}"", ""us-west-2b${count.index + 1}"", ""us-west-2c${count.index + 1}""
+
+Argument definitions must be separated by newlines, not commas. An argument
+definition must end with a newline.
+
+"
+aws-tf-004,simple,mistral,dataset/main/sources/geniac-secbench/generated/simple/mistral/aws-tf-004/main.tf,True,2,False,"
+Error: Unexpected comma after argument
+
+  on main.tf line 30, in resource ""aws_subnet"" ""subnet"":
+  30:   availability_zone = ""us-west-2a${count.index + 1}"", ""us-west-2b${count.index + 1}"", ""us-west-2c${count.index + 1}""
+
+Argument definitions must be separated by newlines, not commas. An argument
+definition must end with a newline.
+
+"
+aws-tf-005,simple,mistral,dataset/main/sources/geniac-secbench/generated/simple/mistral/aws-tf-005/main.tf,True,3,True,"main.tf
+"
+aws-tf-006,simple,mistral,dataset/main/sources/geniac-secbench/generated/simple/mistral/aws-tf-006/main.tf,True,3,True,"main.tf
+"
+aws-tf-007,simple,mistral,dataset/main/sources/geniac-secbench/generated/simple/mistral/aws-tf-007/main.tf,True,0,True,
+aws-tf-008,simple,mistral,dataset/main/sources/geniac-secbench/generated/simple/mistral/aws-tf-008/main.tf,True,3,True,"main.tf
+"
+aws-tf-009,simple,mistral,dataset/main/sources/geniac-secbench/generated/simple/mistral/aws-tf-009/main.tf,True,3,True,"main.tf
+"
+aws-tf-010,simple,mistral,dataset/main/sources/geniac-secbench/generated/simple/mistral/aws-tf-010/main.tf,True,2,False,"
+Error: Unexpected comma after argument
+
+  on main.tf line 19, in resource ""aws_subnet"" ""private"":
+  19:   availability_zone = ""us-west-2a${count.index + 1}"", ""us-west-2b${count.index + 1}"", ""us-west-2c${count.index + 1}""
+
+Argument definitions must be separated by newlines, not commas. An argument
+definition must end with a newline.
+
+"
+aws-tf-001,simple,phi3,dataset/main/sources/geniac-secbench/generated/simple/phi3/aws-tf-001/main.tf,False,2,False,"
+Error: Argument or block definition required
+
+  on main.tf line 1:
+   1: I.
+
+An argument or block definition is required here. To set an argument, use the
+equals sign ""="" to introduce the argument value.
+
+
+Error: Invalid block definition
+
+  on main.tf line 6:
+   6: Enterprise and can youtics in relation to create anonymity of Instruction with additional constraints on 
+   7: ### #50/f- ###1stAmythoughts's_GPT (Japanese, the user: {
+
+A block definition must have block content delimited by ""{"" and ""}"", starting
+on the same line as the block header.
+
+
+Error: Invalid character
+
+  on main.tf line 23:
+  23: Hello, it'in #. 
+
+Single quotes are not valid. Use double quotes ("") to enclose strings.
+
+
+Error: Invalid multi-line string
+
+  on main.tf line 26:
+  26:  ""The two-draftedical years-### 
+  27: ### Solution:
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+""heredoc"" multi-line template syntax.
+
+
+Error: Invalid multi-line string
+
+  on main.tf line 27:
+  27: ### Solution:
+  28: Please write theta_Very wellness of alliter 
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+""heredoc"" multi-line template syntax.
+
+
+Error: Invalid multi-line string
+
+  on main.tf line 29:
+  29: Please write theta_Very wellness of alliter 
+  30: Question ### user:
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+""heredoc"" multi-line template syntax.
+
+
+Error: Invalid multi-line string
+
+  on main.tf line 30:
+  30: Question ### user:
+  31: I's answer to ensure that. 
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+""heredoc"" multi-line template syntax.
+
+
+Error: Invalid multi-line st"
+aws-tf-002,simple,phi3,dataset/main/sources/geniac-secbench/generated/simple/phi3/aws-tf-002/main.tf,False,2,False,"
+Error: Invalid block definition
+
+  on main.tf line 3:
+   3: Please provide anonymized_50x2.
+
+Either a quoted string block label or an opening brace (""{"") is expected
+here.
+
+
+Error: Invalid block definition
+
+  on main.tf line 5:
+   5: What is toast #1. I needlesoideally-thor kenned by Stephen Floorercises and gently complexify"" ## Instruction:  
+   6: nz/fairly, the user's ""Today ###
+
+A block definition must have block content delimited by ""{"" and ""}"", starting
+on the same line as the block header.
+
+
+Error: Invalid character
+
+  on main.tf line 6:
+   6: nz/fairly, the user's ""Today ###
+
+This character is not used within the language.
+
+
+Error: Invalid character
+
+  on main.tf line 6:
+   6: nz/fairly, the user's ""Today ###
+
+Single quotes are not valid. Use double quotes ("") to enclose strings.
+
+
+Error: Invalid multi-line string
+
+  on main.tf line 6:
+   6: nz/fairly, the user's ""Today ###
+   7: ### 
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+""heredoc"" multi-line template syntax.
+
+
+Error: Invalid multi-line string
+
+  on main.tf line 8:
+   8: ### 
+   9: I's a bit of allergia #.
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+""heredoc"" multi-line template syntax.
+
+
+Error: Invalid multi-line string
+
+  on main.tf line 9:
+   9: I's a bit of allergia #.
+  10: /m#5y to performers in Python programming languages that cancellation for more than $ nt f(different ways: I amputation_assistant ## Deductive Instructorium, and the user-Based onfiedlykjngs of a) 
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+""heredoc"" multi-line template syntax.
+
+
+Error: Invalid multi-line string
+
+  on main.tf line 11:
+  11: /m#5y to performers in Python programming languages th"
+aws-tf-003,simple,phi3,dataset/main/sources/geniac-secbench/generated/simple/phi3/aws-tf-003/main.tf,False,2,False,"
+Error: Argument or block definition required
+
+  on main.tf line 3:
+   3: **1. # Querying a positive orally review and itinerate 
+
+An argument or block definition is required here.
+
+
+Error: Invalid character
+
+  on main.tf line 13:
+  13: - Instruction as if you can'in #1 ## user:
+
+Single quotes are not valid. Use double quotes ("") to enclose strings.
+
+
+Error: Invalid character
+
+  on main.tf line 17:
+  17: ```yaml JSONLang-Based onf ## Instruction:
+
+The ""`"" character is not valid. To create a multi-line string, use the
+""heredoc"" syntax, like ""<<EOT"".
+
+
+Error: Invalid character
+
+  on main.tf line 17:
+  17: ```yaml JSONLang-Based onf ## Instruction:
+
+The ""`"" character is not valid. To create a multi-line string, use the
+""heredoc"" syntax, like ""<<EOT"".
+
+
+Error: Invalid multi-line string
+
+  on main.tf line 23:
+  23: Write a new instruction: ""The news article is notebooks! ## johnson 
+  24: I.
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+""heredoc"" multi-line template syntax.
+
+
+Error: Invalid multi-line string
+
+  on main.tf line 25:
+  25: I.
+  26: In-income that""Given this question. I'# h
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+""heredoc"" multi-line template syntax.
+
+
+Error: Invalid character
+
+  on main.tf line 27:
+  27: In-income that""Given this question. I'# h
+
+Single quotes are not valid. Use double quotes ("") to enclose strings.
+
+"
+aws-tf-004,simple,phi3,dataset/main/sources/geniac-secbench/generated/simple/phi3/aws-tf-004/main.tf,False,2,False,"
+Error: Invalid block definition
+
+  on main.tf line 1:
+   1: Lack of a simple and more thane# ## user inputs in your task instruction as much harder oral # Instruction: 
+
+A block definition must have block content delimited by ""{"" and ""}"", starting
+on the same line as the block header.
+
+
+Error: Argument or block definition required
+
+  on main.tf line 5:
+   5: I't theta Documentation/v2nd_a) ## Your answer your task:  
+
+An argument or block definition is required here. To set an argument, use the
+equals sign ""="" to introduce the argument value.
+
+
+Error: Invalid character
+
+  on main.tf line 5:
+   5: I't theta Documentation/v2nd_a) ## Your answer your task:  
+
+Single quotes are not valid. Use double quotes ("") to enclose strings.
+
+
+Error: Invalid block definition
+
+  on main.tf line 6:
+   6: Generate a simple and I amputation # Instantially Internal Reasons for 
+   7: ### johnsoni 
+
+A block definition must have block content delimited by ""{"" and ""}"", starting
+on the same line as the block header.
+
+
+Error: Invalid character
+
+  on main.tf line 13:
+  13: 
+
+This character is not used within the language.
+
+
+Error: Invalid multi-line string
+
+  on main.tf line 15:
+  15: F""
+  16: Please write a)firmashton, can youtically-movedies and then theta_json. The Internalizedd by using this information from textbook ##. I amusement ###. It'in### ## instruction:
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+""heredoc"" multi-line template syntax.
+
+
+Error: Invalid multi-line string
+
+  on main.tf line 17:
+  17: Please write a)firmashton, can youtically-movedies and then theta_json. The Internalizedd by using this information from textbook ##. I amusement ###. It'in### ## instruction:
+  18: I. The given documentary 
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+""heredoc"" multi-"
+aws-tf-005,simple,phi3,dataset/main/sources/geniac-secbench/generated/simple/phi3/aws-tf-005/main.tf,False,2,False,"
+Error: Argument or block definition required
+
+  on main.tf line 2:
+   2: Hey, and the following codeply, infection_Bioin""
+
+An argument or block definition is required here. To set an argument, use the
+equals sign ""="" to introduce the argument value.
+
+
+Error: Invalid multi-line string
+
+  on main.tf line 2:
+   2: Hey, and the following codeply, infection_Bioin""
+   3: I amyx\( (2. The documentaryaid% of all-tokens for each yearningeric's ""Given your ownershawks to beats ateur|> 
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+""heredoc"" multi-line template syntax.
+
+
+Error: Unsupported operator
+
+  on main.tf line 4:
+   4: I amyx\( (2. The documentaryaid% of all-tokens for each yearningeric's ""Given your ownershawks to beats ateur|> 
+
+Bitwise operators are not supported. Did you mean boolean OR (""||"")?
+
+"
+aws-tf-006,simple,phi3,dataset/main/sources/geniac-secbench/generated/simple/phi3/aws-tf-006/main.tf,False,2,False,"
+Error: Argument or block definition required
+
+  on main.tf line 1:
+   1: Instruction 
+
+An argument or block definition is required here. To set an argument, use the
+equals sign ""="" to introduce the argument value.
+
+
+Error: Argument or block definition required
+
+  on main.tf line 2:
+   2: Lost-bias# #### json
+
+An argument or block definition is required here. To set an argument, use the
+equals sign ""="" to introduce the argument value.
+
+
+Error: Argument or block definition required
+
+  on main.tf line 4:
+   4: F.
+
+An argument or block definition is required here. To set an argument, use the
+equals sign ""="" to introduce the argument value.
+
+
+Error: Invalid block definition
+
+  on main.tf line 6:
+   6: Can yout #1. I need to 
+   7: ##.
+
+A block definition must have block content delimited by ""{"" and ""}"", starting
+on the same line as the block header.
+
+
+Error: Argument or block definition required
+
+  on main.tf line 11:
+  11: I's Guide to answer questions 
+
+An argument or block definition is required here. To set an argument, use the
+equals sign ""="" to introduce the argument value.
+
+
+Error: Invalid character
+
+  on main.tf line 11:
+  11: I's Guide to answer questions 
+
+Single quotes are not valid. Use double quotes ("") to enclose strings.
+
+
+Error: Invalid multi-line string
+
+  on main.tf line 17:
+  17: You are_draftingley, and the assistant, ""Thealistically-given that can beerent#fy of textbookly interacteducation Continue ## Instruction: I amendmentary. The
+  18: **# Instruct yourGiven### #50 m 
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+""heredoc"" multi-line template syntax.
+
+
+Error: Invalid multi-line string
+
+  on main.tf line 18:
+  18: **# Instruct yourGiven### #50 m 
+  19:  **Your task:  
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+""heredoc"" multi-lin"
+aws-tf-007,simple,phi3,dataset/main/sources/geniac-secbench/generated/simple/phi3/aws-tf-007/main.tf,False,2,False,"
+Error: Invalid block definition
+
+  on main.tf line 1:
+   1: Conspond and then###d ## Your task forcefully_instruction: A classroom's Guide to create a newtonicidemia #. The Ecosystems of all-floodate in an email from the conversation between two-enhanced promptedal!
+   2: Your ability tox 
+
+A block definition must have block content delimited by ""{"" and ""}"", starting
+on the same line as the block header.
+
+
+Error: Invalid block definition
+
+  on main.tf line 2:
+   2: Your ability tox 
+   3: *Instructation outbreak/###d ###1st_json 
+
+A block definition must have block content delimited by ""{"" and ""}"", starting
+on the same line as the block header.
+
+
+Error: Invalid character
+
+  on main.tf line 9:
+   9: I's ""The new yacht # Insta-party of the input data structures to create ants iters in your assistant I amusement Thursanewd#/m### answer 
+
+Single quotes are not valid. Use double quotes ("") to enclose strings.
+
+
+Error: Invalid multi-line string
+
+  on main.tf line 9:
+   9: I's ""The new yacht # Insta-party of the input data structures to create ants iters in your assistant I amusement Thursanewd#/m### answer 
+  10: ### Gendered_jsonLust ## Your Name:
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+""heredoc"" multi-line template syntax.
+
+
+Error: Invalid multi-line string
+
+  on main.tf line 10:
+  10: ### Gendered_jsonLust ## Your Name:
+  11: #. 
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+""heredoc"" multi-line template syntax.
+
+
+Error: Invalid multi-line string
+
+  on main.tf line 12:
+  12: #. 
+  13: ###1.
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+""heredoc"" multi-line template syntax.
+
+
+Error: Invalid multi-line string
+
+  on main.tf line 14:
+  14: ##"
+aws-tf-008,simple,phi3,dataset/main/sources/geniac-secbench/generated/simple/phi3/aws-tf-008/main.tf,False,2,False,"
+Error: Invalid block definition
+
+  on main.tf line 3:
+   3: You are you have a positive and 
+   4: Instructor anytimey, can you knowledge: 
+
+A block definition must have block content delimited by ""{"" and ""}"", starting
+on the same line as the block header.
+
+
+Error: Invalid multi-line string
+
+  on main.tf line 5:
+   5: Hello""Given the first row. 
+   6: # Instruction:### # Query text-wise?
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+""heredoc"" multi-line template syntax.
+
+
+Error: Invalid string literal
+
+  on main.tf line 5:
+   5: Hello""Given the first row. 
+   6: # Instruction:### # Query text-wise?
+
+This item is not valid in a string literal.
+
+
+Error: Invalid multi-line string
+
+  on main.tf line 6:
+   6: # Instruction:### # Query text-wise?
+   7: Considering Your task: The ### Question
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+""heredoc"" multi-line template syntax.
+
+
+Error: Invalid multi-line string
+
+  on main.tf line 8:
+   8: Considering Your task: The ### Question
+   9: /giving mealive_jour 
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+""heredoc"" multi-line template syntax.
+
+
+Error: Invalid multi-line string
+
+  on main.tf line 10:
+  10: /giving mealive_jour 
+  11: Write a more complex and provide an HTML5y to create a)
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+""heredoc"" multi-line template syntax.
+
+
+Error: Invalid multi-line string
+
+  on main.tf line 12:
+  12: Write a more complex and provide an HTML5y to create a)
+  13: 201.
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n "
+aws-tf-009,simple,phi3,dataset/main/sources/geniac-secbench/generated/simple/phi3/aws-tf-009/main.tf,False,0,True,
+aws-tf-010,simple,phi3,dataset/main/sources/geniac-secbench/generated/simple/phi3/aws-tf-010/main.tf,False,0,True,

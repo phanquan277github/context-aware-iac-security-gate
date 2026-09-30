@@ -1,0 +1,571 @@
+candidate_id,status,failure_class,first_error,log_path
+complex__claude-opus-4-6-cot__complex-aws-tf-001,VALIDATE_FAILED,UNSUPPORTED_ARGUMENT|MISSING_REQUIRED_ARGUMENT,"Error: Missing required argument
+
+  on main.tf line 953, in resource ""aws_networkfirewall_rule_group"" ""suricata_use1"":
+ 953:     stateful_rule_options {
+
+The argument ""rule_order"" is required, but no definition was found.
+
+Error: Unsupported argument",results/source_corpus/geniac_validation/complex__claude-opus-4-6-cot__complex-aws-tf-001_validate.log
+complex__claude-opus-4-6-cot__complex-aws-tf-003,VALIDATE_FAILED,UNSUPPORTED_BLOCK,"Error: Unsupported block type
+
+  on main.tf line 1568, in resource ""aws_api_gateway_rest_api"" ""main"":
+1568:   mutual_tls_authentication {
+
+Blocks of type ""mutual_tls_authentication"" are not expected here.",results/source_corpus/geniac_validation/complex__claude-opus-4-6-cot__complex-aws-tf-003_validate.log
+complex__claude-opus-4-6-cot__complex-aws-tf-008,INIT_FAILED,MODULE_RESOLUTION,"Error: Failed to download module
+
+  on main.tf line 109:
+ 109: module ""aft"" {
+
+Could not download module ""aft"" (main.tf:109) source code from
+""git::https://github.com/aws-ia/terraform-aws-control_tower_account_factory.git?ref=v1.11.1"":
+error downloading",results/source_corpus/geniac_validation/complex__claude-opus-4-6-cot__complex-aws-tf-008_init.log
+complex__claude-opus-4-6-thinking__complex-aws-tf-001,VALIDATE_FAILED,UNSUPPORTED_ARGUMENT|UNSUPPORTED_BLOCK|MISSING_REQUIRED_ARGUMENT,"Error: Unsupported block type
+
+  on main.tf line 942, in resource ""aws_networkfirewall_rule_group"" ""suricata_ips_us_east_1"":
+ 942:       stateful_rule_options {
+
+Blocks of type ""stateful_rule_options"" are not expected here.
+
+Error: Missing required argument",results/source_corpus/geniac_validation/complex__claude-opus-4-6-thinking__complex-aws-tf-001_validate.log
+complex__claude-opus-4-6-thinking__complex-aws-tf-002,INIT_FAILED,UNSUPPORTED_ARGUMENT,"Error: Unsupported argument
+
+  on main.tf line 205, in module ""vpc"":
+ 205:   create_flow_log_iam_role             = true
+
+An argument named ""create_flow_log_iam_role"" is not expected here.",results/source_corpus/geniac_validation/complex__claude-opus-4-6-thinking__complex-aws-tf-002_init.log
+complex__claude-opus-4-6-thinking__complex-aws-tf-003,VALIDATE_FAILED,UNSUPPORTED_BLOCK,"Error: Unsupported block type
+
+  on main.tf line 1768, in resource ""aws_api_gateway_rest_api"" ""main"":
+1768:   mutual_tls_authentication {
+
+Blocks of type ""mutual_tls_authentication"" are not expected here.",results/source_corpus/geniac_validation/complex__claude-opus-4-6-thinking__complex-aws-tf-003_validate.log
+complex__claude-opus-4-6-thinking__complex-aws-tf-006,INIT_FAILED,OTHER,"Error: Terraform encountered problems during initialisation, including problems
+with the configuration, described below.
+
+The Terraform configuration must be valid before initialization so that
+Terraform can determine which modules and providers need to be installed.
+
+
+Error: Argument definition required",results/source_corpus/geniac_validation/complex__claude-opus-4-6-thinking__complex-aws-tf-006_init.log
+complex__claude-opus-4-6__complex-aws-tf-001,VALIDATE_FAILED,UNSUPPORTED_ARGUMENT|MISSING_REQUIRED_ARGUMENT,"Error: Missing required argument
+
+  on main.tf line 746, in resource ""aws_networkfirewall_rule_group"" ""suricata_us_east_1"":
+ 746:     stateful_rule_options {
+
+The argument ""rule_order"" is required, but no definition was found.
+
+Error: Unsupported argument",results/source_corpus/geniac_validation/complex__claude-opus-4-6__complex-aws-tf-001_validate.log
+complex__claude-opus-4-6__complex-aws-tf-003,INIT_FAILED,SYNTAX_PARSE,"Error: Terraform encountered problems during initialisation, including problems
+with the configuration, described below.
+
+The Terraform configuration must be valid before initialization so that
+Terraform can determine which modules and providers need to be installed.
+
+
+Error: Invalid character",results/source_corpus/geniac_validation/complex__claude-opus-4-6__complex-aws-tf-003_init.log
+complex__claude-opus-4-6__complex-aws-tf-008,VALIDATE_FAILED,TYPE_OR_VALUE_ERROR,"Error: expected length of relay_state to be in the range (1 - 240), got 
+
+  with aws_ssoadmin_permission_set.admin,
+  on main.tf line 380, in resource ""aws_ssoadmin_permission_set"" ""admin"":
+ 380:   relay_state      = """"
+
+
+Error: invalid value for relay_state (must match [0-9A-Za-z&$@#\\\/%?=~\-_'""|!:,.;*+\[\]\(\)\{\}])",results/source_corpus/geniac_validation/complex__claude-opus-4-6__complex-aws-tf-008_validate.log
+complex__claude-opus-4-6__complex-aws-tf-010,VALIDATE_FAILED,OTHER,"Error: expected interval_unit to be one of [""DAYS"" ""WEEKS"" ""MONTHS"" ""YEARS""], got HOURS
+
+  with aws_dlm_lifecycle_policy.ebs_snapshots,
+  on main.tf line 724, in resource ""aws_dlm_lifecycle_policy"" ""ebs_snapshots"":
+ 724:       cross_region_copy_rule {
+",results/source_corpus/geniac_validation/complex__claude-opus-4-6__complex-aws-tf-010_validate.log
+complex__claude-sonnet-4-6__complex-aws-tf-002,VALIDATE_FAILED,OTHER,"Error: expected distribution to be one of [""Random"" ""ByLogStream""], got ByLogStreamName
+
+  with aws_cloudwatch_log_subscription_filter.application_to_siem,
+  on main.tf line 1418, in resource ""aws_cloudwatch_log_subscription_filter"" ""application_to_siem"":
+1418:   distribution    = ""ByLogStreamName""
+
+
+Error: expected distribution to be one of [""Random"" ""ByLogStream""], got ByLogStreamName",results/source_corpus/geniac_validation/complex__claude-sonnet-4-6__complex-aws-tf-002_validate.log
+complex__claude-sonnet-4-6__complex-aws-tf-003,VALIDATE_FAILED,OTHER,"Error: Conflicting configuration arguments
+
+  with aws_cloudtrail.organization,
+  on main.tf line 1999, in resource ""aws_cloudtrail"" ""organization"":
+1999: resource ""aws_cloudtrail"" ""organization"" {
+
+""event_selector"": conflicts with advanced_event_selector
+",results/source_corpus/geniac_validation/complex__claude-sonnet-4-6__complex-aws-tf-003_validate.log
+complex__claude-sonnet-4-6__complex-aws-tf-007,VALIDATE_FAILED,UNSUPPORTED_ARGUMENT|UNSUPPORTED_BLOCK,"Error: Unsupported block type
+
+  on main.tf line 707, in resource ""aws_lakeformation_permissions"" ""analyst_curated_table"":
+ 707:     column_wildcards {
+
+Blocks of type ""column_wildcards"" are not expected here.
+
+Error: Unsupported argument",results/source_corpus/geniac_validation/complex__claude-sonnet-4-6__complex-aws-tf-007_validate.log
+complex__claude-sonnet-4-6__complex-aws-tf-008,INIT_FAILED,OTHER,"Error: Module not found
+
+  on main.tf line 238:
+ 238: module ""aft"" {
+
+Module ""aft"" (from main.tf:238) cannot be found in the module registry at
+registry.terraform.io.",results/source_corpus/geniac_validation/complex__claude-sonnet-4-6__complex-aws-tf-008_init.log
+complex__claude-sonnet-4-6__complex-aws-tf-010,INIT_FAILED,MODULE_RESOLUTION,"Error: Unreadable module directory
+
+Unable to evaluate directory symlink: lstat modules: no such file or
+directory
+
+Error: Unreadable module directory
+
+The directory  could not be read for module ""eks_dr"" at main.tf:1161.",results/source_corpus/geniac_validation/complex__claude-sonnet-4-6__complex-aws-tf-010_init.log
+complex__gemini-3.1-pro__complex-aws-tf-001,INIT_FAILED,SYNTAX_PARSE,"Error: Terraform encountered problems during initialisation, including problems
+with the configuration, described below.
+
+The Terraform configuration must be valid before initialization so that
+Terraform can determine which modules and providers need to be installed.
+
+
+Error: Invalid character",results/source_corpus/geniac_validation/complex__gemini-3.1-pro__complex-aws-tf-001_init.log
+complex__gemini-3.1-pro__complex-aws-tf-002,VALIDATE_FAILED,UNSUPPORTED_BLOCK,"Error: Unsupported block type
+
+  on main.tf line 238, in provider ""helm"":
+ 238:   kubernetes {
+
+Blocks of type ""kubernetes"" are not expected here. Did you mean to define
+argument ""kubernetes""? If so, use the equals sign to assign it a value.",results/source_corpus/geniac_validation/complex__gemini-3.1-pro__complex-aws-tf-002_validate.log
+complex__gemini-3.1-pro__complex-aws-tf-003,VALIDATE_FAILED,OTHER,"Error: Error in function call
+
+  on main.tf line 435, in resource ""aws_lambda_function"" ""processor"":
+ 435:   source_code_hash = filebase64sha256(""dummy_payload.zip"")
+    ├────────────────
+    │ while calling filebase64sha256(path)
+
+Call to function ""filebase64sha256"" failed: open dummy_payload.zip: no such",results/source_corpus/geniac_validation/complex__gemini-3.1-pro__complex-aws-tf-003_validate.log
+complex__gemini-3.1-pro__complex-aws-tf-006,INIT_FAILED,MODULE_RESOLUTION,"Error: Unreadable module directory
+
+Unable to evaluate directory symlink: lstat vpc_east: no such file or
+directory
+
+Error: Unreadable module directory
+
+The directory  could not be read for module ""vpc_east"" at main.tf:146.",results/source_corpus/geniac_validation/complex__gemini-3.1-pro__complex-aws-tf-006_init.log
+complex__gemini-3.1-pro__complex-aws-tf-008,INIT_FAILED,OTHER,"Error: Cannot override provider configuration
+
+  on main.tf line 94, in module ""aft"":
+  94:     aws.ct_management  = aws.management
+
+The configuration of module.aft has its own local configuration for
+aws.ct_management, and so it cannot accept an overridden configuration
+provided by the root module.",results/source_corpus/geniac_validation/complex__gemini-3.1-pro__complex-aws-tf-008_init.log
+complex__gemini-3.7-flash__complex-aws-tf-003,VALIDATE_FAILED,OTHER,"Error: expected retention_in_days to be one of [0 1 3 5 7 14 30 60 90 120 150 180 365 400 545 731 1096 1827 2192 2557 2922 3288 3653], got 2555
+
+  with aws_cloudwatch_log_group.apigw_logs,
+  on main.tf line 743, in resource ""aws_cloudwatch_log_group"" ""apigw_logs"":
+ 743:   retention_in_days = 2555
+",results/source_corpus/geniac_validation/complex__gemini-3.7-flash__complex-aws-tf-003_validate.log
+complex__gemini-3.7-flash__complex-aws-tf-006,VALIDATE_FAILED,PROVIDER_SCHEMA,"Error: Invalid resource type
+
+  on main.tf line 373, in resource ""aws_shield_drt_access"" ""shield_drt"":
+ 373: resource ""aws_shield_drt_access"" ""shield_drt"" {
+
+The provider hashicorp/aws does not support resource type
+""aws_shield_drt_access"".",results/source_corpus/geniac_validation/complex__gemini-3.7-flash__complex-aws-tf-006_validate.log
+complex__gemini-3.7-flash__complex-aws-tf-007,INIT_FAILED,SYNTAX_PARSE,"Error: Terraform encountered problems during initialisation, including problems
+with the configuration, described below.
+
+The Terraform configuration must be valid before initialization so that
+Terraform can determine which modules and providers need to be installed.
+
+
+Error: Missing newline after argument",results/source_corpus/geniac_validation/complex__gemini-3.7-flash__complex-aws-tf-007_init.log
+complex__gemini-3.7-flash__complex-aws-tf-008,INIT_FAILED,UNSUPPORTED_ARGUMENT,"Error: Unsupported argument
+
+  on main.tf line 64, in module ""aft"":
+  64:   control_tower_mgmt_account_id    = var.ct_management_account_id
+
+An argument named ""control_tower_mgmt_account_id"" is not expected here.",results/source_corpus/geniac_validation/complex__gemini-3.7-flash__complex-aws-tf-008_init.log
+complex__gpt-4o__complex-aws-tf-001,VALIDATE_FAILED,UNSUPPORTED_ARGUMENT|UNSUPPORTED_BLOCK|MISSING_REQUIRED_ARGUMENT|PROVIDER_SCHEMA,"Error: Invalid resource type
+
+  on main.tf line 117, in resource ""aws_vpc_flow_log"" ""spoke"":
+ 117: resource ""aws_vpc_flow_log"" ""spoke"" {
+
+The provider hashicorp/aws does not support resource type ""aws_vpc_flow_log"".
+
+Error: Unsupported argument",results/source_corpus/geniac_validation/complex__gpt-4o__complex-aws-tf-001_validate.log
+complex__gpt-4o__complex-aws-tf-002,VALIDATE_FAILED,UNDECLARED_REFERENCE|UNSUPPORTED_BLOCK|MISSING_REQUIRED_ARGUMENT,"Error: Reference to undeclared resource
+
+  on main.tf line 10, in resource ""aws_eks_cluster"" ""example"":
+  10:     subnet_ids = aws_subnet.eks_subnets[*].id
+
+A managed resource ""aws_subnet"" ""eks_subnets"" has not been declared in the
+root module.
+",results/source_corpus/geniac_validation/complex__gpt-4o__complex-aws-tf-002_validate.log
+complex__gpt-4o__complex-aws-tf-003,VALIDATE_FAILED,UNSUPPORTED_ARGUMENT|TYPE_OR_VALUE_ERROR,"Error: Unsupported argument
+
+  on main.tf line 113, in resource ""aws_lambda_function"" ""data_processor"":
+ 113:   provisioned_concurrent_executions = 5
+
+An argument named ""provisioned_concurrent_executions"" is not expected here.
+
+Error: Invalid function argument",results/source_corpus/geniac_validation/complex__gpt-4o__complex-aws-tf-003_validate.log
+complex__gpt-4o__complex-aws-tf-006,VALIDATE_FAILED,OTHER,"Error: Provider configuration not present
+
+To work with aws_acm_certificate.cert its original provider configuration at
+provider[""registry.terraform.io/hashicorp/aws""].us-east-1 is required, but it
+has been removed. This occurs when a provider configuration is removed while
+objects created by that provider still exist in the state. Re-add the
+provider configuration to destroy aws_acm_certificate.cert, after which you
+can remove the provider configuration again.",results/source_corpus/geniac_validation/complex__gpt-4o__complex-aws-tf-006_validate.log
+complex__gpt-4o__complex-aws-tf-007,VALIDATE_FAILED,UNSUPPORTED_ARGUMENT|UNSUPPORTED_BLOCK,"Error: Unsupported argument
+
+  on main.tf line 23, in resource ""aws_s3_bucket"" ""raw_data"":
+  23:   bucket_key_enabled = true
+
+An argument named ""bucket_key_enabled"" is not expected here.
+
+Error: Unsupported argument",results/source_corpus/geniac_validation/complex__gpt-4o__complex-aws-tf-007_validate.log
+complex__gpt-4o__complex-aws-tf-008,VALIDATE_FAILED,OTHER,"Error: Unsupported attribute
+
+  on main.tf line 184, in resource ""aws_ssoadmin_permission_set"" ""example"":
+ 184:   instance_arn = data.aws_ssoadmin_instances.main.arn
+
+This object has no argument, nested block, or exported attribute named ""arn"".
+Did you mean ""arns""?",results/source_corpus/geniac_validation/complex__gpt-4o__complex-aws-tf-008_validate.log
+complex__gpt-4o__complex-aws-tf-010,VALIDATE_FAILED,UNDECLARED_REFERENCE|UNSUPPORTED_ARGUMENT|MISSING_REQUIRED_ARGUMENT,"Error: Reference to undeclared resource
+
+  on main.tf line 12, in resource ""aws_eks_cluster"" ""primary"":
+  12:   role_arn = aws_iam_role.eks_role.arn
+
+A managed resource ""aws_iam_role"" ""eks_role"" has not been declared in the
+root module.
+",results/source_corpus/geniac_validation/complex__gpt-4o__complex-aws-tf-010_validate.log
+complex__gpt-5-thinking__complex-aws-tf-001,VALIDATE_FAILED,MISSING_REQUIRED_ARGUMENT,"Error: Missing required argument
+
+  on main.tf line 762, in resource ""aws_networkfirewall_firewall_policy"" ""use1"":
+ 762:   firewall_policy {
+
+The argument ""stateless_default_actions"" is required, but no definition was
+found.
+",results/source_corpus/geniac_validation/complex__gpt-5-thinking__complex-aws-tf-001_validate.log
+complex__gpt-5-thinking__complex-aws-tf-002,INIT_FAILED,UNSUPPORTED_ARGUMENT,"Error: Unsupported argument
+
+  on main.tf line 92, in module ""eks"":
+  92:   cluster_name                   = var.cluster_name
+
+An argument named ""cluster_name"" is not expected here.
+
+Error: Unsupported argument",results/source_corpus/geniac_validation/complex__gpt-5-thinking__complex-aws-tf-002_init.log
+complex__gpt-5-thinking__complex-aws-tf-003,VALIDATE_FAILED,UNSUPPORTED_ARGUMENT|MISSING_REQUIRED_ARGUMENT,"Error: Missing required argument
+
+  on main.tf line 940, in resource ""aws_api_gateway_base_path_mapping"" ""mtls"":
+ 940: resource ""aws_api_gateway_base_path_mapping"" ""mtls"" {
+
+The argument ""api_id"" is required, but no definition was found.
+
+Error: Unsupported argument",results/source_corpus/geniac_validation/complex__gpt-5-thinking__complex-aws-tf-003_validate.log
+complex__gpt-5-thinking__complex-aws-tf-006,INIT_FAILED,OTHER,"Error: Terraform encountered problems during initialisation, including problems
+with the configuration, described below.
+
+The Terraform configuration must be valid before initialization so that
+Terraform can determine which modules and providers need to be installed.
+
+
+Error: Argument definition required",results/source_corpus/geniac_validation/complex__gpt-5-thinking__complex-aws-tf-006_init.log
+complex__gpt-5-thinking__complex-aws-tf-007,VALIDATE_FAILED,UNSUPPORTED_ARGUMENT|PROVIDER_SCHEMA,"Error: Unsupported argument
+
+  on main.tf line 416, in resource ""aws_lakeformation_data_lake_settings"" ""this"":
+ 416:   create_database_default_permissions = []
+
+An argument named ""create_database_default_permissions"" is not expected here.
+Did you mean to define a block of type ""create_database_default_permissions""?
+",results/source_corpus/geniac_validation/complex__gpt-5-thinking__complex-aws-tf-007_validate.log
+complex__gpt-5-thinking__complex-aws-tf-008,INIT_FAILED,UNSUPPORTED_ARGUMENT|DUPLICATE_DECLARATION,"Error: Duplicate variable declaration
+
+  on main.tf line 383:
+ 383: variable ""management_account_id"" {
+
+A variable named ""management_account_id"" was already declared at
+main.tf:39,1-33. Variable names must be unique within a module.
+",results/source_corpus/geniac_validation/complex__gpt-5-thinking__complex-aws-tf-008_init.log
+complex__gpt-5-thinking__complex-aws-tf-010,VALIDATE_FAILED,UNSUPPORTED_ARGUMENT|UNSUPPORTED_BLOCK,"Error: Unsupported block type
+
+  on main.tf line 540, in resource ""aws_dlm_lifecycle_policy"" ""ebs_hourly"":
+ 540:     schedules {
+
+Blocks of type ""schedules"" are not expected here. Did you mean ""schedule""?
+
+Error: Unsupported argument",results/source_corpus/geniac_validation/complex__gpt-5-thinking__complex-aws-tf-010_validate.log
+complex__gpt-5__complex-aws-tf-002,VALIDATE_FAILED,UNSUPPORTED_BLOCK|TYPE_OR_VALUE_ERROR,"Error: Unsupported block type
+
+  on main.tf line 188, in provider ""helm"":
+ 188:   kubernetes {
+
+Blocks of type ""kubernetes"" are not expected here. Did you mean to define
+argument ""kubernetes""? If so, use the equals sign to assign it a value.
+",results/source_corpus/geniac_validation/complex__gpt-5__complex-aws-tf-002_validate.log
+complex__gpt-5__complex-aws-tf-003,VALIDATE_FAILED,UNDECLARED_REFERENCE,"Error: Reference to undeclared input variable
+
+  on main.tf line 29, in locals:
+  29:   tags        = merge(var.tags, { ManagedBy = ""Terraform"" })
+
+An input variable with the name ""tags"" has not been declared. This variable
+can be declared with a variable ""tags"" {} block.",results/source_corpus/geniac_validation/complex__gpt-5__complex-aws-tf-003_validate.log
+complex__gpt-5__complex-aws-tf-006,VALIDATE_FAILED,PROVIDER_SCHEMA,"Error: Invalid resource type
+
+  on main.tf line 225, in resource ""aws_shield_drt_access_role_arn"" ""drt_assoc"":
+ 225: resource ""aws_shield_drt_access_role_arn"" ""drt_assoc"" {
+
+The provider hashicorp/aws does not support resource type
+""aws_shield_drt_access_role_arn"".",results/source_corpus/geniac_validation/complex__gpt-5__complex-aws-tf-006_validate.log
+complex__gpt-5__complex-aws-tf-007,VALIDATE_FAILED,UNSUPPORTED_BLOCK|MISSING_REQUIRED_ARGUMENT,"Error: Unsupported block type
+
+  on main.tf line 467, in resource ""aws_lakeformation_data_lake_settings"" ""this"":
+ 467:   admins {
+
+Blocks of type ""admins"" are not expected here. Did you mean to define
+argument ""admins""? If so, use the equals sign to assign it a value.
+",results/source_corpus/geniac_validation/complex__gpt-5__complex-aws-tf-007_validate.log
+complex__gpt-5__complex-aws-tf-008,VALIDATE_FAILED,UNSUPPORTED_BLOCK,"Error: Unsupported block type
+
+  on main.tf line 273, in data ""aws_identitystore_group"" ""admins"":
+ 273:   filter {
+
+Blocks of type ""filter"" are not expected here.
+
+Error: Unsupported block type",results/source_corpus/geniac_validation/complex__gpt-5__complex-aws-tf-008_validate.log
+complex__gpt-5__complex-aws-tf-010,VALIDATE_FAILED,UNSUPPORTED_ARGUMENT|UNSUPPORTED_BLOCK,"Error: Unsupported block type
+
+  on main.tf line 263, in resource ""aws_dlm_lifecycle_policy"" ""ebs_snapshots"":
+ 263:     schedules {
+
+Blocks of type ""schedules"" are not expected here. Did you mean ""schedule""?
+
+Error: Unsupported argument",results/source_corpus/geniac_validation/complex__gpt-5__complex-aws-tf-010_validate.log
+complex__llama3__complex-aws-tf-001,INIT_FAILED,TYPE_OR_VALUE_ERROR,"Error: Invalid function argument
+
+  on main.tf line 8, in module ""security_account"":
+   8:   source = file(""./modules/account"")
+    ├────────────────
+    │ while calling file(path)
+
+Invalid value for ""path"" parameter: no file exists at ""./modules/account"";",results/source_corpus/geniac_validation/complex__llama3__complex-aws-tf-001_init.log
+complex__llama3__complex-aws-tf-003,VALIDATE_FAILED,UNDECLARED_REFERENCE|UNSUPPORTED_ARGUMENT|UNSUPPORTED_BLOCK|MISSING_REQUIRED_ARGUMENT|PROVIDER_SCHEMA,"Error: Reference to undeclared resource
+
+  on main.tf line 33, in resource ""aws_api_gateway_authorizer"" ""mutual_tls"":
+  33:   provider_arns = [aws_cognito_identity_pool.example.arn]
+
+A managed resource ""aws_cognito_identity_pool"" ""example"" has not been
+declared in the root module.
+",results/source_corpus/geniac_validation/complex__llama3__complex-aws-tf-003_validate.log
+complex__llama3__complex-aws-tf-006,INIT_FAILED,SYNTAX_PARSE,"Error: Terraform encountered problems during initialisation, including problems
+with the configuration, described below.
+
+The Terraform configuration must be valid before initialization so that
+Terraform can determine which modules and providers need to be installed.
+
+
+Error: Argument or block definition required",results/source_corpus/geniac_validation/complex__llama3__complex-aws-tf-006_init.log
+complex__llama3__complex-aws-tf-007,VALIDATE_FAILED,UNSUPPORTED_ARGUMENT|MISSING_REQUIRED_ARGUMENT|TYPE_OR_VALUE_ERROR|PROVIDER_SCHEMA,"Error: Invalid resource type
+
+  on main.tf line 23, in resource ""aws_lakeformation_data_lake"" ""data_lake"":
+  23: resource ""aws_lakeformation_data_lake"" ""data_lake"" {
+
+The provider hashicorp/aws does not support resource type
+""aws_lakeformation_data_lake"".
+",results/source_corpus/geniac_validation/complex__llama3__complex-aws-tf-007_validate.log
+complex__llama3__complex-aws-tf-010,INIT_FAILED,OTHER,"Error: Unreadable module subdirectory
+
+The directory .terraform/modules/eks_primary/modules/cluster does not exist.
+The target submodule modules/cluster does not exist within the target module.",results/source_corpus/geniac_validation/complex__llama3__complex-aws-tf-010_init.log
+complex__mistral__complex-aws-tf-001,INIT_FAILED,UNSUPPORTED_ARGUMENT,"Error: Unsupported argument
+
+  on main.tf line 31, in module ""transit_gateway"":
+  31:   vpc_ids = [module.hub_vpc.vpc_id]
+
+An argument named ""vpc_ids"" is not expected here.
+
+Error: Unsupported argument",results/source_corpus/geniac_validation/complex__mistral__complex-aws-tf-001_init.log
+complex__mistral__complex-aws-tf-003,INIT_FAILED,SYNTAX_PARSE,"Error: Terraform encountered problems during initialisation, including problems
+with the configuration, described below.
+
+The Terraform configuration must be valid before initialization so that
+Terraform can determine which modules and providers need to be installed.
+
+
+Error: Missing name for resource",results/source_corpus/geniac_validation/complex__mistral__complex-aws-tf-003_init.log
+complex__mistral__complex-aws-tf-006,VALIDATE_FAILED,OTHER,"Error: Cycle:
+  aws_acm_certificate.main
+  aws_route53_zone.secondary
+",results/source_corpus/geniac_validation/complex__mistral__complex-aws-tf-006_validate.log
+complex__mistral__complex-aws-tf-007,INIT_FAILED,PROVIDER_SCHEMA,"Error: Terraform encountered problems during initialisation, including problems
+with the configuration, described below.
+
+The Terraform configuration must be valid before initialization so that
+Terraform can determine which modules and providers need to be installed.
+
+
+Error: Missing open parenthesis",results/source_corpus/geniac_validation/complex__mistral__complex-aws-tf-007_init.log
+complex__mistral__complex-aws-tf-008,INIT_FAILED,UNDECLARED_REFERENCE,"Error: Unreadable module subdirectory
+
+The directory .terraform/modules/vpc_endpoints/modules/vpc-endpoint does not
+exist. The target submodule modules/vpc-endpoint does not exist within the
+target module.
+
+Error: Reference to undeclared resource
+",results/source_corpus/geniac_validation/complex__mistral__complex-aws-tf-008_init.log
+complex__mistral__complex-aws-tf-010,INIT_FAILED,DUPLICATE_DECLARATION,"Error: Terraform encountered problems during initialisation, including problems
+with the configuration, described below.
+
+The Terraform configuration must be valid before initialization so that
+Terraform can determine which modules and providers need to be installed.
+
+
+Error: Missing key/value separator",results/source_corpus/geniac_validation/complex__mistral__complex-aws-tf-010_init.log
+complex__phi3__complex-aws-tf-001,INIT_FAILED,SYNTAX_PARSE,"Error: Terraform encountered problems during initialisation, including problems
+with the configuration, described below.
+
+The Terraform configuration must be valid before initialization so that
+Terraform can determine which modules and providers need to be installed.
+
+
+Error: Missing key/value separator",results/source_corpus/geniac_validation/complex__phi3__complex-aws-tf-001_init.log
+complex__phi3__complex-aws-tf-002,INIT_FAILED,MODULE_RESOLUTION|UNSUPPORTED_ARGUMENT,"Error: Unreadable module directory
+
+Unable to evaluate directory symlink: lstat modules: no such file or
+directory
+
+Error: Unreadable module directory
+
+The directory  could not be read for module ""eks-cluster"" at main.tf:8.",results/source_corpus/geniac_validation/complex__phi3__complex-aws-tf-002_init.log
+simple__claude-sonnet-4-6__aws-tf-008,VALIDATE_FAILED,MISSING_REQUIRED_ARGUMENT,"Error: Missing required argument
+
+  on main.tf line 300, in resource ""aws_api_gateway_stage"" ""main"":
+ 300:   access_log_settings {
+
+The argument ""format"" is required, but no definition was found.",results/source_corpus/geniac_validation/simple__claude-sonnet-4-6__aws-tf-008_validate.log
+simple__gpt-4o__aws-tf-005,VALIDATE_FAILED,UNSUPPORTED_ARGUMENT,"Error: Unsupported argument
+
+  on main.tf line 11, in resource ""aws_db_instance"" ""postgresql"":
+  11:   name                 = ""mydatabase""
+
+An argument named ""name"" is not expected here.",results/source_corpus/geniac_validation/simple__gpt-4o__aws-tf-005_validate.log
+simple__gpt-4o__aws-tf-008,VALIDATE_FAILED,OTHER,"Error: Error in function call
+
+  on main.tf line 54, in resource ""aws_lambda_function"" ""my_lambda"":
+  54:   source_code_hash = filebase64sha256(""lambda_function_payload.zip"")
+    ├────────────────
+    │ while calling filebase64sha256(path)
+
+Call to function ""filebase64sha256"" failed: open lambda_function_payload.zip:",results/source_corpus/geniac_validation/simple__gpt-4o__aws-tf-008_validate.log
+simple__gpt-5-thinking__aws-tf-002,INIT_FAILED,SYNTAX_PARSE|MISSING_REQUIRED_ARGUMENT,"Error: Terraform encountered problems during initialisation, including problems
+with the configuration, described below.
+
+The Terraform configuration must be valid before initialization so that
+Terraform can determine which modules and providers need to be installed.
+
+
+Error: Missing required argument",results/source_corpus/geniac_validation/simple__gpt-5-thinking__aws-tf-002_init.log
+simple__gpt-5-thinking__aws-tf-004,VALIDATE_FAILED,OTHER,"Error: Invalid reference
+
+  on main.tf line 375, in resource ""aws_launch_template"" ""web"":
+ 375:         <p>Instance ID: ${INSTANCE_ID}</p>
+
+A reference to a resource type must be followed by at least one attribute
+access, specifying the resource name.
+",results/source_corpus/geniac_validation/simple__gpt-5-thinking__aws-tf-004_validate.log
+simple__gpt-5__aws-tf-004,VALIDATE_FAILED,OTHER,"Error: expected type to be one of [""egress"" ""ingress""], got Ingress
+
+  with aws_security_group_rule.alb_http_ingress,
+  on main.tf line 236, in resource ""aws_security_group_rule"" ""alb_http_ingress"":
+ 236:   type              = ""Ingress""
+
+
+Error: Invalid reference",results/source_corpus/geniac_validation/simple__gpt-5__aws-tf-004_validate.log
+simple__llama3__aws-tf-001,VALIDATE_FAILED,UNSUPPORTED_ARGUMENT,"Error: Unsupported argument
+
+  on main.tf line 14, in resource ""aws_s3_bucket"" ""website"":
+  14:     enabled         = true
+
+An argument named ""enabled"" is not expected here.",results/source_corpus/geniac_validation/simple__llama3__aws-tf-001_validate.log
+simple__llama3__aws-tf-004,VALIDATE_FAILED,PROVIDER_SCHEMA,"Error: Invalid resource type
+
+  on main.tf line 53, in resource ""aws_application_load_balancer"" ""example"":
+  53: resource ""aws_application_load_balancer"" ""example"" {
+
+The provider hashicorp/aws does not support resource type
+""aws_application_load_balancer"".
+",results/source_corpus/geniac_validation/simple__llama3__aws-tf-004_validate.log
+simple__llama3__aws-tf-008,VALIDATE_FAILED,OTHER,"Error: Invalid reference
+
+  on main.tf line 33, in resource ""aws_api_gateway_integration"" ""lambda"":
+  33:   uri          = ""arn:aws:apigateway:${aws_region}:lambda:path/2015-03-31/functions/${aws_lambda_function.example.arn}/invocations""
+
+A reference to a resource type must be followed by at least one attribute
+access, specifying the resource name.
+",results/source_corpus/geniac_validation/simple__llama3__aws-tf-008_validate.log
+simple__llama3__aws-tf-009,VALIDATE_FAILED,UNSUPPORTED_ARGUMENT,"Error: Unsupported argument
+
+  on main.tf line 11, in resource ""aws_kms_key"" ""example"":
+  11:   deletion_date           = ""2045-12-31T00:00:00Z""
+
+An argument named ""deletion_date"" is not expected here.
+
+Error: Unsupported argument",results/source_corpus/geniac_validation/simple__llama3__aws-tf-009_validate.log
+simple__mistral__aws-tf-003,INIT_FAILED,OTHER,"Error: Terraform encountered problems during initialisation, including problems
+with the configuration, described below.
+
+The Terraform configuration must be valid before initialization so that
+Terraform can determine which modules and providers need to be installed.
+
+
+Error: Unexpected comma after argument",results/source_corpus/geniac_validation/simple__mistral__aws-tf-003_init.log
+simple__mistral__aws-tf-004,INIT_FAILED,OTHER,"Error: Terraform encountered problems during initialisation, including problems
+with the configuration, described below.
+
+The Terraform configuration must be valid before initialization so that
+Terraform can determine which modules and providers need to be installed.
+
+
+Error: Unexpected comma after argument",results/source_corpus/geniac_validation/simple__mistral__aws-tf-004_init.log
+simple__mistral__aws-tf-005,VALIDATE_FAILED,UNSUPPORTED_ARGUMENT|UNSUPPORTED_BLOCK|MISSING_REQUIRED_ARGUMENT,"Error: Missing required argument
+
+  on main.tf line 10, in resource ""aws_rds_cluster"" ""postgresql_cluster"":
+  10: resource ""aws_rds_cluster"" ""postgresql_cluster"" {
+
+The argument ""engine"" is required, but no definition was found.
+
+Error: Unsupported block type",results/source_corpus/geniac_validation/simple__mistral__aws-tf-005_validate.log
+simple__mistral__aws-tf-006,VALIDATE_FAILED,UNSUPPORTED_ARGUMENT,"Error: Unsupported argument
+
+  on main.tf line 45, in resource ""aws_eip"" ""nat_eip"":
+  45:   vpc = true
+
+An argument named ""vpc"" is not expected here.",results/source_corpus/geniac_validation/simple__mistral__aws-tf-006_validate.log
+simple__mistral__aws-tf-007,VALIDATE_FAILED,UNSUPPORTED_ARGUMENT|MISSING_REQUIRED_ARGUMENT,"Error: Missing required argument
+
+  on main.tf line 1, in resource ""aws_iam_role"" ""admin_role"":
+   1: resource ""aws_iam_role"" ""admin_role"" {
+
+The argument ""assume_role_policy"" is required, but no definition was found.
+
+Error: Unsupported argument",results/source_corpus/geniac_validation/simple__mistral__aws-tf-007_validate.log
+simple__mistral__aws-tf-008,VALIDATE_FAILED,UNSUPPORTED_ARGUMENT|MISSING_REQUIRED_ARGUMENT,"Error: Missing required argument
+
+  on main.tf line 84, in resource ""aws_api_gateway_integration"" ""example_get"":
+  84: resource ""aws_api_gateway_integration"" ""example_get"" {
+
+The argument ""type"" is required, but no definition was found.
+
+Error: Unsupported argument",results/source_corpus/geniac_validation/simple__mistral__aws-tf-008_validate.log
+simple__mistral__aws-tf-009,VALIDATE_FAILED,OTHER,"Error: Cycle:
+  aws_kms_key.example
+  data.aws_iam_policy_document.allow_all_accounts
+",results/source_corpus/geniac_validation/simple__mistral__aws-tf-009_validate.log
+simple__mistral__aws-tf-010,INIT_FAILED,OTHER,"Error: Terraform encountered problems during initialisation, including problems
+with the configuration, described below.
+
+The Terraform configuration must be valid before initialization so that
+Terraform can determine which modules and providers need to be installed.
+
+
+Error: Unexpected comma after argument",results/source_corpus/geniac_validation/simple__mistral__aws-tf-010_init.log

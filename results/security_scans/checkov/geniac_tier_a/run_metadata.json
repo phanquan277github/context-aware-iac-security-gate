@@ -1,0 +1,15 @@
+{
+  "scanner": "checkov",
+  "scanner_version": "3.3.17",
+  "framework": "terraform",
+  "corpus": "geniac_tier_a",
+  "expected_artifacts": 109,
+  "external_module_download": false,
+  "soft_fail": true,
+  "scan_scope": "Root generated Terraform artifact only; external modules are not downloaded.",
+  "started_at_utc": "2026-09-26T07:11:42.400366+00:00",
+  "command_template": "checkov --file main.tf --framework terraform --output json --quiet --soft-fail --download-external-modules false",
+  "finished_at_utc": "2026-09-26T07:19:46.812619+00:00",
+  "artifacts_scanned": 109,
+  "findings_extracted": 1706
+}
