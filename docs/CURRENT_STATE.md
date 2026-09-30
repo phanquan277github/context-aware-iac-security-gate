@@ -180,17 +180,30 @@ Therefore:
 
 ## Immediate Operational Task
 
-Establish a reproducible Git repository baseline by classifying
-currently untracked artifacts into:
+The repository reproducibility/provenance baseline for the current
+context-feature phase has been established.
 
-- source/configuration that must be tracked;
-- reproducibility artifacts that should be tracked;
-- generated outputs;
-- external/large datasets;
-- local/runtime artifacts.
+The repository now preserves:
 
-Do NOT use `git add .` until this classification is complete.
+- authoritative research/context configuration;
+- current extractor, validators, and tests;
+- pilot inputs and reproducibility fixtures;
+- GenIaC source URL and exact source revision;
+- SHA-256 source-artifact verification;
+- candidate-specific Terraform provider provenance;
+- candidate Terraform lockfiles required for provider reproducibility;
+- Checkov version, scan command, normalized outputs, and raw-output
+  checksums.
 
+Known provenance limitations remain documented:
+
+- the immutable external archive location of historical raw Checkov
+  JSON is unresolved;
+- independent upstream license verification for every original seed
+  remains unresolved.
+
+These limitations do not currently change research semantics or
+block contextual-feature semantic validation.
 ---
 
 ## Next Research Implementation Task
