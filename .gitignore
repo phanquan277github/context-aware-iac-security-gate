@@ -59,3 +59,19 @@ temp/
 /results/security_scans/checkov/geniac_tier_a/raw/
 /results/security_scans/checkov/geniac_tier_a/logs/
 /results/source_corpus/**/*.log
+
+# Reproducible external GenIaC checkout
+/dataset/main/sources/geniac-secbench/
+
+# Reconstructed/generated GenIaC working copies
+# Tracked .terraform.lock.hcl files remain version-controlled.
+/dataset/main/candidates/geniac/
+/dataset/main/candidates/geniac_hcl/
+/dataset/main/corpus/geniac_extended/
+
+# Tier-A corpus is reconstructed from source + manifest.
+# Explicit pilot fixtures already tracked remain version-controlled.
+/dataset/main/corpus/geniac_tier_a/
+
+# Generated pilot evidence rendering
+/results/context_feature_pilot/pilot_evidence_review.txt
