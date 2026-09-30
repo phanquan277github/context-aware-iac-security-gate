@@ -50,3 +50,12 @@ temp/
 
 # Terraform runtime/cache generated during dataset validation
 **/.terraform/
+
+# Local Python/tooling artifacts
+/scripts/*.py.bak
+/.pytest_cache/
+
+# Generated scan logs
+/results/security_scans/checkov/geniac_tier_a/raw/
+/results/security_scans/checkov/geniac_tier_a/logs/
+/results/source_corpus/**/*.log
