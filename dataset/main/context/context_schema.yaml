@@ -1,0 +1,142 @@
+schema_version: "1.1"
+
+scenario_context:
+
+  environment:
+    type: categorical
+    description: >
+      Deployment environment associated with the contextual scenario.
+    values:
+      - dev
+      - prod
+
+  asset_criticality:
+    type: ordinal
+    description: >
+      Business or operational criticality of the asset or workload.
+    values:
+      - low
+      - high
+
+  data_sensitivity:
+    type: ordinal
+    description: >
+      Sensitivity level of data processed, stored, or exposed by the workload.
+    values:
+      - low
+      - high
+
+
+finding_context:
+
+  internet_exposure:
+    type: categorical
+    description: >
+      Indicates whether the security finding has evidence of direct
+      Internet exposure. This must not be inferred merely because a
+      preventive control is missing.
+    values:
+      - "yes"
+      - "no"
+      - "unknown"
+      - "not_applicable"
+
+  reachability:
+    type: categorical
+    description: >
+      Network reachability associated with the affected resource or
+      finding. 'unknown' means the feature is relevant but available
+      evidence is insufficient. 'not_applicable' means reachability
+      is not meaningful for this finding.
+    values:
+      - internal
+      - internet
+      - unknown
+      - not_applicable
+
+  privilege_impact:
+    type: ordinal
+    description: >
+      Potential privilege impact derived from IAM permissions or
+      authorization semantics. Values 0-3 represent increasing
+      privilege impact. This value must be derived from objective IAM
+      evidence and must not be inferred from the final human risk label.
+    values:
+      - "0"
+      - "1"
+      - "2"
+      - "3"
+      - unknown
+      - not_applicable
+
+  resource_role:
+    type: categorical
+    description: >
+      Functional security role of the affected Terraform resource.
+    values:
+      - identity
+      - primary_data
+      - logging
+      - network
+      - compute
+      - other
+
+  public_access:
+    type: categorical
+    description: >
+      Indicates whether available configuration evidence confirms
+      public access to the affected resource. A missing public-access
+      protection control alone does not imply public_access=yes.
+    values:
+      - "yes"
+      - "no"
+      - "unknown"
+      - "not_applicable"
+
+  wildcard_action:
+    type: categorical
+    description: >
+      Indicates whether an IAM policy contains wildcard or objectively
+      broad unrestricted actions according to the frozen extraction
+      rules.
+    values:
+      - "yes"
+      - "no"
+      - "unknown"
+      - "not_applicable"
+
+  wildcard_resource:
+    type: categorical
+    description: >
+      Indicates whether an IAM policy uses a wildcard resource such as
+      Resource="*" where this feature is applicable.
+    values:
+      - "yes"
+      - "no"
+      - "unknown"
+      - "not_applicable"
+
+  encryption_missing:
+    type: categorical
+    description: >
+      Indicates that the encryption control required by the selected
+      security rule is missing or insufficient. For CKV_AWS_145 this
+      specifically means that the required KMS-based default encryption
+      control is not satisfied; it does not necessarily mean that the
+      resource has no encryption of any kind.
+    values:
+      - "yes"
+      - "no"
+      - "unknown"
+      - "not_applicable"
+
+  logging_missing:
+    type: categorical
+    description: >
+      Indicates that the logging or detection control required by the
+      selected security rule is missing.
+    values:
+      - "yes"
+      - "no"
+      - "unknown"
+      - "not_applicable"

@@ -1,0 +1,110 @@
+internet_exposure:
+  description: >
+    Whether objective Terraform or scanner evidence demonstrates
+    direct inbound Internet exposure associated with the finding.
+    A missing preventive control or unrestricted outbound egress
+    alone must not be interpreted as confirmed inbound Internet exposure.
+  source:
+    - terraform_resource
+    - checkov_finding
+    - network_configuration
+  human_label_derived: false
+
+reachability:
+  description: >
+    Network reachability relationship associated with the finding.
+    The value 'internet' indicates that the finding concerns a
+    network path between the affected resource or network boundary
+    and the public Internet. It does not by itself imply inbound
+    Internet reachability; direction must be preserved in evidence.
+  source:
+    - terraform_resource
+    - network_configuration
+    - checkov_finding
+  human_label_derived: false
+
+privilege_impact:
+  description: >
+    Ordinal authorization impact derived from the IAM actions and
+    resource scope of the Checkov-relevant policy statement.
+    It must not be derived from the final human risk label.
+  source:
+    - iam_policy
+    - checkov_evaluated_statement
+  human_label_derived: false
+  levels:
+    "0": >
+      No meaningful authorization or privilege impact.
+    "1": >
+      Read/list permissions or narrowly scoped operational mutation.
+    "2": >
+      Explicit write, mutation, or resource-control permissions over
+      wildcard or broad resource scope.
+    "3": >
+      Wildcard actions or identity/policy/role-control capabilities
+      with direct privilege-escalation or administrative implications.
+    unknown: >
+      Privilege impact is applicable but the relevant IAM actions
+      cannot be resolved objectively.
+    not_applicable: >
+      Privilege impact is not meaningful for this finding.
+
+resource_role:
+  description: >
+    Functional security role of the affected Terraform resource,
+    inferred deterministically from its resource type.
+  source:
+    - terraform_resource_type
+  human_label_derived: false
+
+public_access:
+  description: >
+    Whether objective configuration evidence confirms public access
+    to the affected resource. Missing public-access protection alone
+    does not imply public_access=yes.
+  source:
+    - terraform_resource
+    - resource_policy
+    - network_configuration
+  human_label_derived: false
+
+wildcard_action:
+  description: >
+    Whether the Checkov-relevant IAM statement contains wildcard
+    action syntax such as Action="*", service:*, or another action
+    string containing a wildcard character. A long explicit list of
+    permissions without wildcard syntax is classified as no.
+  source:
+    - iam_policy
+    - checkov_evaluated_statement
+  human_label_derived: false
+
+wildcard_resource:
+  description: >
+    Whether the Checkov-relevant IAM statement contains a wildcard
+    resource value, including Resource="*" or a resource ARN
+    containing a wildcard character.
+  source:
+    - iam_policy
+    - checkov_evaluated_statement
+  human_label_derived: false
+
+encryption_missing:
+  description: >
+    Whether the encryption control required by the selected security
+    rule is missing or insufficient. For CKV_AWS_145 this specifically
+    means that the required KMS-based default encryption control is not
+    satisfied and does not necessarily mean that no encryption exists.
+  source:
+    - checkov_rule
+    - terraform_resource
+  human_label_derived: false
+
+logging_missing:
+  description: >
+    Whether the logging or detection control required by the selected
+    security rule is missing.
+  source:
+    - checkov_rule
+    - terraform_resource
+  human_label_derived: false
