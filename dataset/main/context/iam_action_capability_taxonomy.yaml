@@ -1,0 +1,105 @@
+taxonomy_version: d008-v1
+decision: D-008
+matching: exact_case_insensitive
+# This is an intentionally finite Action inventory. An Action absent from
+# the classified groups is unknown, even if its verb resembles a known one.
+# AWS service authorization reference: https://docs.aws.amazon.com/service-authorization/latest/reference/
+# Wildcard syntax: https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_action.html
+
+read_observation:
+  - cloudwatch:GetMetricData
+  - ec2:DescribeAvailabilityZones
+  - ec2:DescribeFastSnapshotRestores
+  - ec2:DescribeImages
+  - ec2:DescribeInstanceTypeOfferings
+  - ec2:DescribeInstanceTypes
+  - ec2:DescribeInstances
+  - ec2:DescribeLaunchTemplates
+  - ec2:DescribeSecurityGroups
+  - ec2:DescribeSnapshotAttribute
+  - ec2:DescribeSnapshots
+  - ec2:DescribeSpotPriceHistory
+  - ec2:DescribeSubnets
+  - ec2:DescribeVolumes
+  - eks:DescribeCluster
+  - eks:DescribeNodegroup
+  - elasticache:DescribeGlobalReplicationGroups
+  - glue:GetCrawler
+  - glue:GetJobRun
+  - glue:GetJobRuns
+  - logs:DescribeLogGroups
+  - logs:DescribeLogStreams
+  - pricing:GetProducts
+  - rds:DescribeDBInstances
+  - route53:ListHostedZones
+  - route53:ListResourceRecordSets
+  - route53:ListTagsForResource
+  - route53:ListTagsForResources
+  - s3:GetBucketVersioning
+  - s3:GetObject
+  - s3:GetReplicationConfiguration
+  - ssm:GetParameter
+
+operational_mutation:
+  - ec2:CopySnapshot
+  - ec2:CreateFleet
+  - ec2:CreateLaunchTemplate
+  - ec2:CreateSnapshot
+  - ec2:CreateSnapshots
+  - ec2:CreateTags
+  - ec2:DeleteLaunchTemplate
+  - ec2:DeleteSnapshot
+  - ec2:DisableFastSnapshotRestores
+  - ec2:EnableFastSnapshotRestores
+  - ec2:ModifySnapshotAttribute
+  - ec2:RunInstances
+  - ec2:TerminateInstances
+  - eks:UpdateNodegroupConfig
+  - glue:BatchStopJobRun
+  - glue:StartCrawler
+  - glue:StartJobRun
+  - lambda:InvokeFunction
+  - logs:CreateLogGroup
+  - logs:CreateLogStream
+  - logs:PutLogEvents
+  - rds:ModifyDBInstance
+  - rds:PromoteReadReplica
+  - s3:PutObject
+  - sns:Publish
+
+privilege_administration_or_unrestricted:
+  - "*"
+  - "iam:*"
+  - iam:PassRole
+  - iam:AttachRolePolicy
+  - iam:AttachUserPolicy
+  - iam:AttachGroupPolicy
+  - iam:PutRolePolicy
+  - iam:PutUserPolicy
+  - iam:PutGroupPolicy
+  - iam:CreatePolicy
+  - iam:CreatePolicyVersion
+  - iam:SetDefaultPolicyVersion
+  - iam:UpdateAssumeRolePolicy
+  - iam:CreateAccessKey
+  - sts:AssumeRole
+
+# These observed strings are deliberately not assigned a level. A
+# service wildcard can include different capability types, and
+# ec2:TagResource was not verified as an EC2 IAM Action in the AWS
+# service authorization reference. A known level-3 Action in the
+# same statement may still establish the statement maximum.
+unclassified_observed:
+  - cloudfront:*
+  - cloudwatch:*
+  - dynamodb:*
+  - ec2:*
+  - ec2:TagResource
+  - eks:*
+  - elasticache:*
+  - logs:*
+  - rds:*
+  - route53:*
+  - s3:*
+  - sns:*
+  - ssm:*

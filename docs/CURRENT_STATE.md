@@ -1,6 +1,6 @@
 # Current Project State
 
-Last updated: 2026-09-30
+Last updated: 2026-10-01
 
 ## Purpose
 
@@ -108,10 +108,14 @@ Current validation status:
 - general context-feature validator: PASS
 - context schema validator: PASS
 - pilot semantic validator: PASS
-- unit tests: 23 PASS
+- unit tests: 58 PASS
 - validation errors: 0
 - validation warnings: 0
-- pilot replay mismatches: 0
+- pilot replay feature-value mismatches: 0
+
+The D-008 replay changes only `feature_evidence` in the four IAM
+pilot records by adding Effect, Action taxonomy, and Condition
+traceability. The saved pilot output has not been regenerated.
 
 The latest Boolean applicability parsing fix did NOT change any
 stored pilot feature values or applicability results.
@@ -141,17 +145,29 @@ False / non-applicable.
 The following issues remain unresolved and must be handled
 separately:
 
-1. IAM statement fallback behavior.
-2. Unresolved IAM resource references.
-3. Wildcard-resource inference for unresolved values.
-4. Exact privilege-level semantics.
-5. Semantic correctness of evidence content.
-6. Minimum evidence requirements per contextual feature.
-7. Final main-pipeline applicability coverage.
-8. Final feature-dataset acceptance criteria.
+1. Semantic correctness of evidence content.
+2. Minimum evidence requirements per contextual feature.
+3. Final main-pipeline applicability coverage.
+4. Final feature-dataset acceptance criteria.
 
-These issues must not be silently resolved by implementation code.
+The `privilege_impact` contract is now accepted in D-008 and the
+normative thesis clarification. The extractor uses the versioned
+`d008-v1` exact-action taxonomy; unclassified Actions remain
+`unknown` unless another resolved Action already establishes level 3.
 
+IAM statement-level context now follows D-007:
+
+- features are derived from the Checkov-relevant IAM statement;
+- supported HCL statement syntax is parsed deterministically;
+- whole-policy aggregation is not used as a fallback;
+- unresolved applicable statement-level features use `unknown`;
+- non-applicable features remain `not_applicable`.
+
+The current IAM corpus audit resolves all 39 CKV_AWS_290/355
+findings to a deterministic statement block.
+
+These remaining issues must not be silently resolved by
+implementation code.
 ---
 
 ## Current Limitations
@@ -206,20 +222,15 @@ These limitations do not currently change research semantics or
 block contextual-feature semantic validation.
 ---
 
-## Next Research Implementation Task
+## D-008 Output Checkpoint
 
-After the repository baseline is established, continue resolving
-context-feature semantic/implementation issues one at a time.
+The saved pilot feature values remain unchanged; its IAM evidence
+still reflects the pre-D-008 extractor until an explicitly approved
+regeneration. An in-memory audit of 39 CKV_AWS_290/355 findings
+found two `1` to `2` changes for `rds:PromoteReadReplica` and two
+`2` to `unknown` changes involving unclassified `ec2:TagResource`.
 
-The next candidate issue is:
-
-**unresolved IAM resource references must not become false negative
-observations such as `wildcard_resource=no` when the actual value
-cannot be determined.**
-
-This must be checked against the approved `unknown` semantics before
-implementation.
-
+No corpus feature output or annotation was regenerated in this task.
 ---
 
 ## Phase Exit Criteria

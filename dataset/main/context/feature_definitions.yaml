@@ -25,29 +25,39 @@ reachability:
 
 privilege_impact:
   description: >
-    Ordinal authorization impact derived from the IAM actions and
-    resource scope of the Checkov-relevant policy statement.
-    It must not be derived from the final human risk label.
+    Ordinal potential authorization capability granted by the
+    Checkov-relevant IAM policy statement. It is derived from
+    resolved Effect and Action evidence, not resource breadth,
+    effective runtime authorization, or the final human risk label.
+    The versioned IAM Action capability taxonomy defines which
+    resolved Actions belong to each capability level.
   source:
     - iam_policy
     - checkov_evaluated_statement
   human_label_derived: false
+  action_taxonomy: iam_action_capability_taxonomy.yaml
+  action_taxonomy_version: d008-v1
   levels:
     "0": >
-      No meaningful authorization or privilege impact.
+      No granted capability; the primary supported case is a
+      deterministically identified Effect = "Deny" statement.
     "1": >
-      Read/list permissions or narrowly scoped operational mutation.
+      Read, list, describe, query, or equivalent observation capability.
     "2": >
-      Explicit write, mutation, or resource-control permissions over
-      wildcard or broad resource scope.
+      Operational mutation or resource/service-state control that does
+      not administer authorization or privilege.
     "3": >
-      Wildcard actions or identity/policy/role-control capabilities
-      with direct privilege-escalation or administrative implications.
+      Privilege administration, delegation, identity/policy/role control,
+      or explicitly unrestricted authorization such as Action = "*"
+      or iam:*. A non-IAM service wildcard is not level 3 solely
+      because it contains a wildcard.
     unknown: >
-      Privilege impact is applicable but the relevant IAM actions
-      cannot be resolved objectively.
+      Applicable, but the Checkov-relevant statement, Effect, Action,
+      or Action capability cannot be determined reliably from static
+      evidence. Unresolved Resource scope alone does not cause unknown.
     not_applicable: >
-      Privilege impact is not meaningful for this finding.
+      Privilege impact is not meaningful for this finding according to
+      the approved rule applicability matrix.
 
 resource_role:
   description: >

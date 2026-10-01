@@ -3,6 +3,7 @@
 import csv
 from contextlib import redirect_stdout
 import io
+import json
 from pathlib import Path
 import sys
 import tempfile
@@ -107,7 +108,7 @@ class ApplicabilityBooleanTests(unittest.TestCase):
                     extractor.main()
             self.assertFalse(output.exists())
 
-    def test_pilot_replay_preserves_every_feature_value(self):
+    def test_pilot_replay_preserves_values_and_original_evidence(self):
         with tempfile.TemporaryDirectory() as folder:
             output = Path(folder) / "replayed.csv"
             args = [
@@ -121,8 +122,21 @@ class ApplicabilityBooleanTests(unittest.TestCase):
             self.assertEqual(20, len(actual))
             self.assertEqual([row["finding_id"] for row in expected],
                              [row["finding_id"] for row in actual])
-            self.assertEqual(expected, actual)
             for actual_row, expected_row in zip(actual, expected):
+                # D-008 adds IAM evidence fields; the saved pilot remains
+                # the reference for all existing values and evidence.
+                self.assertEqual(
+                    {k: v for k, v in expected_row.items() if k != "feature_evidence"},
+                    {k: v for k, v in actual_row.items() if k != "feature_evidence"},
+                )
+                old_evidence = json.loads(expected_row["feature_evidence"])
+                new_evidence = json.loads(actual_row["feature_evidence"])
+                for key, old_value in old_evidence.items():
+                    if key == "iam":
+                        for field, value in old_value.items():
+                            self.assertEqual(value, new_evidence[key][field])
+                    else:
+                        self.assertEqual(old_value, new_evidence[key])
                 for feature in extractor.FEATURES:
                     self.assertEqual(expected_row[feature], actual_row[feature])
                 self.assertEqual(expected_row["applicable_unknown_count"],

@@ -1,5 +1,6 @@
 from pathlib import Path
 import argparse
+import ast
 import json
 import re
 
@@ -34,6 +35,11 @@ SCHEMA = Path(
 APPLICABILITY = Path(
     "dataset/main/context/"
     "rule_context_applicability.csv"
+)
+
+IAM_ACTION_TAXONOMY = Path(
+    "dataset/main/context/"
+    "iam_action_capability_taxonomy.yaml"
 )
 
 
@@ -95,10 +101,16 @@ def load_evaluated_keys(value):
         if isinstance(x, list):
             return x
 
+        if isinstance(x, str):
+            text = x
+
     except Exception:
         pass
 
-    return [text]
+    if re.fullmatch(r"[A-Za-z0-9_./:\[\]-]+", text):
+        return [text]
+
+    return []
 
 
 def statement_index_from_evaluated_keys(
@@ -107,17 +119,23 @@ def statement_index_from_evaluated_keys(
 
     keys = load_evaluated_keys(value)
 
+    indexes = set()
+
     for key in keys:
 
+        if not isinstance(key, str):
+            continue
+
         m = re.search(
-            r"Statement/\[(\d+)\]",
-            str(key),
+            r"(?:^|/)Statement/\[(\d+)\](?:/|$)",
+            key,
         )
 
         if m:
-            return int(
-                m.group(1)
-            )
+            indexes.add(int(m.group(1)))
+
+    if len(indexes) == 1:
+        return indexes.pop()
 
     return None
 
@@ -285,13 +303,17 @@ def extract_statement_blocks(
 
         if not found_statement:
 
-            if re.search(
+            match = re.search(
                 r"\bStatement\s*=\s*\[",
                 clean,
-            ):
-                found_statement = True
+            )
 
-            continue
+            if not match:
+                continue
+
+            found_statement = True
+            line = line[match.end():]
+            clean = clean[match.end():]
 
         if not current:
 
@@ -467,155 +489,138 @@ def contains_wildcard(
     )
 
 
-def action_verb(action):
+def load_iam_action_taxonomy():
+    with IAM_ACTION_TAXONOMY.open(encoding="utf-8") as stream:
+        config = yaml.safe_load(stream)
 
-    text = str(
-        action
-    ).strip()
-
-    if ":" not in text:
-        return text.lower()
-
-    return (
-        text.split(
-            ":",
-            1,
-        )[1]
-        .lower()
-    )
-
-
-WRITE_PREFIXES = (
-    "create",
-    "delete",
-    "put",
-    "update",
-    "set",
-    "attach",
-    "detach",
-    "pass",
-    "run",
-    "start",
-    "stop",
-    "terminate",
-    "modify",
-    "change",
-    "enable",
-    "disable",
-    "invoke",
-    "publish",
-    "send",
-    "write",
-    "execute",
-    "register",
-    "deregister",
-    "associate",
-    "disassociate",
-    "authorize",
-    "revoke",
-    "batchstop",
-    "batchwrite",
-)
-
-
-PRIVILEGE_CONTROL_ACTIONS = {
-    "iam:passrole",
-    "iam:attachrolepolicy",
-    "iam:attachuserpolicy",
-    "iam:attachgrouppolicy",
-    "iam:putrolepolicy",
-    "iam:putuserpolicy",
-    "iam:putgrouppolicy",
-    "iam:createpolicy",
-    "iam:createpolicyversion",
-    "iam:setdefaultpolicyversion",
-    "iam:updateassumerolepolicy",
-    "iam:createaccesskey",
-    "sts:assumerole",
-}
-
-
-def is_write_action(
-    action,
-):
-
-    verb = action_verb(
-        action
-    )
-
-    return verb.startswith(
-        WRITE_PREFIXES
-    )
-
-
-def is_privilege_control_action(
-    action,
-):
-
-    return (
-        str(action)
-        .strip()
-        .lower()
-        in PRIVILEGE_CONTROL_ACTIONS
-    )
-
-
-def classify_privilege_impact(
-    actions,
-    wildcard_action,
-    wildcard_resource,
-):
-    """
-    Frozen deterministic rubric:
-
-    0
-      No meaningful privilege impact.
-
-    1
-      Read/list or narrowly scoped operational mutation.
-
-    2
-      Explicit write/mutation/resource-control over
-      wildcard or broad resource scope.
-
-    3
-      Wildcard actions or explicit identity/policy/
-      role-control capabilities.
-
-    unknown
-      Relevant actions cannot be resolved.
-    """
-
-    if not actions:
-        return "unknown"
-
-    if wildcard_action == "yes":
-        return "3"
-
-    if any(
-        is_privilege_control_action(
-            action
-        )
-        for action in actions
+    if (
+        config.get("taxonomy_version") != "d008-v1"
+        or config.get("decision") != "D-008"
+        or config.get("matching") != "exact_case_insensitive"
     ):
-        return "3"
+        raise ValueError("Unexpected IAM Action taxonomy version")
 
-    has_write = any(
-        is_write_action(
-            action
+    levels = {
+        "read_observation": 1,
+        "operational_mutation": 2,
+        "privilege_administration_or_unrestricted": 3,
+    }
+    actions = {}
+    for capability_class, level in levels.items():
+        entries = config.get(capability_class)
+        if not isinstance(entries, list):
+            raise ValueError(f"Missing IAM Action class: {capability_class}")
+        for action in entries:
+            if not isinstance(action, str) or not action.strip():
+                raise ValueError(f"Invalid IAM Action in {capability_class}")
+            key = action.casefold()
+            if key in actions:
+                raise ValueError(f"Duplicate IAM Action: {action}")
+            actions[key] = (capability_class, level)
+
+    unclassified = config.get("unclassified_observed", [])
+    if not isinstance(unclassified, list):
+        raise ValueError("Invalid unclassified IAM Action list")
+    observed = set()
+    for action in unclassified:
+        if (
+            not isinstance(action, str)
+            or not action.strip()
+            or action.casefold() in actions
+            or action.casefold() in observed
+        ):
+            raise ValueError(f"Conflicting unclassified IAM Action: {action}")
+        observed.add(action.casefold())
+
+    return config["taxonomy_version"], actions
+
+
+IAM_TAXONOMY_VERSION, IAM_ACTION_LEVELS = load_iam_action_taxonomy()
+
+
+def parse_literal_action(token):
+    token = token.strip()
+    if not re.fullmatch(r'"(?:\\.|[^"\\])*"', token):
+        return None
+    try:
+        value = json.loads(token)
+    except json.JSONDecodeError:
+        return None
+    if not value or "${" in value or "%{" in value:
+        return None
+    return value
+
+
+def resolved_iam_actions(action_raw):
+    """Accept literal Action strings/lists; retain uncertainty in a list."""
+    raw = action_raw.strip()
+    literal = parse_literal_action(raw)
+    if literal is not None:
+        return [literal], False
+
+    if not (raw.startswith("[") and raw.endswith("]")):
+        return [], True
+
+    items = raw[1:-1].split(",")
+    actions = []
+    unresolved = False
+    for index, item in enumerate(items):
+        if not item.strip() and index == len(items) - 1:
+            continue  # HCL permits a trailing comma.
+        literal = parse_literal_action(item)
+        if literal is None:
+            unresolved = True
+        else:
+            actions.append(literal)
+    return actions, unresolved or not actions
+
+
+def resolved_iam_effect(effect_raw):
+    effect = parse_literal_action(effect_raw)
+    return effect if effect in {"Allow", "Deny"} else None
+
+
+def extract_condition_raw(statement):
+    lines = statement.splitlines()
+    for index, line in enumerate(lines):
+        match = re.match(r"^\s*Condition\s*=\s*(.*)$", line)
+        if not match:
+            continue
+        block = [match.group(1)]
+        clean = strip_quoted_strings(block[0])
+        depth = clean.count("{") - clean.count("}")
+        while depth > 0 and index + 1 < len(lines):
+            index += 1
+            block.append(lines[index])
+            clean = strip_quoted_strings(lines[index])
+            depth += clean.count("{") - clean.count("}")
+        return "\n".join(block)
+    return ""
+
+
+def classify_privilege_impact(actions, action_unresolved, effect):
+    classifications = []
+    for action in actions:
+        capability_class, level = IAM_ACTION_LEVELS.get(
+            action.casefold(), ("unclassified", None)
         )
-        for action in actions
-    )
+        classifications.append({
+            "action": action,
+            "class": capability_class,
+            "level": level,
+        })
 
-    if has_write:
+    if effect == "Deny":
+        return "0", classifications
+    if effect != "Allow":
+        return "unknown", classifications
 
-        if wildcard_resource == "yes":
-            return "2"
-
-        return "1"
-
-    # Read/list/describe/get-style permissions.
-    return "1"
+    levels = [item["level"] for item in classifications]
+    if 3 in levels:
+        return "3", classifications
+    if action_unresolved or not levels or None in levels:
+        return "unknown", classifications
+    return str(max(levels)), classifications
 
 
 def analyze_iam_statement(
@@ -633,10 +638,10 @@ def analyze_iam_statement(
         source_text
     )
 
-    selected = source_text
+    selected = ""
 
     statement_resolution = (
-        "whole_policy_fallback"
+        "unresolved"
     )
 
     if (
@@ -663,6 +668,18 @@ def analyze_iam_statement(
     )
 
     (
+        effect_present,
+        _,
+        effect_raw,
+    ) = extract_assignment(
+        selected,
+        "Effect",
+    )
+    effect = resolved_iam_effect(effect_raw) if effect_present else None
+    resolved_actions, action_unresolved = resolved_iam_actions(action_raw)
+    condition_raw = extract_condition_raw(selected)
+
+    (
         resource_present,
         resources,
         resource_raw,
@@ -686,27 +703,56 @@ def analyze_iam_statement(
             else "no"
         )
 
-    if not resource_present:
-        wildcard_resource = "unknown"
-
-    else:
-
-        # Resource may be an HCL reference and therefore produce
-        # zero quoted values. The assignment still exists and
-        # contains no wildcard syntax.
+    # A quoted substring inside an unresolved HCL expression is not
+    # evidence that the final Resource value is scoped or wildcard.
+    unquoted_resource = re.sub(
+        r'"(?:\\.|[^"\\])*"',
+        '',
+        resource_raw,
+    )
+    resource_is_literal = (
+        resource_present
+        and bool(resources)
+        and not any(
+            '${' in value or '%{' in value
+            for value in resources
+        )
+        and re.fullmatch(r'[\[\],\s]*', unquoted_resource) is not None
+    )
+    if resource_is_literal:
         wildcard_resource = (
             "yes"
-            if contains_wildcard(
-                resources
-            )
+            if contains_wildcard(resources)
             else "no"
         )
+    else:
+        try:
+            resource_expression = ast.parse(
+                resource_raw, mode="eval"
+            ).body
+        except (SyntaxError, ValueError):
+            resource_expression = None
 
-    privilege_impact = (
+        # A direct literal item proves a wildcard even if another
+        # item in the same list remains unresolved.
+        direct_wildcard = (
+            isinstance(resource_expression, ast.List)
+            and any(
+                isinstance(item, ast.Constant)
+                and isinstance(item.value, str)
+                and "*" in item.value
+                and "${" not in item.value
+                and "%{" not in item.value
+                for item in resource_expression.elts
+            )
+        )
+        wildcard_resource = "yes" if direct_wildcard else "unknown"
+
+    privilege_impact, action_capabilities = (
         classify_privilege_impact(
-            actions,
-            wildcard_action,
-            wildcard_resource,
+            resolved_actions,
+            action_unresolved,
+            effect,
         )
     )
 
@@ -727,6 +773,13 @@ def analyze_iam_statement(
         ),
         "action_raw": action_raw,
         "resource_raw": resource_raw,
+        "effect": effect,
+        "effect_raw": effect_raw,
+        "condition_raw": condition_raw,
+        "resolved_actions": resolved_actions,
+        "action_unresolved": action_unresolved,
+        "action_capabilities": action_capabilities,
+        "iam_action_taxonomy_version": IAM_TAXONOMY_VERSION,
     }
 
     return {

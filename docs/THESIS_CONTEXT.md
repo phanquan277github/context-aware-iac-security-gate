@@ -12652,3 +12652,77 @@ Hãy nghĩ:
 Khi 8 câu này được trả lời bằng artifact và experiment cụ thể, phần lớn luận văn đã hình thành.
 
 Với bạn, **Phase 0–4 mới là phần cần tập trung nhất**, không phải Random Forest. Khi tới Phase 6, việc train Random Forest bằng scikit-learn thực ra chỉ là một phần tương đối nhỏ; dataset, feature, ground truth và chống leakage mới quyết định chất lượng nghiên cứu.
+
+---
+
+# Privilege Impact Contract — Normative Clarification
+
+> [!IMPORTANT]
+> This section is normative.
+>
+> It supersedes earlier descriptions of `privilege_impact` wherever
+> those descriptions conflict with this contract.
+
+`privilege_impact` represents the ordinal potential authorization
+capability of the Checkov-relevant IAM statement.
+
+It is a contextual observation, not a final risk score and not an
+estimate of fully evaluated runtime authorization.
+
+The approved mapping is:
+
+| Value | Meaning |
+|---|---|
+| `0` | No granted privilege capability; supported primary case is a deterministically identified `Effect = "Deny"` statement |
+| `1` | Read, list, describe, query, or equivalent observation capability |
+| `2` | Non-authorization administrative mutation or resource/service state-changing capability |
+| `3` | Identity, role, policy, permission, delegation or privilege-administration capability, or explicitly unrestricted authorization such as `Action="*"` / `iam:*` |
+| `unknown` | Applicable but statement, Effect, Action, or Action capability cannot be determined reliably from static evidence |
+| `not_applicable` | The feature is not meaningful for the finding according to the approved applicability matrix |
+
+## Separation from resource scope
+
+Resource scope must not independently determine
+`privilege_impact`.
+
+Wildcard, scoped, or unresolved Resource information is represented
+through the appropriate resource-scope contextual feature such as
+`wildcard_resource`.
+
+This separation avoids encoding the same contextual dimension in
+both `privilege_impact` and resource-scope features.
+
+## Multiple Actions
+
+Each resolved Action in the relevant statement is classified
+independently and the maximum privilege capability is used.
+
+If unresolved Action evidence could change the resulting level, the
+result is `unknown`.
+
+If a resolved Action already establishes level `3`, an additional
+unresolved Action cannot increase the ordinal level beyond `3`.
+
+## Effect and Condition
+
+A deterministically identified `Effect = "Deny"` statement maps to
+level `0`.
+
+An unresolved Effect maps to `unknown`.
+
+Conditions do not automatically reduce the level because this
+feature captures potential capability rather than complete effective
+runtime authorization.
+
+Conditions should remain traceable in evidence where available.
+
+## Action taxonomy
+
+The operational Action taxonomy for levels `1`, `2`, and `3` must
+be deterministic, version-controlled, and auditable.
+
+An Action that cannot be classified by the approved taxonomy must
+produce `unknown`; it must not silently default to a lower level.
+
+The taxonomy must be defined independently of human risk labels,
+model predictions, or experimental performance.
