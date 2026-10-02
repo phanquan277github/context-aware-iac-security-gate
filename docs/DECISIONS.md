@@ -295,3 +295,551 @@ The Action capability taxonomy used to operationalize levels `1`,
 and auditable.
 
 Unknown Actions must not silently default to level `1`.
+
+---
+
+## D-009 — Finding-Level Context Feature Evidence Contract
+
+Status: Accepted
+
+Decision:
+
+Every contextual feature value used by the research dataset must be
+supported by deterministic, auditable static evidence.
+
+The approved evidence representation uses:
+
+- one shared provenance object for the finding/source context; and
+- one decision-basis object for each applicable contextual feature.
+
+This avoids duplicating common provenance while preserving
+feature-level traceability.
+
+## Evidence States
+
+A determined feature value requires evidence that identifies:
+
+- the relevant object and analysis scope;
+- source references or deterministic derived references;
+- the extraction/inference method and version;
+- observed facts;
+- the conclusion derived from those facts.
+
+Absence of positive evidence must NOT be treated as evidence for a
+negative state.
+
+Negative states such as `no` or `internal` require evidence that the
+relevant analysis scope was examined sufficiently to support the
+negative conclusion.
+
+## Unknown
+
+`unknown` represents research-relevant static uncertainty.
+
+It may be used when:
+
+- the feature is applicable;
+- extraction/selection was successfully attempted;
+- available static evidence is insufficient to determine the value;
+- the reason for uncertainty is recorded.
+
+Examples include:
+
+- unresolved Terraform references;
+- partially resolved expressions;
+- incomplete static relationship/path resolution;
+- supported constructs whose value cannot be determined statically.
+
+Operational failures must NOT be converted into `unknown`.
+
+Examples of operational failures include:
+
+- missing required source artifact;
+- parser failure on a construct that should be supported;
+- extractor exception;
+- corrupted evidence input.
+
+Such cases are extraction/validation failures and must not be
+accepted as valid contextual observations.
+
+## Not Applicable
+
+`not_applicable` is determined only by the approved applicability
+contract.
+
+It does not require fabricated Terraform/source evidence.
+
+Evidence for `not_applicable` must identify at minimum:
+
+- rule/check identifier;
+- feature identifier;
+- applicability-matrix provenance/version.
+
+## Scanner Evidence
+
+A Checkov `FAILED` result establishes the scanner finding and its
+rule context.
+
+A scanner failure alone is not sufficient evidence for a contextual
+feature value when that feature claims a property of the Terraform
+configuration or infrastructure context.
+
+Scanner evidence must be combined with deterministic source/config
+evidence appropriate to the feature.
+
+## Source Scope
+
+Evidence may use:
+
+- explicit Terraform configuration;
+- deterministic references between resources within the candidate
+  artifact;
+- Checkov finding metadata and evaluated keys;
+- approved versioned taxonomies or deterministic mappings.
+
+Evidence v1 must not silently materialize provider/runtime defaults
+as if they were explicit Terraform literals.
+
+If a provider default is later used as research evidence, that
+behavior requires explicit versioned documentation.
+
+## Network Evidence
+
+Network-related conclusions must preserve direction and the
+deterministic relationship/path used to support the value.
+
+For positive exposure/reachability conclusions, evidence must record
+the explicit configuration and relevant path elements.
+
+For negative/internal conclusions, the relevant static scope must be
+sufficiently resolved to support the absence of the exposure/path.
+
+If required network relationships cannot be resolved statically,
+the applicable feature must be `unknown`.
+
+Literal network facts that do not appear in explicit or otherwise
+approved evidence must not be fabricated.
+
+## IAM Evidence
+
+IAM evidence must conform to D-007 and D-008.
+
+For statement-dependent IAM features, evidence must preserve as
+applicable:
+
+- statement-selection provenance;
+- evaluated-keys relationship;
+- selected statement index;
+- source location;
+- Effect;
+- raw and resolved Actions;
+- unresolved Action expressions;
+- raw and resolved Resources;
+- unresolved Resource expressions;
+- wildcard match evidence;
+- IAM Action capability taxonomy version;
+- Action-to-capability classification;
+- Condition when present.
+
+For `privilege_impact`, evidence must make the D-008 classification
+reproducible.
+
+## Resource Role
+
+`resource_role` must be derived through an explicit,
+version-controlled `resource_type -> resource_role` taxonomy.
+
+A recognized resource type not assigned to a specialized role may
+use the approved `other` category.
+
+A missing or unreadable resource type is not equivalent to `other`;
+it is an extraction/data-quality failure.
+
+The exact resource-role taxonomy must be audited and versioned
+before final feature-dataset acceptance.
+
+## Encryption and Logging
+
+For scanner-aligned control features such as
+`encryption_missing` and `logging_missing`, evidence must preserve:
+
+- scanner rule/check provenance; and
+- deterministic source/config evidence supporting whether the
+  specific control required by that rule is present or absent.
+
+For controls represented by relationships or separate Terraform
+resources, the relevant candidate scope must be checked rather than
+using absence from a short source snippet as proof.
+
+## Evidence Versioning
+
+Evidence must carry a versioned evidence contract or equivalent
+stable identifier.
+
+Versioned supporting artifacts such as:
+
+- applicability matrix;
+- IAM Action taxonomy;
+- resource-role taxonomy;
+
+must be identifiable through version or reproducible content hash.
+
+## Research Integrity
+
+Evidence must not be derived from:
+
+- human priority labels;
+- target values;
+- model predictions;
+- desired experiment results.
+
+Evidence validation and feature extraction must remain independent
+of downstream ranking performance.
+
+---
+
+## D-010 — Versioned Resource Role Taxonomy
+
+Status: Accepted
+
+Decision:
+
+`resource_role` represents the functional security domain of the
+Terraform object type.
+
+It is a type-level contextual feature.
+
+It does NOT attempt to infer:
+
+- the actual business purpose of an individual resource;
+- data sensitivity;
+- workload criticality;
+- resource importance;
+- runtime usage from resource names or naming conventions.
+
+The approved roles are:
+
+### `identity`
+
+Terraform objects whose primary security function concerns identity,
+authorization, trust, IAM policy, role, or permission semantics.
+
+### `primary_data`
+
+Persistent data/storage resources and Terraform objects that directly
+configure storage, access, ownership, or lifecycle controls for those
+data resources.
+
+The label does not assert that the resource contains the most
+important business data.
+
+### `logging`
+
+Terraform objects whose primary function is audit, log, or telemetry
+collection/storage.
+
+General security detection services are not automatically classified
+as logging.
+
+### `network`
+
+Terraform objects whose primary function concerns connectivity,
+routing, addressing, ingress/egress, edge exposure, traffic
+distribution, filtering, or network security controls.
+
+### `compute`
+
+Terraform objects whose primary function concerns workload execution,
+compute capacity, compute deployment configuration, or workload
+orchestration.
+
+### `other`
+
+A recognized Terraform object type that has been explicitly reviewed
+and does not belong to the five specialized roles above.
+
+`other` is an explicit taxonomy decision, not a fallback.
+
+## Mapping Rules
+
+The taxonomy must use explicit, version-controlled
+`resource_type -> resource_role` entries.
+
+Prefix inference such as:
+
+`aws_iam_* -> identity`
+
+is not sufficient for the accepted taxonomy.
+
+Configuration or attachment objects may be assigned to the security
+domain they directly govern, but each such mapping must be explicit
+in the taxonomy.
+
+Dynamic role inheritance from another Terraform resource is not part
+of taxonomy v1.
+
+## Missing and Unmapped Types
+
+An empty, missing, or unreadable `resource_type` must not be mapped
+to `other`.
+
+A non-empty resource type absent from the approved taxonomy must also
+not silently fall back to `other`.
+
+For an in-scope research finding, either case is a data-quality /
+extraction failure requiring review.
+
+Research-scope filtering occurs before contextual-feature extraction.
+A finding outside the approved research rule scope does not require
+a `resource_role` observation merely because it exists in the raw
+scanner corpus.
+
+## Approved v1 Mappings
+
+### identity
+
+- aws_iam_policy
+- aws_iam_role_policy
+- aws_iam_role_policy_attachment
+- aws_iam_policy_document
+
+### primary_data
+
+- aws_s3_bucket
+- aws_db_instance
+- aws_rds_cluster
+- aws_rds_cluster_instance
+- aws_rds_global_cluster
+- aws_dynamodb_table
+- aws_elasticache_replication_group
+- aws_secretsmanager_secret
+- aws_ssm_parameter
+- aws_s3_bucket_lifecycle_configuration
+- aws_s3_bucket_ownership_controls
+- aws_s3_bucket_policy
+- aws_s3_bucket_public_access_block
+
+### logging
+
+- aws_cloudwatch_log_group
+- aws_cloudtrail
+- aws_flow_log
+
+### network
+
+- aws_vpc
+- aws_subnet
+- aws_security_group
+- aws_security_group_rule
+- aws_vpc_security_group_ingress_rule
+- aws_vpc_security_group_egress_rule
+- aws_lb
+- aws_lb_listener
+- aws_lb_target_group
+- aws_network_acl
+- aws_network_acl_rule
+- aws_networkfirewall_firewall
+- aws_networkfirewall_firewall_policy
+- aws_networkfirewall_rule_group
+- aws_eip
+- aws_route53_zone
+- aws_cloudfront_distribution
+- aws_wafv2_web_acl
+- aws_api_gateway_method
+- aws_api_gateway_method_settings
+- aws_api_gateway_rest_api
+- aws_api_gateway_stage
+- aws_apigatewayv2_route
+- aws_apigatewayv2_stage
+
+### compute
+
+- aws_instance
+- aws_lambda_function
+- aws_eks_cluster
+- aws_autoscaling_group
+- aws_launch_configuration
+- aws_launch_template
+- aws_glue_crawler
+- aws_glue_job
+- aws_sfn_state_machine
+
+### other
+
+- aws_dlm_lifecycle_policy
+- aws_guardduty_detector
+- aws_kinesis_firehose_delivery_stream
+- aws_kms_key
+- aws_sns_topic
+
+## Versioning
+
+The operational taxonomy must be stored in a version-controlled
+artifact with a stable version identifier.
+
+Evidence for `resource_role` must preserve at minimum:
+
+- input `resource_type`;
+- resulting `resource_role`;
+- taxonomy version or reproducible content hash;
+- mapping entry used.
+
+The taxonomy must be frozen before the final contextual-feature
+dataset is frozen.
+
+---
+
+## D-011 — Network Context Semantics and Unknown Reason Codes
+
+Status: Accepted
+
+Decision:
+
+Network contextual features represent deterministic static properties
+of the Terraform/network object directly associated with the finding.
+
+They do not require proof that a production workload is currently
+using the configured network path unless the feature itself requires
+such an attachment to establish its value.
+
+## Reachability
+
+`reachability` represents the statically configured network
+reachability scope of the relevant resource or network control.
+
+`reachability=internet` may be concluded when explicit Terraform
+configuration establishes an Internet-directed path or destination
+for the relevant network object.
+
+Examples include:
+
+- a subnet deterministically associated with a route table containing
+  a default route to an Internet Gateway;
+- an applicable egress security-group rule whose destination is an
+  Internet-wide CIDR such as `0.0.0.0/0`.
+
+For a security-group rule, this classification describes the
+configured reachability scope of the rule. It does not assert that a
+specific runtime workload is currently attached to that security
+group.
+
+`reachability=internal` requires static evidence that the relevant
+network scope is limited to internal/private destinations.
+
+If the route, destination, association, or other relationship
+required to determine the configured scope cannot be resolved
+statically, the value is `unknown`.
+
+## Internet Exposure
+
+`internet_exposure` represents direct inbound exposure from the
+Internet.
+
+An Internet route, public subnet, public-IP assignment capability,
+or outbound rule alone does not prove `internet_exposure=yes`.
+
+A positive value requires deterministic evidence of the inbound
+exposure semantics relevant to the affected resource, such as:
+
+- an Internet-facing endpoint; or
+- an inbound network control/path explicitly permitting Internet
+  origin traffic.
+
+If the static evidence establishes Internet routing capability but
+does not establish the required inbound relationship,
+`internet_exposure` remains `unknown` when applicable.
+
+## Public Access
+
+`public_access` represents whether the affected resource is
+statically demonstrated to be publicly accessible.
+
+Missing a preventive security control alone is not evidence that a
+resource is public.
+
+For S3-related public-access findings, a missing Public Access Block
+does not by itself establish public access.
+
+The analysis must record candidate-specific evidence concerning the
+relevant explicit controls available in the Terraform candidate,
+including as applicable:
+
+- Public Access Block;
+- bucket policy;
+- ACL or equivalent explicit access configuration.
+
+Provider/runtime defaults must not be silently materialized as
+Terraform evidence.
+
+If the explicit static configuration does not establish either
+public or non-public access, the value is `unknown`.
+
+## CKV_AWS_130 Subnet Semantics
+
+For a subnet finding:
+
+- deterministic route-table association plus a default route to an
+  Internet Gateway is sufficient evidence for
+  `reachability=internet`;
+
+- `map_public_ip_on_launch=true` records public-IP assignment
+  capability but does not alone establish
+  `internet_exposure=yes` or `public_access=yes`;
+
+- without sufficient endpoint/workload/inbound-access evidence,
+  applicable `internet_exposure` and `public_access` remain
+  `unknown`.
+
+Therefore subnet reachability and workload/public exposure must not
+be collapsed into the same concept.
+
+## CKV_AWS_382 Egress Semantics
+
+For an applicable egress-rule finding, an explicit egress
+destination of `0.0.0.0/0` or equivalent Internet-wide destination
+is sufficient to establish configured
+`reachability=internet`.
+
+This does not assert runtime workload attachment and does not imply
+inbound Internet exposure.
+
+## Approved Unknown Reason Codes
+
+Evidence v1 must use a deterministic reason code when an applicable
+feature is `unknown`.
+
+Approved D-009 v1 reason codes are:
+
+- `unresolved_reference`
+- `partially_resolved_expression`
+- `insufficient_static_relationship`
+- `insufficient_static_path`
+- `insufficient_access_control_evidence`
+- `unresolved_statement`
+- `unresolved_effect`
+- `unresolved_action`
+- `unresolved_resource`
+- `unclassified_action`
+- `unsupported_static_construct`
+
+A human-readable reason detail may accompany the code.
+
+These reason codes describe research-relevant static uncertainty.
+
+Operational failures such as missing required source files, parser
+defects on supported syntax, extractor exceptions, corrupted inputs,
+or invalid taxonomy/configuration must not be represented using these
+codes and must not be converted into research `unknown`.
+
+## Evidence Requirements
+
+Evidence for network features must distinguish:
+
+- facts that were successfully resolved;
+- relationships or path elements that remain unresolved;
+- the final feature conclusion.
+
+An `unknown` explanation must not claim that a path element is
+missing when that element was actually found and resolved.
+
+This decision does not change the applicability matrix.

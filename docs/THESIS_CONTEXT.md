@@ -12726,3 +12726,139 @@ produce `unknown`; it must not silently default to a lower level.
 
 The taxonomy must be defined independently of human risk labels,
 model predictions, or experimental performance.
+
+---
+
+# Context Feature Evidence Contract — Normative Clarification
+
+> [!IMPORTANT]
+> This section is normative.
+>
+> Finding-level contextual features used in the research dataset must
+> follow D-009.
+
+Each accepted contextual feature observation must be supported by
+deterministic and auditable static evidence.
+
+The approved representation uses shared finding/source provenance
+combined with feature-level decision evidence.
+
+A determined value must preserve sufficient observed facts,
+references, method/version information, and decision basis to make
+the conclusion independently auditable.
+
+A negative observation must be supported by evidence over the
+relevant analysis scope. Failure to observe positive evidence is not
+sufficient proof of a negative state.
+
+`unknown` represents genuine static-analysis uncertainty for an
+applicable feature. It must preserve the reason for uncertainty.
+
+Parser failures, missing source artifacts, extractor errors, or other
+operational failures must not be silently represented as `unknown`;
+they are data-quality or extraction failures.
+
+`not_applicable` is established by the approved applicability
+contract and requires applicability provenance rather than fabricated
+source evidence.
+
+Scanner findings may contribute evidence but do not alone establish
+contextual feature values when the value claims a property of the
+Terraform configuration or infrastructure context.
+
+Evidence may use explicit Terraform configuration, deterministic
+cross-resource relationships within the candidate artifact, scanner
+metadata, and approved versioned taxonomies.
+
+Provider/runtime defaults must not be silently materialized as
+explicit evidence unless their use has been separately specified and
+versioned.
+
+IAM evidence must conform to D-007 and D-008.
+
+Resource-role classification must use a version-controlled mapping.
+
+The evidence representation itself must be versioned so that
+research outputs remain reproducible and auditable.
+
+---
+
+# Resource Role Taxonomy — Normative Clarification
+
+> [!IMPORTANT]
+> This section is normative and follows D-010.
+
+`resource_role` is a deterministic type-level contextual feature
+representing the functional security domain of a Terraform object.
+
+It does not infer business purpose, data sensitivity, workload
+criticality, or runtime importance.
+
+The allowed roles remain:
+
+- `identity`
+- `primary_data`
+- `logging`
+- `network`
+- `compute`
+- `other`
+
+The operational mapping must be explicit and version-controlled.
+
+`other` is an explicitly approved category for recognized resource
+types; it is not a fallback for missing or unknown types.
+
+Empty, unreadable, or unmapped resource types in an in-scope finding
+constitute extraction/data-quality failures.
+
+Research-scope filtering precedes contextual-feature extraction, so
+raw scanner findings outside the approved research rule scope do not
+require contextual feature observations.
+
+The exact v1 mappings are recorded by D-010 and the corresponding
+version-controlled taxonomy artifact.
+
+---
+
+# Network Context Semantics — Normative Clarification
+
+> [!IMPORTANT]
+> This section is normative and follows D-011.
+
+The network contextual features intentionally represent different
+properties.
+
+`reachability` represents statically configured network reachability
+of the resource or network control associated with the finding.
+
+`internet_exposure` represents direct inbound Internet exposure.
+
+`public_access` represents statically demonstrated public
+accessibility of the affected resource.
+
+These properties must not be collapsed.
+
+A subnet that is deterministically associated with a route table
+containing a default route to an Internet Gateway may be classified
+as `reachability=internet`.
+
+That fact alone does not establish direct Internet exposure or public
+access of a workload in the subnet.
+
+Likewise, an applicable egress security-group rule whose configured
+destination is Internet-wide may establish
+`reachability=internet` for the rule without proving that a runtime
+workload is attached to that security group.
+
+Missing preventive controls are not positive evidence of public
+access.
+
+Unknown network observations must preserve both the path elements
+that were successfully resolved and the exact static relationship
+that remains unresolved.
+
+Evidence v1 unknown observations must use the approved deterministic
+reason codes recorded in D-011.
+
+Operational extraction failures remain distinct from research
+uncertainty.

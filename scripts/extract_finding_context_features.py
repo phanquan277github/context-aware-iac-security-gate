@@ -7,6 +7,8 @@ import re
 import pandas as pd
 import yaml
 
+from context_evidence import build_evidence, source_inventory, subnet_internet_route
+
 
 # ==========================================================
 # PATHS
@@ -40,6 +42,11 @@ APPLICABILITY = Path(
 IAM_ACTION_TAXONOMY = Path(
     "dataset/main/context/"
     "iam_action_capability_taxonomy.yaml"
+)
+
+RESOURCE_ROLE_TAXONOMY = Path(
+    "dataset/main/context/"
+    "resource_role_taxonomy.yaml"
 )
 
 
@@ -215,56 +222,55 @@ def source_region(
 # RESOURCE ROLE
 # ==========================================================
 
-def infer_resource_role(
-    resource_type,
-):
+def load_resource_role_taxonomy():
+    with RESOURCE_ROLE_TAXONOMY.open(encoding="utf-8") as stream:
+        config = yaml.safe_load(stream)
 
-    rt = str(
-        resource_type
-    ).strip()
-
-    if rt.startswith(
-        "aws_iam_"
+    if (
+        not isinstance(config, dict)
+        or config.get("taxonomy_version") != "d010-v1"
+        or config.get("decision") != "D-010"
+        or not isinstance(config.get("mappings"), list)
+        or not config["mappings"]
     ):
-        return "identity"
+        raise ValueError("Invalid D-010 resource role taxonomy")
 
-    if rt in {
-        "aws_s3_bucket",
-        "aws_db_instance",
-        "aws_rds_cluster",
-        "aws_rds_cluster_instance",
-        "aws_dynamodb_table",
-    }:
-        return "primary_data"
+    allowed_roles = {
+        "identity", "primary_data", "logging", "network", "compute", "other"
+    }
+    mappings = {}
+    for entry in config["mappings"]:
+        if not isinstance(entry, dict) or set(entry) != {"resource_type", "role"}:
+            raise ValueError(f"Invalid resource role taxonomy entry: {entry!r}")
+        resource_type, role = entry["resource_type"], entry["role"]
+        if (
+            not isinstance(resource_type, str)
+            or re.fullmatch(r"aws_[a-z0-9_]+", resource_type) is None
+            or role not in allowed_roles
+            or resource_type in mappings
+        ):
+            raise ValueError(f"Invalid resource role taxonomy mapping: {entry!r}")
+        mappings[resource_type] = role
 
-    if rt in {
-        "aws_cloudwatch_log_group",
-        "aws_cloudtrail",
-        "aws_flow_log",
-    }:
-        return "logging"
+    return config["taxonomy_version"], mappings
 
-    if rt in {
-        "aws_vpc",
-        "aws_subnet",
-        "aws_security_group",
-        "aws_security_group_rule",
-        "aws_vpc_security_group_ingress_rule",
-        "aws_vpc_security_group_egress_rule",
-        "aws_lb",
-        "aws_lb_listener",
-        "aws_lb_target_group",
-    }:
-        return "network"
 
-    if rt in {
-        "aws_instance",
-        "aws_lambda_function",
-        "aws_eks_cluster",
-    }:
-        return "compute"
+RESOURCE_ROLE_TAXONOMY_VERSION, RESOURCE_ROLE_MAP = (
+    load_resource_role_taxonomy()
+)
 
-    return "other"
+
+def infer_resource_role(resource_type):
+    if not isinstance(resource_type, str) or not resource_type.strip():
+        raise ValueError("Missing or unreadable resource_type")
+
+    resource_type = resource_type.strip()
+    if resource_type not in RESOURCE_ROLE_MAP:
+        raise ValueError(
+            f"Unmapped resource_type: {resource_type!r} "
+            f"in {RESOURCE_ROLE_TAXONOMY} ({RESOURCE_ROLE_TAXONOMY_VERSION})"
+        )
+    return RESOURCE_ROLE_MAP[resource_type]
 
 
 # ==========================================================
@@ -364,6 +370,14 @@ def extract_statement_blocks(
             current = []
 
     return blocks
+
+
+def validate_supported_iam_parse(source_text, evaluated_keys):
+    """Do not encode a supported-syntax parser failure as research unknown."""
+    if statement_index_from_evaluated_keys(evaluated_keys) is None:
+        return
+    if re.search(r"\bStatement\s*=\s*\[\s*\{", source_text) and not extract_statement_blocks(source_text):
+        raise ValueError("Supported IAM Statement syntax could not be parsed")
 
 
 def extract_assignment(
@@ -691,17 +705,17 @@ def analyze_iam_statement(
     if not action_present:
         wildcard_action = "unknown"
 
-    elif not actions:
+    elif not resolved_actions:
+        wildcard_action = "unknown"
+
+    elif contains_wildcard(resolved_actions):
+        wildcard_action = "yes"
+
+    elif action_unresolved:
         wildcard_action = "unknown"
 
     else:
-        wildcard_action = (
-            "yes"
-            if contains_wildcard(
-                actions
-            )
-            else "no"
-        )
+        wildcard_action = "no"
 
     # A quoted substring inside an unresolved HCL expression is not
     # evidence that the final Resource value is scoped or wildcard.
@@ -763,6 +777,7 @@ def analyze_iam_statement(
         "statement_resolution": (
             statement_resolution
         ),
+        "statement_source": selected,
         "actions": actions,
         "resources": resources,
         "action_assignment_present": (
@@ -851,7 +866,7 @@ def extract_features(
     features = (
         initialize_features(
             applicability,
-            row["resource_type"],
+            row.get("resource_type"),
         )
     )
 
@@ -861,6 +876,16 @@ def extract_features(
             row["resource"]
         ),
     }
+
+    if as_bool(applicability["resource_role"]):
+        resource_type = row["resource_type"].strip()
+        role = features["resource_role"]
+        evidence["resource_role"] = {
+            "resource_type": row["resource_type"],
+            "resource_role": role,
+            "taxonomy_version": RESOURCE_ROLE_TAXONOMY_VERSION,
+            "mapping_entry": {"resource_type": resource_type, "role": role},
+        }
 
 
     # ======================================================
@@ -1334,15 +1359,7 @@ def main():
 
 
         if not source_path.exists():
-
-            full_source = ""
-
-            source_text = ""
-
-            source_status = (
-                "SOURCE_MISSING"
-            )
-
+            raise ValueError(f"Required Terraform source missing: {source_path}")
         else:
 
             full_source = (
@@ -1367,6 +1384,9 @@ def main():
 
             source_status = "OK"
 
+        if check_id in {"CKV_AWS_290", "CKV_AWS_355"}:
+            validate_supported_iam_parse(
+                source_text, row.get("evaluated_keys", ""))
 
         (
             features,
@@ -1376,6 +1396,11 @@ def main():
             applicability,
             source_text,
         )
+
+        if check_id == "CKV_AWS_130":
+            route_proven, _, _ = subnet_internet_route(row, source_inventory(source_path))
+            if route_proven:
+                features["reachability"] = "internet"
 
 
         # ==================================================
@@ -1516,7 +1541,8 @@ def main():
             ),
             "feature_evidence": (
                 json.dumps(
-                    evidence,
+                    build_evidence(row, features, applicability, evidence,
+                                   source_path, APPLICABILITY),
                     ensure_ascii=False,
                     sort_keys=True,
                 )

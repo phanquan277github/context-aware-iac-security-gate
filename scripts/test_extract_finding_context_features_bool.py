@@ -108,7 +108,7 @@ class ApplicabilityBooleanTests(unittest.TestCase):
                     extractor.main()
             self.assertFalse(output.exists())
 
-    def test_pilot_replay_preserves_values_and_original_evidence(self):
+    def test_pilot_replay_preserves_values_and_emits_versioned_evidence(self):
         with tempfile.TemporaryDirectory() as folder:
             output = Path(folder) / "replayed.csv"
             args = [
@@ -123,25 +123,27 @@ class ApplicabilityBooleanTests(unittest.TestCase):
             self.assertEqual([row["finding_id"] for row in expected],
                              [row["finding_id"] for row in actual])
             for actual_row, expected_row in zip(actual, expected):
-                # D-008 adds IAM evidence fields; the saved pilot remains
-                # the reference for all existing values and evidence.
+                # D-011 resolves the two subnet routes; saved output remains untouched.
+                expected_values = dict(expected_row)
+                if expected_row["check_id"] == "CKV_AWS_130":
+                    expected_values.update(reachability="internet", applicable_unknown_count="2",
+                                           applicable_unknown_features="internet_exposure|public_access")
                 self.assertEqual(
-                    {k: v for k, v in expected_row.items() if k != "feature_evidence"},
+                    {k: v for k, v in expected_values.items() if k != "feature_evidence"},
                     {k: v for k, v in actual_row.items() if k != "feature_evidence"},
                 )
-                old_evidence = json.loads(expected_row["feature_evidence"])
                 new_evidence = json.loads(actual_row["feature_evidence"])
-                for key, old_value in old_evidence.items():
-                    if key == "iam":
-                        for field, value in old_value.items():
-                            self.assertEqual(value, new_evidence[key][field])
-                    else:
-                        self.assertEqual(old_value, new_evidence[key])
+                self.assertEqual("d009-v1", new_evidence["contract_version"])
+                self.assertEqual(actual_row["finding_id"],
+                                 new_evidence["provenance"]["finding_id"])
+                self.assertEqual(set(extractor.FEATURES),
+                                 set(new_evidence["features"]) |
+                                 set(new_evidence["not_applicable"]))
                 for feature in extractor.FEATURES:
-                    self.assertEqual(expected_row[feature], actual_row[feature])
-                self.assertEqual(expected_row["applicable_unknown_count"],
+                    self.assertEqual(expected_values[feature], actual_row[feature])
+                self.assertEqual(expected_values["applicable_unknown_count"],
                                  actual_row["applicable_unknown_count"])
-                self.assertEqual(expected_row["applicable_unknown_features"],
+                self.assertEqual(expected_values["applicable_unknown_features"],
                                  actual_row["applicable_unknown_features"])
 
 

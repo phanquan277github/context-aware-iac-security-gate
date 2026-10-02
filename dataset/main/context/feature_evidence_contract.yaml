@@ -1,0 +1,66 @@
+contract_version: d009-v1
+decision: D-009
+
+# feature_evidence is a JSON object with shared provenance and one
+# decision basis for every applicable finding-level contextual feature.
+sections:
+  shared: provenance
+  applicable: features
+  non_applicable: not_applicable
+
+required_provenance:
+  - finding_id
+  - candidate_id
+  - scenario_id
+  - check_id
+  - resource
+  - resource_type
+  - source_path
+  - source_sha256
+  - line_start
+  - line_end
+  - scanner
+  - scanner_version
+  - check_result
+  - evaluated_keys
+  - applicability_matrix_sha256
+  - terraform_sources
+
+required_decision_basis:
+  - value
+  - status
+  - object
+  - scope
+  - method
+  - method_version
+  - facts
+  - source_refs
+
+unknown_requires:
+  - attempted
+  - unknown_reason_code
+  - unknown_reason_detail
+
+unknown_reason_codes:
+  - unresolved_reference
+  - partially_resolved_expression
+  - insufficient_static_relationship
+  - insufficient_static_path
+  - insufficient_access_control_evidence
+  - unresolved_statement
+  - unresolved_effect
+  - unresolved_action
+  - unresolved_resource
+  - unclassified_action
+  - unsupported_static_construct
+
+determined_requires:
+  - conclusion
+
+negative_requires:
+  - scope_examined
+
+not_applicable_requires:
+  - check_id
+  - feature
+  - applicability_matrix_sha256

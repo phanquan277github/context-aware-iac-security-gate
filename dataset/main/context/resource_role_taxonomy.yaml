@@ -1,0 +1,69 @@
+taxonomy_version: d010-v1
+decision: D-010
+
+# Exact type-level mappings approved in docs/DECISIONS.md (D-010).
+# Entries are explicit; an absent or empty resource_type is an error.
+mappings:
+  - {resource_type: aws_iam_policy, role: identity}
+  - {resource_type: aws_iam_role_policy, role: identity}
+  - {resource_type: aws_iam_role_policy_attachment, role: identity}
+  - {resource_type: aws_iam_policy_document, role: identity}
+
+  - {resource_type: aws_s3_bucket, role: primary_data}
+  - {resource_type: aws_db_instance, role: primary_data}
+  - {resource_type: aws_rds_cluster, role: primary_data}
+  - {resource_type: aws_rds_cluster_instance, role: primary_data}
+  - {resource_type: aws_rds_global_cluster, role: primary_data}
+  - {resource_type: aws_dynamodb_table, role: primary_data}
+  - {resource_type: aws_elasticache_replication_group, role: primary_data}
+  - {resource_type: aws_secretsmanager_secret, role: primary_data}
+  - {resource_type: aws_ssm_parameter, role: primary_data}
+  - {resource_type: aws_s3_bucket_lifecycle_configuration, role: primary_data}
+  - {resource_type: aws_s3_bucket_ownership_controls, role: primary_data}
+  - {resource_type: aws_s3_bucket_policy, role: primary_data}
+  - {resource_type: aws_s3_bucket_public_access_block, role: primary_data}
+
+  - {resource_type: aws_cloudwatch_log_group, role: logging}
+  - {resource_type: aws_cloudtrail, role: logging}
+  - {resource_type: aws_flow_log, role: logging}
+
+  - {resource_type: aws_vpc, role: network}
+  - {resource_type: aws_subnet, role: network}
+  - {resource_type: aws_security_group, role: network}
+  - {resource_type: aws_security_group_rule, role: network}
+  - {resource_type: aws_vpc_security_group_ingress_rule, role: network}
+  - {resource_type: aws_vpc_security_group_egress_rule, role: network}
+  - {resource_type: aws_lb, role: network}
+  - {resource_type: aws_lb_listener, role: network}
+  - {resource_type: aws_lb_target_group, role: network}
+  - {resource_type: aws_network_acl, role: network}
+  - {resource_type: aws_network_acl_rule, role: network}
+  - {resource_type: aws_networkfirewall_firewall, role: network}
+  - {resource_type: aws_networkfirewall_firewall_policy, role: network}
+  - {resource_type: aws_networkfirewall_rule_group, role: network}
+  - {resource_type: aws_eip, role: network}
+  - {resource_type: aws_route53_zone, role: network}
+  - {resource_type: aws_cloudfront_distribution, role: network}
+  - {resource_type: aws_wafv2_web_acl, role: network}
+  - {resource_type: aws_api_gateway_method, role: network}
+  - {resource_type: aws_api_gateway_method_settings, role: network}
+  - {resource_type: aws_api_gateway_rest_api, role: network}
+  - {resource_type: aws_api_gateway_stage, role: network}
+  - {resource_type: aws_apigatewayv2_route, role: network}
+  - {resource_type: aws_apigatewayv2_stage, role: network}
+
+  - {resource_type: aws_instance, role: compute}
+  - {resource_type: aws_lambda_function, role: compute}
+  - {resource_type: aws_eks_cluster, role: compute}
+  - {resource_type: aws_autoscaling_group, role: compute}
+  - {resource_type: aws_launch_configuration, role: compute}
+  - {resource_type: aws_launch_template, role: compute}
+  - {resource_type: aws_glue_crawler, role: compute}
+  - {resource_type: aws_glue_job, role: compute}
+  - {resource_type: aws_sfn_state_machine, role: compute}
+
+  - {resource_type: aws_dlm_lifecycle_policy, role: other}
+  - {resource_type: aws_guardduty_detector, role: other}
+  - {resource_type: aws_kinesis_firehose_delivery_stream, role: other}
+  - {resource_type: aws_kms_key, role: other}
+  - {resource_type: aws_sns_topic, role: other}

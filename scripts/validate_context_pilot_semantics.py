@@ -190,7 +190,7 @@ for _, row in df.iterrows():
         require(
             row,
             "reachability",
-            "unknown",
+            "internet",
         )
 
         require(

@@ -66,6 +66,8 @@ resource_role:
   source:
     - terraform_resource_type
   human_label_derived: false
+  role_taxonomy: resource_role_taxonomy.yaml
+  role_taxonomy_version: d010-v1
 
 public_access:
   description: >
