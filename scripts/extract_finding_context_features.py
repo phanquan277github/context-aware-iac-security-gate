@@ -7,7 +7,10 @@ import re
 import pandas as pd
 import yaml
 
-from context_evidence import build_evidence, source_inventory, subnet_internet_route
+from context_evidence import (build_evidence, eks_public_endpoint_decision,
+                              inline_egress_decision, s3_kms_control_decision,
+                              s3_public_access_decision,
+                              source_inventory, subnet_internet_route, vpc_flow_log_decision)
 
 
 # ==========================================================
@@ -857,6 +860,7 @@ def extract_features(
     row,
     applicability,
     source_text,
+    source_path=None,
 ):
 
     check_id = str(
@@ -893,17 +897,11 @@ def extract_features(
     # ======================================================
 
     if check_id == "CKV2_AWS_11":
-
-        features[
-            "logging_missing"
-        ] = "yes"
-
-        evidence[
-            "logging"
-        ] = (
-            "Checkov finding confirms "
-            "VPC flow logging is missing."
-        )
+        if source_path is None:
+            raise ValueError("CKV2_AWS_11 candidate source path required")
+        decision, details, _ = vpc_flow_log_decision(row, source_path)
+        features["logging_missing"] = decision
+        evidence["logging"] = details
 
 
     # ======================================================
@@ -911,19 +909,13 @@ def extract_features(
     # ======================================================
 
     elif check_id == "CKV2_AWS_6":
-
-        # Missing Public Access Block is not equivalent
-        # to confirmed public accessibility.
-        features[
-            "public_access"
-        ] = "unknown"
-
-        evidence[
-            "public_access"
-        ] = (
-            "Missing S3 Public Access Block does "
-            "not prove that the bucket is public."
-        )
+        if source_path is None:
+            raise ValueError("D-012 S3 candidate source path required")
+        bucket_name = str(row["resource"]).split(".", 1)[-1]
+        value, details, _ = s3_public_access_decision(
+            source_inventory(source_path), bucket_name)
+        features["public_access"] = value
+        evidence["public_access"] = details
 
 
     # ======================================================
@@ -973,17 +965,16 @@ def extract_features(
     # ======================================================
 
     elif check_id == "CKV_AWS_145":
-
-        features[
-            "encryption_missing"
-        ] = "yes"
+        if source_path is None:
+            raise ValueError("S3 KMS control requires affected-bucket source path")
+        decision, kms_facts, _ = s3_kms_control_decision(row, source_path)
+        features["encryption_missing"] = decision
 
         evidence[
             "encryption"
-        ] = (
-            "Required KMS-based default encryption "
-            "control is not satisfied."
-        )
+        ] = {"control": "KMS-based S3 default encryption",
+             "affected_bucket": kms_facts["affected_bucket"],
+             "static_decision": decision}
 
 
     # ======================================================
@@ -1018,27 +1009,14 @@ def extract_features(
     # ======================================================
 
     elif check_id == "CKV_AWS_38":
-
-        features[
-            "internet_exposure"
-        ] = "yes"
-
-        features[
-            "reachability"
-        ] = "internet"
-
-        features[
-            "public_access"
-        ] = "yes"
-
-        evidence[
-            "network"
-        ] = {
-            "direction": "ingress",
-            "source": "0.0.0.0/0",
-            "surface": (
-                "EKS public endpoint"
-            ),
+        if source_path is None:
+            raise ValueError("CKV_AWS_38 affected EKS source path required")
+        decisions, endpoint_facts, _ = eks_public_endpoint_decision(row, source_path)
+        features.update(decisions)
+        evidence["network"] = {
+            "direction": "ingress", "surface": "EKS public endpoint",
+            "endpoint_attribute_state": endpoint_facts["endpoint_attribute_state"],
+            "public_access_cidrs": endpoint_facts["public_access_cidrs_resolved"],
         }
 
 
@@ -1054,21 +1032,31 @@ def extract_features(
             "internet_exposure"
         ] = "unknown"
 
-        features[
-            "reachability"
-        ] = "internet"
+        if row["resource_type"] == "aws_security_group":
+            if source_path is None:
+                raise ValueError("Inline egress requires finding source path")
+            reachability, egress_facts, _ = inline_egress_decision(row, source_path)
+            features["reachability"] = reachability
+            evidence["network"] = {
+                "direction": "egress",
+                "destination": egress_facts["destination_cidr"],
+                "protocol_scope": egress_facts["protocol_scope"],
+                "selected_egress_index": egress_facts["selected_egress_index"],
+            }
+        else:
+            features["reachability"] = "internet"
 
-        evidence[
-            "network"
-        ] = {
-            "direction": "egress",
-            "destination": "0.0.0.0/0",
-            "protocol_scope": "unrestricted",
-            "note": (
-                "Outbound Internet path does not "
-                "prove inbound Internet exposure."
-            ),
-        }
+            evidence[
+                "network"
+            ] = {
+                "direction": "egress",
+                "destination": "0.0.0.0/0",
+                "protocol_scope": "unrestricted",
+                "note": (
+                    "Outbound Internet path does not "
+                    "prove inbound Internet exposure."
+                ),
+            }
 
 
     # ======================================================
@@ -1395,6 +1383,7 @@ def main():
             row,
             applicability,
             source_text,
+            source_path,
         )
 
         if check_id == "CKV_AWS_130":

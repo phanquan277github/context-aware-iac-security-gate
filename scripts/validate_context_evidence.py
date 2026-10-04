@@ -13,9 +13,13 @@ import re
 
 import yaml
 
-from context_evidence import (CONTRACT_VERSION, assignment, finding_region,
-                              s3_access_controls, sha256, source_inventory,
-                              subnet_internet_route)
+from context_evidence import (CONTRACT_VERSION, assignment, assignment_literal, finding_region,
+                              eks_public_endpoint_decision, inline_egress_decision,
+                              ref, resource_blocks,
+                              s3_access_controls, s3_kms_control_decision,
+                              s3_public_access_decision,
+                              sha256, source_inventory,
+                              subnet_internet_route, vpc_flow_log_decision)
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -146,7 +150,90 @@ def contains_all_refs(actual, required, root):
     return all(normalize(reference) in normalized for reference in required)
 
 
-def check_iam(feature, value, facts, provenance, source_refs, action_taxonomy, report, label):
+def indexed_subnet_route_proof(row, source):
+    """Independently reconstruct the count.index association and Internet route."""
+    match = re.fullmatch(r'aws_subnet\.([\w-]+)\[(\d+)\]', row["resource"])
+    if not match:
+        return None
+    name, index = match.group(1), int(match.group(2))
+    inventory = source_inventory(source)
+    subnets = [entry for entry in resource_blocks(inventory, "aws_subnet") if entry[0] == name]
+    if len(subnets) != 1 or not assignment(subnets[0][1], "count"):
+        return None
+    subnet = subnets[0]
+    subnet_count = assignment(subnet[1], "count")
+    if re.fullmatch(r"\d+", subnet_count) and index >= int(subnet_count):
+        return None
+    vpc = assignment(subnet[1], "vpc_id")
+    if not re.fullmatch(r'aws_vpc\.[\w-]+\.id', vpc or ""):
+        return None
+    expression = f"aws_subnet.{name}[count.index].id"
+    count_expression = f"length(aws_subnet.{name})"
+    associations = [entry for entry in resource_blocks(inventory, "aws_route_table_association")
+                    if assignment(entry[1], "subnet_id") == expression and
+                    assignment(entry[1], "count") == count_expression]
+    if len(associations) != 1:
+        return None
+    association = associations[0]
+    table_id = assignment(association[1], "route_table_id")
+    table_match = re.fullmatch(r'aws_route_table\.([\w-]+)\.id', table_id or "")
+    if not table_match:
+        return None
+    tables = [entry for entry in resource_blocks(inventory, "aws_route_table")
+              if entry[0] == table_match.group(1)]
+    if len(tables) != 1 or assignment(tables[0][1], "vpc_id") != vpc:
+        return None
+    table = tables[0]
+    routes = []
+    for inline in re.findall(r'\broute\s*\{([^{}]*)\}', table[1], re.S):
+        if assignment(inline, "cidr_block") == '"0.0.0.0/0"':
+            routes.append((assignment(inline, "gateway_id"), table, "cidr_block", None, inline))
+    for entry in resource_blocks(inventory, "aws_route"):
+        if (assignment(entry[1], "route_table_id") == table_id and
+                assignment(entry[1], "destination_cidr_block") == '"0.0.0.0/0"'):
+            routes.append((assignment(entry[1], "gateway_id"), entry,
+                           "destination_cidr_block", entry[0], entry[1]))
+    if len(routes) != 1:
+        return None
+    gateway, route, destination_key, route_name, route_text = routes[0]
+    igw_match = re.fullmatch(r'aws_internet_gateway\.([\w-]+)\.id', gateway or "")
+    if not igw_match:
+        return None
+    gateways = [entry for entry in resource_blocks(inventory, "aws_internet_gateway")
+                if entry[0] == igw_match.group(1)]
+    if len(gateways) != 1 or assignment(gateways[0][1], "vpc_id") != vpc:
+        return None
+    igw = gateways[0]
+    required = [ref(subnet[2], subnet[3], subnet[4], f'resource "aws_subnet" "{name}"'),
+                ref(subnet[2], subnet[3], subnet[4], assignment_literal(subnet[1], "count")),
+                ref(association[2], association[3], association[4],
+                    f'resource "aws_route_table_association" "{association[0]}"'),
+                ref(association[2], association[3], association[4], expression),
+                ref(association[2], association[3], association[4],
+                    assignment_literal(association[1], "count")),
+                ref(association[2], association[3], association[4], table_id),
+                ref(table[2], table[3], table[4], f'resource "aws_route_table" "{table[0]}"'),
+                ref(table[2], table[3], table[4], vpc),
+                ref(route[2], route[3], route[4],
+                    assignment_literal(route_text, destination_key)),
+                ref(route[2], route[3], route[4], gateway),
+                ref(igw[2], igw[3], igw[4],
+                    f'resource "aws_internet_gateway" "{igw[0]}"'),
+                ref(igw[2], igw[3], igw[4], vpc)]
+    if route_name:
+        required.extend((ref(route[2], route[3], route[4],
+                             f'resource "aws_route" "{route_name}"'),
+                         ref(route[2], route[3], route[4], table_id)))
+    return {"index": index, "association": f"aws_route_table_association.{association[0]}",
+            "expression": expression, "count_expression": count_expression,
+            "route_table": f"aws_route_table.{table[0]}",
+            "route": f"aws_route.{route_name}" if route_name else None,
+            "igw": f"aws_internet_gateway.{igw[0]}", "vpc": vpc,
+            "source_refs": required}
+
+
+def check_iam(feature, value, facts, provenance, source_refs, action_taxonomy, report, label,
+              unknown_code=None, unknown_detail=None):
     iam = facts.get("iam")
     if not isinstance(iam, dict):
         report.error("iam", label, "IAM decision basis lacks iam facts")
@@ -246,6 +333,20 @@ def check_iam(feature, value, facts, provenance, source_refs, action_taxonomy, r
             expected_classes.append({"action": action, "class": capability, "level": level})
         if classes != expected_classes:
             report.error("iam", label, "Action classifications differ from D-008 taxonomy")
+        if (value == "unknown" and iam.get("effect") == "Allow" and
+                not iam.get("action_unresolved") and
+                any(item["class"] == "unclassified" for item in expected_classes) and
+                unknown_code != "unclassified_action"):
+            report.error("iam", label, "unclassified Action requires unclassified_action reason")
+        if value == "unknown" and unknown_code == "unclassified_action":
+            expected_unclassified = {item["action"] for item in expected_classes
+                                     if item["class"] == "unclassified"}
+            mentioned = set(re.findall(r'(?<![\w:])([A-Za-z][\w-]*:[A-Za-z*][\w*?-]*)(?![\w:])',
+                                       unknown_detail if isinstance(unknown_detail, str) else ""))
+            if (not expected_unclassified or mentioned != expected_unclassified or
+                    "d008-v1" not in (unknown_detail or "")):
+                report.error("iam", label,
+                             "unclassified Action detail differs from source Actions/D-008 taxonomy")
         if iam.get("effect") == "Deny" and value != "0":
             report.error("iam", label, "Deny statement must have privilege_impact=0")
         elif iam.get("effect") not in {"Allow", "Deny"} and value != "unknown":
@@ -427,7 +528,8 @@ def validate_file(input_path, root=ROOT, contract_path=CONTEXT / "feature_eviden
                 if item.get("scope") != "selected IAM statement":
                     report.error("iam", sublabel, "IAM feature must use selected-statement scope")
                 check_iam(feature, value, facts, provenance, item.get("source_refs"),
-                          action_taxonomy, report, sublabel)
+                          action_taxonomy, report, sublabel,
+                          item.get("unknown_reason_code"), item.get("unknown_reason_detail"))
             elif feature in {"internet_exposure", "reachability", "public_access"}:
                 if rule in {"CKV_AWS_260", "CKV_AWS_38", "CKV_AWS_382", "CKV_AWS_130"}:
                     if facts.get("direction") not in {"ingress", "egress"}:
@@ -437,9 +539,34 @@ def validate_file(input_path, root=ROOT, contract_path=CONTEXT / "feature_eviden
                 if rule == "CKV_AWS_260" and (facts.get("direction") != "ingress" or
                     facts.get("source_cidr") != "0.0.0.0/0" or facts.get("port") != 80):
                     report.error("decision_basis", sublabel, "public port-80 ingress facts disagree")
-                if rule == "CKV_AWS_38" and facts.get("endpoint_public_access") is not True:
+                if (rule == "CKV_AWS_38" and item.get("method") !=
+                        "affected_eks_public_endpoint" and facts.get("endpoint_public_access") is not True):
                     report.error("decision_basis", sublabel, "EKS public endpoint literal not evidenced")
-                if rule == "CKV_AWS_382" and (facts.get("direction") != "egress" or
+                if rule == "CKV_AWS_38" and item.get("method") == "affected_eks_public_endpoint":
+                    try:
+                        decisions, expected, required_refs = eks_public_endpoint_decision(row, source)
+                        if (item.get("method_version") != "d011-eks-public-endpoint-v1" or
+                                value != decisions[feature]):
+                            report.error("decision_basis", sublabel,
+                                         "affected-EKS endpoint conclusion/method differs from source")
+                        if facts != {"scanner_check": rule,
+                                      "scanner_result": provenance.get("check_result", ""), **expected}:
+                            report.error("decision_basis", sublabel,
+                                         "affected-EKS endpoint facts differ from source")
+                        reason = expected["feature_unknowns"].get(feature)
+                        if value == "unknown" and (
+                                reason is None or item.get("unknown_reason_code") != reason["code"] or
+                                item.get("unknown_reason_detail") != reason["detail"]):
+                            report.error("decision_basis", sublabel,
+                                         "EKS endpoint unknown reason differs from source")
+                        if not contains_all_refs(item.get("source_refs", []), required_refs, root):
+                            report.error("source_refs", sublabel,
+                                         "affected-EKS endpoint source reference missing")
+                    except (OSError, UnicodeError, ValueError, KeyError, TypeError) as exc:
+                        report.error("decision_basis", sublabel,
+                                     f"cannot verify affected-EKS endpoint: {exc}")
+                if rule == "CKV_AWS_382" and row.get("resource_type") != "aws_security_group" and (
+                    facts.get("direction") != "egress" or
                     facts.get("destination_cidr") != "0.0.0.0/0" or facts.get("protocol") != "-1" or
                     facts.get("configured_rule_reachability") is not True or
                     facts.get("runtime_workload_attachment_asserted") is not False or
@@ -450,8 +577,47 @@ def validate_file(input_path, root=ROOT, contract_path=CONTEXT / "feature_eviden
                     report.error("decision_basis", sublabel, "subnet public-IP literal not evidenced")
                 if rule == "CKV_AWS_130":
                     try:
+                        indexed_proof = indexed_subnet_route_proof(row, source)
                         proven, expected, required_refs = subnet_internet_route(
                             row, source_inventory(source))
+                        if indexed_proof is not None:
+                            if not proven:
+                                report.error("decision_basis", sublabel,
+                                             "indexed subnet Internet path exists but reachability remains unresolved")
+                            indexed_facts = {
+                                "subnet_index": indexed_proof["index"],
+                                "resolved_association_index": indexed_proof["index"],
+                                "association_indexed_expression": indexed_proof["expression"],
+                                "association_count_expression": indexed_proof["count_expression"],
+                                "association_resolution_method": "d011-count-index-association-v1",
+                                "route_table_association": indexed_proof["association"],
+                                "route_table": indexed_proof["route_table"],
+                                "default_route": "0.0.0.0/0",
+                                "internet_gateway": indexed_proof["igw"],
+                                "subnet_vpc": indexed_proof["vpc"],
+                            }
+                            for key, expected_value in indexed_facts.items():
+                                if facts.get(key) != expected_value:
+                                    report.error("decision_basis", sublabel,
+                                                 f"indexed subnet path fact differs from source: {key}")
+                            if facts.get("standalone_route") != indexed_proof["route"]:
+                                report.error("decision_basis", sublabel,
+                                             "indexed subnet default-route source differs")
+                            if not contains_all_refs(item.get("source_refs", []),
+                                                     indexed_proof["source_refs"], root):
+                                report.error("source_refs", sublabel,
+                                             "indexed subnet path source reference missing")
+                            if feature == "reachability" and item.get("method_version") != "d011-count-index-association-v1":
+                                report.error("decision_basis", sublabel,
+                                             "indexed subnet reachability method version differs")
+                            if feature in {"internet_exposure", "public_access"} and (
+                                    item.get("unknown_reason_code") != "insufficient_static_relationship" or
+                                    "route is resolved" not in item.get("unknown_reason_detail", "")):
+                                report.error("decision_basis", sublabel,
+                                             "indexed subnet inbound uncertainty differs from resolved path")
+                        elif facts.get("association_resolution_method") == "d011-count-index-association-v1":
+                            report.error("decision_basis", sublabel,
+                                         "indexed association claimed without source proof")
                         if facts.get("candidate_scope_examined") != provenance.get("terraform_sources"):
                             report.error("decision_basis", sublabel, "subnet candidate inventory differs from provenance")
                         for key, expected_value in expected.items():
@@ -473,7 +639,28 @@ def validate_file(input_path, root=ROOT, contract_path=CONTEXT / "feature_eviden
                             report.error("source_refs", sublabel, "subnet route component reference missing")
                     except (OSError, UnicodeError, ValueError, KeyError, TypeError) as exc:
                         report.error("decision_basis", sublabel, f"cannot verify subnet route: {exc}")
-                if rule == "CKV_AWS_382" and feature == "reachability":
+                if (rule == "CKV_AWS_382" and feature == "reachability" and
+                        row.get("resource_type") == "aws_security_group"):
+                    try:
+                        expected_value, expected, required_refs = inline_egress_decision(row, source)
+                        if (value != expected_value or item.get("method") !=
+                                "selected_inline_security_group_egress" or
+                                item.get("method_version") != "d011-inline-egress-v1"):
+                            report.error("decision_basis", sublabel, "inline egress conclusion/method differs from source")
+                        for key, expected_value in expected.items():
+                            if facts.get(key) != expected_value:
+                                report.error("decision_basis", sublabel,
+                                             f"inline egress fact differs from source: {key}")
+                        if value == "unknown" and (
+                                item.get("unknown_reason_code") != expected.get("unknown_reason_code") or
+                                item.get("unknown_reason_detail") != expected.get("unknown_detail")):
+                            report.error("decision_basis", sublabel, "inline egress unknown reason differs from source")
+                        if not contains_all_refs(item.get("source_refs", []), required_refs, root):
+                            report.error("source_refs", sublabel, "inline egress source reference missing")
+                    except (OSError, UnicodeError, ValueError, KeyError, TypeError) as exc:
+                        report.error("decision_basis", sublabel, f"cannot verify inline egress: {exc}")
+                if (rule == "CKV_AWS_382" and feature == "reachability" and
+                        row.get("resource_type") != "aws_security_group"):
                     if not any(isinstance(reference, dict) and reference.get("literal") == "0.0.0.0/0"
                                for reference in item.get("source_refs", [])):
                         report.error("source_refs", sublabel, "egress destination source reference missing")
@@ -486,44 +673,108 @@ def validate_file(input_path, root=ROOT, contract_path=CONTEXT / "feature_eviden
                 if rule == "CKV2_AWS_6" and feature == "public_access":
                     try:
                         bucket = row["resource"].split(".", 1)[-1]
-                        expected, required_refs = s3_access_controls(source_inventory(source), bucket)
+                        inventory = source_inventory(source)
+                        expected, required_refs = s3_access_controls(inventory, bucket)
+                        decision, d012, d012_refs = s3_public_access_decision(inventory, bucket)
                         controls = expected["explicit_controls"]
                         explicit_access = (controls["inline_acl_or_grant"] or
                                            any(controls[name]["linked"] for name in
                                                ("public_access_block", "bucket_policy", "bucket_acl")))
+                        if value != decision:
+                            report.error("decision_basis", sublabel,
+                                         "S3 public_access differs from D-012 candidate evidence")
                         if value == "unknown" and item.get("unknown_reason_code") != "insufficient_access_control_evidence":
                             report.error("decision_basis", sublabel, "S3 unknown needs access-control reason")
                         if value != "unknown" and not explicit_access:
                             report.error("decision_basis", sublabel,
                                          "S3 access state cannot be determined from absent explicit controls")
-                        if row["resource"] not in item.get("unknown_reason_detail", ""):
+                        if value == "unknown" and row["resource"] not in item.get("unknown_reason_detail", ""):
                             report.error("decision_basis", sublabel, "S3 unknown detail lacks bucket identity")
                         if (facts.get("candidate_scope_examined") != provenance.get("terraform_sources") or
                             any(facts.get(key) != expected_value for key, expected_value in expected.items()
                                 if key != "candidate_scope_examined")):
                             report.error("decision_basis", sublabel, "S3 access-control inventory differs from candidate")
+                        version = item.get("method_version")
+                        if version == "d012-v1":
+                            if (facts.get("static_public_access_relation") != decision or
+                                facts.get("d012_decision") != d012):
+                                report.error("decision_basis", sublabel,
+                                             "D-012 S3 decision facts differ from candidate")
+                            required_refs += d012_refs
+                        elif version != "d009-v1" or value != "unknown":
+                            report.error("decision_basis", sublabel,
+                                         "S3 determined value requires d012-v1 evidence")
                         if not contains_all_refs(item.get("source_refs", []), required_refs, root):
                             report.error("source_refs", sublabel, "S3 candidate-control source reference missing")
                     except (OSError, UnicodeError, ValueError, KeyError, TypeError) as exc:
                         report.error("control", sublabel, f"cannot verify S3 access controls: {exc}")
             elif feature == "logging_missing":
-                if not facts.get("candidate_scope_examined") or facts.get("flow_log_declarations") != []:
-                    report.error("control", sublabel, "logging absence lacks complete candidate inventory")
+                if item.get("method") == "affected_vpc_flow_log_inventory":
+                    try:
+                        expected_value, expected, required_refs = vpc_flow_log_decision(row, source)
+                        if (item.get("method_version") != "d009-vpc-flow-log-inventory-v1" or
+                                value != expected_value):
+                            report.error("control", sublabel, "affected-VPC flow-log conclusion/method differs from source")
+                        if facts != {"scanner_check": rule, "scanner_result": provenance.get("check_result", ""),
+                                      **expected}:
+                            report.error("control", sublabel, "affected-VPC flow-log facts differ from source")
+                        if value == "unknown" and (
+                                item.get("unknown_reason_code") != expected.get("unknown_reason_code") or
+                                item.get("unknown_reason_detail") != expected.get("unknown_detail")):
+                            report.error("control", sublabel, "flow-log unknown reason differs from source")
+                        if not contains_all_refs(item.get("source_refs", []), required_refs, root):
+                            report.error("source_refs", sublabel, "affected-VPC flow-log source reference missing")
+                    except (OSError, UnicodeError, ValueError, KeyError, TypeError) as exc:
+                        report.error("control", sublabel, f"cannot verify affected-VPC flow-log control: {exc}")
+                elif item.get("method") == "candidate_resource_inventory" and value == "yes":
+                    # Accepted saved pilot predates affected-VPC inventory evidence.
+                    if not facts.get("candidate_scope_examined") or facts.get("flow_log_declarations") != []:
+                        report.error("control", sublabel, "logging absence lacks complete candidate inventory")
+                    else:
+                        for candidate in facts["candidate_scope_examined"]:
+                            try:
+                                candidate_path = Path(candidate["path"])
+                                if not candidate_path.is_absolute():
+                                    candidate_path = root / candidate_path
+                                if re.search(r'\bresource\s+"aws_flow_log"\s+"',
+                                             candidate_path.read_text(encoding="utf-8")):
+                                    report.error("control", sublabel, "aws_flow_log exists in examined candidate scope")
+                            except (OSError, UnicodeError, KeyError, TypeError) as exc:
+                                report.error("control", sublabel, f"cannot verify flow-log scope: {exc}")
                 else:
-                    for candidate in facts["candidate_scope_examined"]:
-                        try:
-                            candidate_path = Path(candidate["path"])
-                            if not candidate_path.is_absolute():
-                                candidate_path = root / candidate_path
-                            if re.search(r'\bresource\s+"aws_flow_log"\s+"',
-                                         candidate_path.read_text(encoding="utf-8")):
-                                report.error("control", sublabel, "aws_flow_log exists in examined candidate scope")
-                        except (OSError, UnicodeError, KeyError, TypeError) as exc:
-                            report.error("control", sublabel, f"cannot verify flow-log scope: {exc}")
+                    report.error("control", sublabel, "VPC flow-log evidence method unsupported")
             elif feature == "encryption_missing":
-                if facts.get("linked_bucket") != row["resource"] or facts.get("sse_algorithm") != "AES256":
-                    report.error("control", sublabel, "linked non-KMS encryption configuration not evidenced")
-                else:
+                if item.get("method") == "candidate_bucket_kms_control_inventory":
+                    try:
+                        expected_value, expected, required_refs = s3_kms_control_decision(row, source)
+                        if (item.get("method_version") != "d009-s3-kms-inventory-v1" or
+                                value != expected_value):
+                            report.error("control", sublabel, "affected-bucket KMS conclusion/method differs from source")
+                        for key, expected_value in expected.items():
+                            if facts.get(key) != expected_value:
+                                report.error("control", sublabel,
+                                             f"affected-bucket KMS fact differs from source: {key}")
+                        if value == "unknown":
+                            detail = item.get("unknown_reason_detail", "")
+                            if item.get("unknown_reason_code") != expected.get("unknown_reason_code"):
+                                report.error("control", sublabel, "KMS unknown reason code differs from source")
+                            modules = {module["name"] for module in expected["modules"]}
+                            mentioned = set(re.findall(r'\bmodule\s+"([^"]+)"',
+                                                       detail if isinstance(detail, str) else ""))
+                            if modules and (mentioned != modules or
+                                            expected["affected_bucket"] not in detail):
+                                report.error("control", sublabel,
+                                             "KMS unknown detail does not name exact source modules/bucket")
+                            elif not modules and detail != expected.get("unknown_detail"):
+                                report.error("control", sublabel, "KMS unknown reason differs from source")
+                        if not contains_all_refs(item.get("source_refs", []), required_refs, root):
+                            report.error("source_refs", sublabel, "affected-bucket KMS source reference missing")
+                    except (OSError, UnicodeError, ValueError, KeyError, TypeError) as exc:
+                        report.error("control", sublabel, f"cannot verify affected-bucket KMS control: {exc}")
+                elif (item.get("method") == "linked_resource_and_scanner" and
+                      item.get("method_version") == "d009-v1" and
+                      facts.get("linked_bucket") == row["resource"] and
+                      facts.get("sse_algorithm") == "AES256"):
                     bucket = row["resource"].split(".", 1)[-1]
                     linked = [ref for ref in item.get("source_refs", []) if isinstance(ref, dict)
                               and ref.get("literal") == f'aws_s3_bucket.{bucket}.id']
@@ -533,6 +784,8 @@ def validate_file(input_path, root=ROOT, contract_path=CONTEXT / "feature_eviden
                         any(linked[0].get(key) != algorithm[0].get(key)
                             for key in ("path", "line_start", "line_end"))):
                         report.error("control", sublabel, "bucket link and AES256 must share one configuration block")
+                else:
+                    report.error("control", sublabel, "KMS control evidence method or legacy linked AES256 facts invalid")
     return report
 
 

@@ -843,3 +843,100 @@ An `unknown` explanation must not claim that a path element is
 missing when that element was actually found and resolved.
 
 This decision does not change the applicability matrix.
+
+---
+
+## D-012 — S3 Static Public-Access Evidence Contract
+
+Status: Accepted
+
+Decision:
+
+For S3 findings, `public_access` represents public-access state that
+can be demonstrated statically from the Terraform candidate.
+
+It does NOT claim effective deployed/runtime accessibility and does
+not infer account-level or organization-level state that is absent
+from the candidate.
+
+For an applicable S3 finding:
+
+### `yes`
+
+`public_access=yes` requires at least one deterministically resolved
+public-access mechanism for the affected bucket and explicit
+candidate-level evidence that the corresponding bucket-level Public
+Access Block controls do not neutralize that mechanism.
+
+An ACL-based public-access proof requires:
+
+- a deterministically resolved public ACL such as `public-read` or
+  `public-read-write`, or another explicitly approved equivalent;
+- the ACL to apply to the affected bucket;
+- `block_public_acls = false`;
+- `ignore_public_acls = false`.
+
+A bucket-policy-based public-access proof requires:
+
+- a deterministically resolved `Allow` statement;
+- a public principal such as `"*"` or an explicitly approved
+  equivalent;
+- resources corresponding to the affected bucket or its objects;
+- no unresolved or unsupported `Condition` that can change the public
+  nature of the grant;
+- `block_public_policy = false`;
+- `restrict_public_buckets = false`.
+
+If multiple mechanisms exist, one fully demonstrated and unblocked
+public mechanism is sufficient for `yes`.
+
+### `no`
+
+`public_access=no` requires positive preventive evidence.
+
+For Evidence v1, a sufficient S3 negative proof is an explicitly
+resolved bucket-level Public Access Block for the affected bucket
+with all four controls set to `true`:
+
+- `block_public_acls`
+- `ignore_public_acls`
+- `block_public_policy`
+- `restrict_public_buckets`
+
+Absence of a public ACL, bucket policy, or Public Access Block is not
+sufficient negative evidence.
+
+### `unknown`
+
+Use `unknown` when the feature is applicable but the static candidate
+does not provide enough deterministic evidence for either `yes` or
+`no`.
+
+This includes, at minimum:
+
+- missing or only partially specified Public Access Block state;
+- unresolved ACL, policy, principal, resource, or cross-resource
+  reference;
+- public-policy `Condition` whose effect is not covered by the
+  approved static contract;
+- conflicting or incomplete public-grant and blocking controls;
+- reliance on provider, account, organization, or runtime state that
+  is not represented in the candidate.
+
+Missing configuration must not be interpreted as a default value.
+
+### Scope boundary
+
+This contract measures candidate-level static IaC evidence.
+
+AWS account-level, organization-level, runtime, or externally managed
+controls are outside the value inference unless they are explicitly
+represented by approved evidence.
+
+Therefore `public_access=yes` means that the candidate statically
+demonstrates public access under this contract; it must not be
+described as proof that a deployed bucket is publicly reachable at
+runtime.
+
+`not_applicable` remains controlled exclusively by the approved
+applicability matrix.

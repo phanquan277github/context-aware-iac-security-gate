@@ -12862,3 +12862,35 @@ reason codes recorded in D-011.
 
 Operational extraction failures remain distinct from research
 uncertainty.
+
+---
+
+# S3 Static Public-Access Evidence — Normative Clarification
+
+> [!IMPORTANT]
+> This section is normative and follows D-012.
+
+For an applicable S3 finding, `public_access` measures public access
+demonstrated by the Terraform candidate, not effective deployed or
+runtime access. Account-level, organization-level, provider-default,
+and externally managed state is not inferred from absence in the
+candidate.
+
+`yes` requires an affected-bucket public ACL (`public-read` or
+`public-read-write`) with explicit `block_public_acls=false` and
+`ignore_public_acls=false`, or an affected-bucket policy containing a
+resolved public `Allow` grant without an unsupported `Condition` and
+with explicit `block_public_policy=false` and
+`restrict_public_buckets=false`. One complete, unblocked mechanism is
+sufficient.
+
+`no` requires positive preventive evidence: an explicit, resolved
+Public Access Block for the affected bucket with all four flags set
+to `true`. Missing ACL, policy, or Public Access Block is not negative
+evidence. Partial, unresolved, conflicting, or unsupported controls
+leave the value `unknown` when neither a complete public mechanism nor
+the all-four-flag preventive proof applies. `not_applicable` remains
+determined by the applicability matrix.
+
+The complete decision contract, including affected-bucket scope and
+evidence requirements, is recorded in D-012.

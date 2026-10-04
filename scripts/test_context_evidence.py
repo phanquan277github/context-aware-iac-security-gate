@@ -268,8 +268,9 @@ class EvidenceV1Tests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as folder:
             candidate = Path(folder) / "main.tf"
             candidate.write_text(source.read_text(encoding="utf-8") +
-                                 '\nresource "aws_flow_log" "existing" {}\n', encoding="utf-8")
-            with self.assertRaisesRegex(ValueError, "Cannot prove logging_missing=yes"):
+                                 f'\nresource "aws_flow_log" "existing" {{\n'
+                                 f'  vpc_id = {row["resource"]}.id\n}}\n', encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "conflicts with linked flow log"):
                 context_evidence.build_evidence(row, values,
                     {feature: feature in {"resource_role", "logging_missing"} for feature in extractor.FEATURES},
                     {}, candidate, extractor.APPLICABILITY)
