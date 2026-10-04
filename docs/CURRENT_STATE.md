@@ -65,3 +65,49 @@ Feature Spec v1.0 population.
 
 Do NOT assign business-context values or human ranks during that
 task.
+
+---
+
+## Phase-4 Tier-3 Scope Checkpoint — D-014
+
+Status: ACCEPTED
+
+D-014 freezes the current main Tier-3 benchmark selection rule and
+family boundary.
+
+Accepted current scope:
+
+- frozen Feature Spec v1.0 population: 369 findings / 81 artifacts;
+- family boundary: exact upstream GenIaC task;
+- cross-task family merge: none currently approved;
+- Tier-3 selection rule: artifact finding count >= 3;
+- selected artifacts: 40;
+- selected findings: 300;
+- selected task-based families: 10;
+- research-scope rule coverage: 10/10;
+- resource-type coverage: 9/9;
+- artifacts size-eligible for NDCG@3: 40;
+- artifacts size-eligible for NDCG@5: 20.
+
+The selected artifacts are not yet final evaluation scenarios.
+
+Still unresolved:
+
+- official persisted Tier-3 scope manifest;
+- explicit business-context assignment;
+- final scenario IDs;
+- annotation protocol v1;
+- human annotation;
+- annotation/benchmark freeze;
+- experimental split strategy.
+
+Human annotation MUST NOT start until the selected artifacts have
+explicit approved context assignments and the annotation protocol is
+frozen.
+
+Next implementation task:
+
+Build and validate the deterministic Tier-3 scope manifest from
+Feature Spec v1.0 according to D-013 and D-014.
+
+Do NOT assign business context or human ranks during that task.

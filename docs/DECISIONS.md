@@ -1097,3 +1097,162 @@ D-013 does NOT yet define:
 
 Those remain separate Phase-4 research decisions and MUST be frozen
 before the corresponding downstream step.
+
+---
+
+## D-014 — Tier-3 Benchmark Selection and Family Boundary
+
+Status: Accepted
+
+Decision:
+
+The main Phase-4 Tier-3 Prioritization Benchmark SHALL use a
+predefined artifact-level selection rule over the frozen Feature
+Spec v1.0 population.
+
+### Family boundary
+
+For the current GenIaC-SecBench population, artifacts sharing the
+same exact upstream `source_task_id` belong to the same leakage
+family.
+
+The exact upstream task identifier is authoritative for this rule.
+For example, `aws-tf-001` and `complex-aws-tf-001` are different
+tasks and MUST NOT be grouped merely because their numeric suffixes
+match.
+
+All generated artifacts originating from the same upstream task
+MUST remain in the same family for later train/validation/test
+partitioning.
+
+No cross-task family merge is currently required because the
+Phase-4 lineage audit did not identify sufficient reproducible
+evidence of shared controlled-base lineage or near-duplicate
+structure across different upstream tasks.
+
+If such evidence is discovered later, the family boundary MUST NOT
+be changed silently. A separate explicit research decision is
+required before experimental splitting.
+
+### Tier-3 selection rule
+
+The main Tier-3 benchmark SHALL select every frozen artifact having
+at least three in-scope frozen findings:
+
+`artifact_finding_count >= 3`
+
+Selection is performed at artifact level, never at individual
+finding level.
+
+When an artifact is selected, ALL of its in-scope frozen findings
+MUST be retained.
+
+No finding may be removed to reduce annotation effort or to force a
+desired scenario size.
+
+Under Feature Spec v1.0, this rule selects:
+
+- 40 artifacts;
+- 300 frozen findings;
+- 10 upstream-task families under the accepted family rule;
+- all 10 research-scope Checkov rules;
+- all 9 observed research-scope resource types.
+
+All 40 selected artifacts satisfy the size requirement for
+NDCG@3-oriented ranking analysis.
+
+Twenty selected artifacts additionally contain at least five
+findings and are size-eligible for NDCG@5 analysis.
+
+These counts are frozen against the current Feature Spec v1.0
+population and MUST be reproduced by the official Tier-3 manifest
+builder.
+
+### Excluded low-density artifacts
+
+The remaining 41 frozen artifacts contain only one or two in-scope
+findings each.
+
+They remain part of the accepted Phase-3 frozen feature population
+and MUST NOT be deleted or reclassified as invalid data.
+
+They are excluded only from the MAIN Tier-3 human-ranking benchmark
+because they do not meet the predefined minimum ranking-density
+criterion.
+
+They may still be used for descriptive corpus analysis or another
+explicitly approved secondary analysis, but they MUST NOT be added
+post hoc to improve model or metric results.
+
+### Scenario construction
+
+This decision selects technical artifacts only.
+
+It does NOT yet assign final evaluation `scenario_id` values.
+
+Under D-013, each selected artifact becomes an annotation/evaluation
+scenario only after receiving one explicit approved business-context
+assignment.
+
+Therefore the next Phase-4 steps are:
+
+selected artifact
+→ family metadata
+→ explicit business-context assignment
+→ final scenario_id
+→ human annotation
+
+Business context MUST NOT be inferred from Terraform names, model
+names, scanner outputs, severity, baseline outputs, human rankings,
+or ML results.
+
+### Historical CTX artifacts
+
+Historical CTX annotation artifacts remain excluded from the main
+Feature Spec v1.0 Tier-3 benchmark under D-013.
+
+They are not used to increase the selected scenario count or finding
+count.
+
+### Anti-leakage rule
+
+Later experimental partitions MUST operate at `family_id` level.
+
+Artifacts sharing the same accepted family MUST NOT appear across
+different evaluation partitions.
+
+Individual findings MUST NEVER be independently randomized across
+partitions.
+
+### Independence from experimental results
+
+The Tier-3 selection rule is frozen before:
+
+- human priority annotation;
+- severity-baseline evaluation;
+- contextual-baseline evaluation;
+- Random Forest training;
+- final ranking metrics.
+
+The selection MUST NOT be changed because of model performance,
+baseline performance, NDCG, Spearman, or statistical results.
+
+### Scope of this decision
+
+D-014 freezes:
+
+- the family-boundary rule for the current GenIaC population;
+- the main Tier-3 artifact-density selection criterion;
+- the expected benchmark artifact/finding counts.
+
+D-014 does NOT yet freeze:
+
+- business-context values;
+- final scenario IDs;
+- annotation packet visibility;
+- human ranks;
+- relevance labels;
+- ML target encoding;
+- family-based train/test validation strategy.
+
+Those remain separate Phase-4 / experimental decisions.

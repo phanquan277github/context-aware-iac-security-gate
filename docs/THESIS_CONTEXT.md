@@ -12962,3 +12962,41 @@ D-013 freezes benchmark identity and construction semantics only.
 It does not yet freeze the selected Tier-3 artifact list, business
 context assignments, annotator packet visibility policy, human
 ranking, ML target encoding, or final validation split strategy.
+
+---
+
+## Normative Clarification — D-014 Tier-3 Benchmark Selection and Family Boundary
+
+For the current GenIaC-SecBench Feature Spec v1.0 population,
+artifacts generated from the same exact upstream infrastructure task
+are treated as one leakage family.
+
+Different upstream tasks are not merged solely because they share
+resource types, numerical suffixes, or broad infrastructure themes.
+
+The main Tier-3 Prioritization Benchmark uses the predefined
+artifact-level eligibility rule:
+
+`artifact_finding_count >= 3`
+
+The rule selects 40 artifacts containing 300 frozen findings.
+
+Under the accepted task-based family boundary, these artifacts span
+10 families and preserve coverage of all 10 research-scope rules and
+all 9 research-scope resource types.
+
+Selection is performed before human annotation and before any
+baseline or ML result is observed.
+
+All in-scope frozen findings of a selected artifact are retained.
+
+Artifacts containing only one or two findings remain part of the
+frozen Phase-3 research population but are not included in the main
+Tier-3 human-ranking benchmark.
+
+The selected technical artifact is not by itself a final evaluation
+scenario. A final scenario requires one explicit approved business
+context according to D-013.
+
+Family-level grouping remains mandatory for later experimental
+partitioning.
