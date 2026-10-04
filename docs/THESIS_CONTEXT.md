@@ -12894,3 +12894,71 @@ determined by the applicability matrix.
 
 The complete decision contract, including affected-bucket scope and
 evidence requirements, is recorded in D-012.
+
+---
+
+## Normative Clarification — D-013 Phase-4 Benchmark Identity and Scope
+
+This clarification records the accepted Phase-4 benchmark identity
+and scope contract.
+
+The frozen Feature Spec v1.0 finding population is the authoritative
+input population from which the Phase-4 Tier-3 Prioritization
+Benchmark is constructed.
+
+The benchmark identity hierarchy is:
+
+`source_id`
+→ `source_task_id`
+→ `family_id`
+→ `artifact_id`
+→ `scenario_id`
+→ `finding_id`
+
+For the current GenIaC population:
+
+- `source_id` identifies GenIaC-SecBench;
+- `source_task_id` preserves the upstream infrastructure task;
+- `artifact_id` corresponds to the frozen candidate artifact;
+- `family_id` groups artifacts with sufficiently close task,
+  infrastructure intent, controlled base, or lineage to create a
+  leakage risk;
+- `scenario_id` identifies one selected artifact under one explicit
+  approved business-context assignment;
+- `finding_id` remains the frozen Feature Spec v1.0 finding
+  identifier.
+
+The upstream GenIaC task/scenario identifier is therefore not
+automatically the final evaluation scenario identifier.
+
+Tier-3 benchmark sampling is performed at family/artifact level,
+never by independently sampling individual findings.
+
+If an artifact/scenario is selected, all of its in-scope frozen
+findings are retained. Findings are not truncated merely to reduce
+annotation effort or force a desired scenario size.
+
+Scenarios with at least three findings are preferred for ranking
+evaluation, and scenarios with at least five findings are preferred
+where practical for NDCG@5 eligibility.
+
+Business context is explicit scenario metadata and is not inferred
+from resource names, filenames, model names, scanner output, human
+labels, baseline results, or model predictions.
+
+The exact scenario context assignments are intentionally left
+unresolved until a separate Phase-4 context-assignment protocol is
+approved.
+
+The historical CTX annotation stream is not merged into the main
+Feature Spec v1.0 benchmark. It may only be used as a separately
+identified secondary contrastive-context dataset.
+
+Controlled Context A/B analysis remains secondary. Context variants
+belonging to the same technical lineage remain within the same
+`family_id` and must not cross evaluation partitions.
+
+D-013 freezes benchmark identity and construction semantics only.
+It does not yet freeze the selected Tier-3 artifact list, business
+context assignments, annotator packet visibility policy, human
+ranking, ML target encoding, or final validation split strategy.

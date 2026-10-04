@@ -28,3 +28,40 @@ Saved pilot 20 findings vẫn là Evidence v1 `d009-v1` tại `results/context_f
 ## Ranh giới giai đoạn tiếp theo
 
 Phase 4 có thể bắt đầu với human annotation và benchmark construction theo research protocol được duyệt. Human annotation phải diễn ra sau Feature Freeze và không được dựa trên model predictions hoặc final experimental results. Chưa train/evaluate ML trước khi các gate về ground truth và experiment được đáp ứng. Historical raw Checkov JSON archive và independent upstream license verification vẫn là các giới hạn provenance được ghi trong `docs/dataset_source_provenance.md`.
+
+---
+
+## Phase-4 Benchmark Construction Checkpoint — D-013
+
+Status: ACTIVE
+
+Phase 3 is complete and Feature Spec v1.0 remains frozen.
+
+Phase 4 has started at the benchmark-construction stage.
+
+D-013 has frozen the identity and scope rules for constructing the
+Tier-3 prioritization benchmark from the frozen 369-finding
+Feature Spec v1.0 population.
+
+Current Phase-4 state:
+
+- benchmark identity hierarchy: accepted;
+- family-based leakage boundary: accepted;
+- artifact-level rather than finding-level sampling: accepted;
+- historical CTX data excluded from the main benchmark: accepted;
+- explicit business-context requirement: accepted;
+- Tier-3 artifact/family selection: not yet frozen;
+- business-context assignment per scenario: not yet frozen;
+- annotation protocol v1: not yet frozen;
+- human annotation: NOT started;
+- benchmark_v1: NOT created;
+- ML training/evaluation: NOT started.
+
+Next approved research task:
+
+Perform a read-only family/artifact inventory and propose a
+predefined stratified Tier-3 benchmark scope from the frozen
+Feature Spec v1.0 population.
+
+Do NOT assign business-context values or human ranks during that
+task.

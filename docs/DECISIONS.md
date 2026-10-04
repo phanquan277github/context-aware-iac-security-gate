@@ -940,3 +940,160 @@ runtime.
 
 `not_applicable` remains controlled exclusively by the approved
 applicability matrix.
+
+---
+
+## D-013 — Phase-4 Benchmark Identity and Scope
+
+Status: Accepted
+
+Decision:
+
+The main Phase-4 prioritization benchmark MUST be constructed from
+the frozen Feature Spec v1.0 population represented by:
+
+- `results/main_context_features/features_v1.csv`
+
+The frozen Phase-3 feature population remains the authoritative
+finding-level input population for Phase 4.
+
+Historical contrastive CTX annotation artifacts MUST NOT be merged
+into the main Phase-4 benchmark because they belong to a separate
+historical/contrastive pipeline and do not share the frozen
+Feature Spec v1.0 finding identifiers.
+
+They may only be reused later as a separately identified secondary
+contrastive-context analysis dataset if explicitly approved.
+
+### Identity hierarchy
+
+Phase-4 benchmark records SHALL use the following conceptual
+identity hierarchy:
+
+`source_id`
+→ `source_task_id`
+→ `family_id`
+→ `artifact_id`
+→ `scenario_id`
+→ `finding_id`
+
+For the current GenIaC research population:
+
+- `source_id` = `geniac-secbench`;
+- `source_task_id` = the upstream GenIaC infrastructure
+  task/scenario identifier;
+- `artifact_id` = the frozen `candidate_id`;
+- `finding_id` = the frozen Feature Spec v1.0 `finding_id`.
+
+`family_id` MUST conservatively group artifacts that originate from
+the same upstream infrastructure intent, task, controlled base
+artifact, or sufficiently close lineage such that separating them
+across evaluation partitions could cause leakage.
+
+All contextual variants derived from the same technical artifact or
+lineage MUST remain in the same `family_id`.
+
+### Scenario definition
+
+For Phase 4, an annotation/evaluation scenario represents:
+
+one selected technical artifact
++
+one explicit approved business-context assignment
++
+all in-scope frozen findings belonging to that artifact.
+
+The upstream GenIaC `scenario_id` / task identifier MUST NOT be
+automatically treated as the final evaluation `scenario_id`.
+
+The final benchmark `scenario_id` will be assigned only after the
+artifact scope and explicit business context have been approved.
+
+### Benchmark sampling
+
+Tier-3 Prioritization Benchmark selection MUST occur at the
+family/artifact level.
+
+Individual findings MUST NOT be independently sampled to construct
+the benchmark.
+
+When an artifact/scenario is selected, all of its in-scope frozen
+findings MUST be retained.
+
+Findings MUST NOT be truncated merely to reduce annotation effort or
+to force a desired scenario size.
+
+Benchmark selection MUST use predefined criteria established before
+human annotation or model evaluation.
+
+Preferred benchmark scenarios:
+
+- contain at least 3 in-scope findings;
+- preferably contain at least 5 in-scope findings;
+- provide useful security-rule and resource diversity;
+- avoid domination by near-duplicate artifacts.
+
+Scenario-size preference is an eligibility/sampling consideration,
+not permission to truncate findings from a selected scenario.
+
+### Business context
+
+Business context MUST be represented using explicit scenario
+metadata.
+
+At minimum, the approved context design may use fields such as:
+
+- `environment`
+- `asset_criticality`
+- `data_sensitivity`
+
+Business context MUST NOT be inferred from:
+
+- Terraform resource names;
+- filenames;
+- generation model names;
+- scanner finding names;
+- human priority ranks;
+- baseline outputs;
+- ML predictions;
+- final experiment results.
+
+The exact context values for individual Phase-4 scenarios are NOT
+defined by this decision and require a separate approved assignment
+protocol before annotation begins.
+
+### Main versus contrastive benchmark
+
+The main Phase-4 benchmark uses one approved explicit business
+context assignment for each selected artifact/scenario.
+
+Controlled Context A/B variants are reserved for the secondary
+contrastive-context experiment unless separately approved for the
+main benchmark.
+
+Context variants MUST NOT automatically generate or imply a human
+priority label. Each scenario that is annotated requires independent
+human ranking according to the frozen annotation protocol.
+
+### Leakage boundary
+
+Train/test or cross-validation partitioning MUST operate at
+`family_id` level.
+
+Artifacts or contextual variants belonging to the same family MUST
+NOT appear across different evaluation partitions.
+
+### Not decided by D-013
+
+D-013 does NOT yet define:
+
+- the exact families/artifacts selected for Tier-3;
+- the final number of benchmark scenarios;
+- the exact business-context values assigned to each scenario;
+- whether scanner severity is visible to the annotator;
+- human ranks or rationales;
+- the Random Forest numeric training target;
+- final train/test or GroupKFold configuration.
+
+Those remain separate Phase-4 research decisions and MUST be frozen
+before the corresponding downstream step.
